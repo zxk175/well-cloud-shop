@@ -1,0 +1,124 @@
+buildscript {
+    // 引入jar包定义
+    // 这个文件中定义的jar包可以直接在子项目中使用
+    // 不需要再次使用 apply from 这个语句
+    apply from: 'dependency.gradle'
+
+    repositories {
+        mavenLocal()
+
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${versions.spring_boot}")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+    }
+}
+
+allprojects {
+    group = configs.project_group
+    version = configs.project_version
+
+    // 构建时的编码
+    tasks.withType(JavaCompile) {
+        options.setEncoding(versions.project_encoding as String)
+        options.compilerArgs << "-Xlint:unchecked"
+    }
+
+    // maven仓库配置
+    repositories {
+        mavenLocal()
+
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+    }
+}
+
+subprojects { subPro ->
+    // 指定使用的gradle插件
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'io.spring.dependency-management'
+
+    // Jdk版本
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    // 全局性的关闭依赖传递特性
+    configurations.all {
+        transitive = true
+    }
+
+    // 所有需要忽略的包定义在此
+    // group是必选项，module可选
+    configurations {
+        // 编译期排除
+        //compile.exclude group: 'mysql', module: 'mysql-connector-java'
+        compile.exclude group: "org.apache.tomcat"
+        compile.exclude module: "undertow-websockets-jsr"
+        // 在整个构建过程中排除
+        all*.exclude module: 'spring-boot-starter-tomcat'
+    }
+
+    // java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = configs.project_encoding
+
+    dependencies {
+        compile([
+                libraries.boot_devtools,
+                libraries.boot_actuator,
+        ])
+
+        // 引入根目录和各子项目下的libs中的jar包
+        def rootProjectLibs = new File(rootProject.rootDir, 'libs').getAbsolutePath()
+
+        compile fileTree(dir: rootProjectLibs, include: '**/*.jar')
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${versions.spring_boot}")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${versions.spring_cloud}")
+        }
+    }
+
+    compileJava.dependsOn(processResources)
+}
+
+task clear {
+    doLast {
+        delete rootProject.buildDir
+        delete rootProject.projectDir.toString() + "/logs"
+
+        delete subprojects.buildDir
+
+        for (Project project in subprojects) {
+            def projectDir = project.projectDir.toString()
+
+            def outDir = projectDir + '/out'
+            def flag = delete outDir
+            println(outDir)
+
+            if (flag) {
+                println("===> 删除成功\n")
+            } else {
+                println("===> 未找到out文件夹\n")
+            }
+        }
+    }
+}
+
+
+// 升级命令
+// ./gradlew wrapper --gradle-version=4.10.2
+
+// 强制清除 gradle 依赖缓存
+// ./gradlew build --refresh-dependencies
+
+// 查看依赖树
+// gradle :well-eureka-server:dependencies --configuration compile
+// gradle :well-eureka-server:dependencies > dependencies.txt

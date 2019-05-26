@@ -1,0 +1,49 @@
+version: "3"
+services:
+  well-eureka:
+    container_name: well-eureka-1.0.0
+    image: com.zxk175/well-eureka:1.0.0
+    ports:
+      - "8761:8761"
+    networks:
+      - cloud
+
+  well-zuul:
+    container_name: well-zuul-1.0.0
+    image: com.zxk175/well-zuul:1.0.0
+    ports:
+      - "8800:8800"
+    environment:
+      - 'SPRING_PROFILES_ACTIVE=docker'
+    networks:
+      - cloud
+    depends_on:
+      - well-eureka
+
+  well-boot-admin:
+    container_name: well-boot-admin-1.0.0
+    image: com.zxk175/well-boot-admin:1.0.0
+    ports:
+      - "9000:9000"
+    environment:
+      - 'SPRING_PROFILES_ACTIVE=docker'
+    networks:
+      - cloud
+    depends_on:
+      - well-eureka
+
+  well-provider-user:
+    container_name: well-provider-user-1.0.0
+    image: com.zxk175/well-provider-user:1.0.0
+    ports:
+      - "8000:8000"
+    environment:
+      - 'SPRING_PROFILES_ACTIVE=docker'
+    networks:
+      - cloud
+    depends_on:
+      - well-eureka
+
+networks:
+  cloud:
+    driver: bridge

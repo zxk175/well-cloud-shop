@@ -1,0 +1,64 @@
+[v-cloak] {
+    display: none;
+}
+
+body {
+    background-color: #fff;
+}
+
+a {
+    outline: 0;
+    color: #2d8cf0;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-transition: color .2s ease;
+    transition: color .2s ease;
+}
+
+.container-fluid {
+    margin: 0 auto;
+    padding: 0 5px;
+}
+
+.container-fluid .el-card__header, .container-fluid .el-card__body {
+    padding: 10px 10px 10px 20px;
+}
+
+.login-main .el-form-item__label {
+    line-height: 28px;
+}
+
+.login-main .el-form-item {
+    margin-bottom: 14px;
+}
+
+.login-info {
+    font-size: 14px;
+    display: block;
+}
+
+.my-link {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.btn-long {
+    width: 100%;
+}
+
+.iv-row {
+    margin-bottom: 8px;
+}
+
+.mr {
+    margin: 10px 0;
+}
+
+.fs {
+    font-size: 18px;
+}
+
+.error-txt {
+    margin: 10px 10px;
+    color: #606465;
+}

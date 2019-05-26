@@ -1,0 +1,11 @@
+dependencies {
+    compile(
+            project(":well-common:well-common-core"),
+            [
+                    libraries.boot_web,
+                    libraries.boot_undertow,
+
+                    libraries.cloud_eureka_client,
+            ]
+    )
+}
