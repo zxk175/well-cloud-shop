@@ -17,9 +17,9 @@
 *.ipr
 */.gradle
 **/*.iml
-/logs
+**/out/
+/logs/*
 /build/*
-/out/*
 classes/*
 
 ### NetBeans ###
