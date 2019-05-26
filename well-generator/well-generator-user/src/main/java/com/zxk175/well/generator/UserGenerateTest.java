@@ -25,6 +25,7 @@ public class UserGenerateTest {
         include.add("t_sys_role");
         include.add("t_sys_role_menu");
         include.add("t_sys_menu");
+        include.add("t_sys_user_token");
 
         MyCodeGenerator myCodeGenerator = new MyCodeGenerator(basePath, basePath, include);
 
