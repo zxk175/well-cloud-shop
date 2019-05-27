@@ -8,6 +8,7 @@ spring:
       username: well
       password: 123456
   redis:
+    host: ${mysql.host}
     password: 123456
 
 mybatis-plus:
