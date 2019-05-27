@@ -19,6 +19,7 @@ eureka:
   instance:
     hostname: ${spring.cloud.client.ip-address}
     status-page-url: http://127.0.0.1:${server.port}/
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
   client:
     service-url:
       defaultZone: http://root:root@127.0.0.1:8761/eureka/
