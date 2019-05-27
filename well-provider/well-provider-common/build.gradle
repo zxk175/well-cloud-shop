@@ -4,8 +4,10 @@ dependencies {
             [
                     libraries.boot_web,
                     libraries.boot_undertow,
-
+                    
                     libraries.cloud_eureka_client,
+                    
+                    libraries.commons_pool2,
             ]
     )
 }
