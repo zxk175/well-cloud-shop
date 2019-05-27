@@ -7,4 +7,4 @@ ADD target/well-provider-user-1.0.0.jar app.jar
 RUN sh -c 'touch app.jar'
 ENV JAVA_OPTS="-Xmx300m -Xms300m"
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar app.jar" ]
-EXPOSE 8800
+EXPOSE 8000

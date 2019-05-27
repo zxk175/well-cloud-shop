@@ -1,5 +1,6 @@
 mysql:
-  host: 127.0.0.1
+  # https://www.jianshu.com/p/7f96e322cb79
+  host: docker.for.mac.host.internal
 
 spring:
   datasource:
