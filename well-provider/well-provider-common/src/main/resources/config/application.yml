@@ -102,17 +102,17 @@ mybatis-plus:
       # 全局表为下划线命名设置
       table-underline: true
   configuration:
-    # map映射null值
-    call-setters-on-nulls: false
-    # 是否启用下划线与驼峰式命名规则的映射
-    map-underscore-to-camel-case: true
     # 配置的缓存的全局开关
     cache-enabled: true
     # 延时加载的开关
     lazy-loading-enabled: true
+    # map映射null值
+    call-setters-on-nulls: true
     # 开启的话,延时加载一个属性时会加载该对象全部属性
     # 否则按需加载属性
     multiple-result-sets-enabled: true
+    # 是否启用下划线与驼峰式命名规则的映射
+    map-underscore-to-camel-case: true
 
 eureka:
   instance:
