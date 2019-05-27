@@ -81,16 +81,16 @@ spring:
       log-abandoned: true
       remove-abandoned: true
       remove-abandoned-timeout: 180
-    redis:
-      host: 127.0.0.1
-      port: 6379
-      timeout: 2s
-      lettuce:
-        pool:
-          max-idle: 100
-          min-idle: 10
-          max-wait: -1s
-          max-active: -1
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 2s
+    lettuce:
+      pool:
+        max-idle: 100
+        min-idle: 10
+        max-wait: -1s
+        max-active: -1
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
