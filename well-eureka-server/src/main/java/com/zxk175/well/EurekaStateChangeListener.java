@@ -17,17 +17,17 @@ public class EurekaStateChangeListener {
     @EventListener
     public void listen(EurekaInstanceRegisteredEvent event) {
         InstanceInfo instanceInfo = event.getInstanceInfo();
-        log.info(instanceInfo.getAppName() + "进行注册");
+        log.info(instanceInfo.getAppName().toLowerCase() + "进行注册");
     }
 
     @EventListener
     public void listen(EurekaInstanceCanceledEvent event) {
-        log.info("{}, {} 服务下线", event.getServerId(), event.getAppName());
+        log.info("{}, {} 服务下线", event.getServerId(), event.getAppName().toLowerCase());
     }
 
     @EventListener
     public void listen(EurekaInstanceRenewedEvent event) {
-        log.info("{}, {} 服务进行续约", event.getServerId(), event.getAppName());
+        log.info("{}, {} 服务进行续约", event.getServerId(), event.getAppName().toLowerCase());
     }
 
     @EventListener
