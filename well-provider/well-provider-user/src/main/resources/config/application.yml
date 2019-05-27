@@ -116,7 +116,7 @@ mybatis-plus:
 
 eureka:
   instance:
-    lease-renewal-interval-in-seconds: 10
+    hostname: ${spring.cloud.client.ip-address}
     status-page-url: http://127.0.0.1:${server.port}/
   client:
     service-url:
