@@ -25,12 +25,8 @@ spring:
 
 eureka:
   instance:
-    prefer-ip-address: true
     lease-renewal-interval-in-seconds: 10
-    metadata-map:
-      user:
-        name: ${spring.security.user.name}
-        password: ${spring.security.user.password}
+    status-page-url: http://127.0.0.1:${server.port}/
   client:
     service-url:
       defaultZone: http://root:root@127.0.0.1:8761/eureka/

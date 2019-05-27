@@ -17,17 +17,11 @@ spring:
 
 eureka:
   instance:
-    prefer-ip-address: true
     lease-renewal-interval-in-seconds: 10
+    status-page-url: http://127.0.0.1:${server.port}/
   client:
     service-url:
       defaultZone: http://root:root@127.0.0.1:8761/eureka/
-
-zuul:
-  add-host-header: true
-  routes:
-    users:
-      url: http://test.szsdyc.cn
 
 management:
   endpoints:

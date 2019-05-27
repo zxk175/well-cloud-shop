@@ -116,7 +116,6 @@ mybatis-plus:
 
 eureka:
   instance:
-    prefer-ip-address: true
     lease-renewal-interval-in-seconds: 10
     status-page-url: http://127.0.0.1:${server.port}/
   client:
