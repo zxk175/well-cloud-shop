@@ -4,15 +4,16 @@ import cn.hutool.core.collection.CollUtil;
 import com.google.common.collect.Maps;
 import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.http.Response;
+import com.zxk175.well.common.model.dto.PageBeanDTO;
+import com.zxk175.well.common.model.param.PageParam;
 import com.zxk175.well.common.util.DateUtil;
 import com.zxk175.well.common.util.ExceptionUtil;
 import com.zxk175.well.common.util.MyStrUtil;
 import com.zxk175.well.common.util.spring.SpringActiveUtil;
-import com.zxk175.well.common.model.dto.PageBeanDTO;
-import com.zxk175.well.common.model.param.PageParam;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -141,5 +142,9 @@ public class CommonUtil {
         StringWriter out = new StringWriter();
         template.process(data, out);
         return new ByteArrayInputStream(out.toString().getBytes(Const.UTF_8_OBJ));
+    }
+
+    public static String getLoginUrl(HttpServletRequest httpRequest) {
+        return httpRequest.getContextPath() + "/login.html";
     }
 }

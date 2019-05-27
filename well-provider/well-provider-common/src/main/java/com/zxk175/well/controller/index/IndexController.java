@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController extends BaseController {
 
-    @GetMapping({"/", "index"})
+    @GetMapping("/")
     public String index() {
         return "index";
+    }
+
+    @GetMapping("/login.html")
+    public String login() {
+        return "login";
     }
 }

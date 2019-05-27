@@ -5,6 +5,7 @@ import com.zxk175.well.common.http.Response;
 import com.zxk175.well.common.util.jwt.JwtAuthUtil;
 import com.zxk175.well.common.util.jwt.bean.SysSubjectDTO;
 import lombok.Data;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -122,7 +123,7 @@ public class BaseController {
     }
 
     protected SysSubjectDTO getUser() {
-        String token = "";
+        String token = SecurityUtils.getSubject().getPrincipal().toString();
         return JwtAuthUtil.sysSubject(token);
     }
 

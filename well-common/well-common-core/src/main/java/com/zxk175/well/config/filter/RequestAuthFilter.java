@@ -3,6 +3,7 @@ package com.zxk175.well.config.filter;
 import cn.hutool.core.util.ArrayUtil;
 import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.util.FilterUtil;
+import com.zxk175.well.common.util.common.CommonUtil;
 import com.zxk175.well.common.util.jwt.JwtAuthUtil;
 
 import javax.servlet.*;
@@ -42,7 +43,7 @@ public class RequestAuthFilter implements Filter {
                 filterChain.doFilter(request, response);
             } else {
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
-                String fullUrl = httpRequest.getContextPath() + Const.BASE_URL + "/sys/login";
+                String fullUrl = CommonUtil.getLoginUrl(httpRequest);
                 httpResponse.sendRedirect(fullUrl);
             }
         }

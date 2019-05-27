@@ -99,7 +99,7 @@ function putAuth(url, params, success) {
 }
 
 function toLoginPage() {
-    location.href = ctx + "/well/api/sys/login";
+    location.href = ctx + "/login.html";
 }
 
 function getToken() {

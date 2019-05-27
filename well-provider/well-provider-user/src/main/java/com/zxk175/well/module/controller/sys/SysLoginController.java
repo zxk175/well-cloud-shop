@@ -39,11 +39,6 @@ public class SysLoginController extends BaseController {
     private SysUserService sysUserService;
 
 
-    @GetMapping("login")
-    public String login() {
-        return "login";
-    }
-
     @ResponseBody
     @PostMapping(value = "/login/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "系统用户登录", notes = "系统用户登录")
