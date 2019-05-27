@@ -17,7 +17,7 @@ public class EurekaStateChangeListener {
     @EventListener
     public void listen(EurekaInstanceRegisteredEvent event) {
         InstanceInfo instanceInfo = event.getInstanceInfo();
-        log.info(instanceInfo.getAppName().toLowerCase() + "进行注册");
+        log.info(instanceInfo.getAppName().toLowerCase() + " 进行注册");
     }
 
     @EventListener
