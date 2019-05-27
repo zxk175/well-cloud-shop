@@ -18,10 +18,6 @@ spring:
     user:
       name: root
       password: root
-  boot:
-    admin:
-      ui:
-        title: "服务监控中心"
 
 eureka:
   instance:
