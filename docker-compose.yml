@@ -12,7 +12,7 @@ services:
     container_name: well-zuul-1.0.0
     image: com.zxk175/well-zuul:1.0.0
     ports:
-      - "8800:8800"
+      - "7000:7000"
     environment:
       - 'SPRING_PROFILES_ACTIVE=docker'
     networks:
@@ -24,7 +24,7 @@ services:
     container_name: well-boot-admin-1.0.0
     image: com.zxk175/well-boot-admin:1.0.0
     ports:
-      - "9000:9000"
+      - "8000:8000"
     environment:
       - 'SPRING_PROFILES_ACTIVE=docker'
     networks:
@@ -36,7 +36,7 @@ services:
     container_name: well-provider-user-1.0.0
     image: com.zxk175/well-provider-user:1.0.0
     ports:
-      - "8000:8000"
+      - "9000:9000"
     environment:
       - 'SPRING_PROFILES_ACTIVE=docker'
     networks:
