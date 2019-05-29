@@ -1,4 +1,4 @@
-package com.zxk175.well.controller.index;
+package com.zxk175.well.module.controller.index;
 
 import com.zxk175.well.module.controller.BaseController;
 import org.springframework.stereotype.Controller;

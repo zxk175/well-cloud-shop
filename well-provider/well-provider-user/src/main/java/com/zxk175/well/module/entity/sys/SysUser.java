@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -71,6 +73,12 @@ public class SysUser extends Model<SysUser> {
     @ApiModelProperty(value = "状态", hidden = true)
     @TableField("state")
     private Integer state;
+
+    @TableField(exist = false)
+    private String roleName;
+
+    @TableField(exist = false)
+    private List<String> roleList;
 
 
     @Override

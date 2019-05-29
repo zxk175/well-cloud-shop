@@ -3,6 +3,7 @@ package com.zxk175.well.common.util.common;
 import cn.hutool.core.collection.CollUtil;
 import com.google.common.collect.Maps;
 import com.zxk175.well.common.consts.Const;
+import com.zxk175.well.common.consts.enums.IdentityType;
 import com.zxk175.well.common.http.Response;
 import com.zxk175.well.common.model.dto.PageBeanDTO;
 import com.zxk175.well.common.model.param.PageParam;
@@ -13,7 +14,6 @@ import com.zxk175.well.common.util.spring.SpringActiveUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -25,7 +25,6 @@ import java.util.concurrent.ThreadLocalRandom;
  * @since 2019/04/01 16:28
  */
 public class CommonUtil {
-
     public static String getRandom(boolean numberFlag, int length) {
         String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyzABCDEFGHIJKMNPQRSTUVWXYZ";
         final StringBuilder sb = new StringBuilder();
@@ -48,6 +47,10 @@ public class CommonUtil {
 
         param.setPage(ints[0]);
         param.setSize(ints[1]);
+    }
+
+    public static boolean hasSupper(Integer identity) {
+        return IdentityType.SUPER.value().equals(identity);
     }
 
     public static Response putPageExtraTrue(Object data, Long count, PageParam param) {
@@ -142,9 +145,5 @@ public class CommonUtil {
         StringWriter out = new StringWriter();
         template.process(data, out);
         return new ByteArrayInputStream(out.toString().getBytes(Const.UTF_8_OBJ));
-    }
-
-    public static String getLoginUrl(HttpServletRequest httpRequest) {
-        return httpRequest.getContextPath() + "/login.html";
     }
 }

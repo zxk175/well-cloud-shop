@@ -1,4 +1,4 @@
-package com.zxk175.well.controller.index;
+package com.zxk175.well.module.controller.index;
 
 import com.google.common.collect.Maps;
 import com.zxk175.well.common.check.Mobile;
