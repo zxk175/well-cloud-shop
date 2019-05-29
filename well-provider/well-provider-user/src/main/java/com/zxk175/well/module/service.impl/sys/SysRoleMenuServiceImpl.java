@@ -1,10 +1,17 @@
 package com.zxk175.well.module.service.impl.sys;
 
-import com.zxk175.well.module.entity.sys.SysRoleMenu;
-import com.zxk175.well.module.dao.sys.SysRoleMenuDao;
-import com.zxk175.well.module.service.sys.SysRoleMenuService;
+import cn.hutool.core.convert.Convert;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.collect.Lists;
+import com.zxk175.well.common.consts.Const;
+import com.zxk175.well.module.dao.sys.SysRoleMenuDao;
+import com.zxk175.well.module.entity.sys.SysRoleMenu;
+import com.zxk175.well.module.service.sys.SysRoleMenuService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +24,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuDao, SysRoleMenu> implements SysRoleMenuService {
 
+    @Override
+    @Transactional(rollbackFor = {RuntimeException.class})
+    public void removeBatch(List<String> param) {
+        QueryWrapper<SysRoleMenu> sysRoleMenuQW = new QueryWrapper<>();
+        sysRoleMenuQW.in("role_id", param);
+
+        this.remove(sysRoleMenuQW);
+    }
+
+    @Override
+    @Transactional(rollbackFor = {RuntimeException.class})
+    public void saveOrModify(Long roleId, List<String> menuList) {
+        // 先删除角色与菜单关联
+        QueryWrapper<SysRoleMenu> sysRoleMenuQW = new QueryWrapper<>();
+        sysRoleMenuQW.eq("role_id", roleId);
+        this.remove(sysRoleMenuQW);
+
+        List<SysRoleMenu> dataList = Lists.newArrayList();
+        for (String menuId : menuList) {
+            // 保存角色与菜单关联
+            SysRoleMenu sysRoleMenu = new SysRoleMenu();
+            sysRoleMenu.setRoleId(roleId);
+            sysRoleMenu.setMenuId(Convert.toLong(menuId));
+
+            dataList.add(sysRoleMenu);
+        }
+
+        this.saveBatch(dataList, Const.DB_BATCH_SIZE);
+    }
 }

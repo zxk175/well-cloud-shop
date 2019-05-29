@@ -1,7 +1,11 @@
 package com.zxk175.well.module.dao.sys;
 
-import com.zxk175.well.module.entity.sys.SysRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zxk175.well.common.model.param.sys.role.SysRoleListParam;
+import com.zxk175.well.module.entity.sys.SysRole;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysRoleDao extends BaseMapper<SysRole> {
 
+    List<Map<String, Object>> listSysRole(SysRoleListParam param);
+
+    Long countSysRole(SysRoleListParam param);
 }

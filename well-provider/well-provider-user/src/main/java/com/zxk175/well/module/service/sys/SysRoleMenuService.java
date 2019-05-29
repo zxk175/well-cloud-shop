@@ -1,7 +1,9 @@
 package com.zxk175.well.module.service.sys;
 
-import com.zxk175.well.module.entity.sys.SysRoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zxk175.well.module.entity.sys.SysRoleMenu;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SysRoleMenuService extends IService<SysRoleMenu> {
 
+    void removeBatch(List<String> param);
+
+    void saveOrModify(Long roleId, List<String> menuList);
 }

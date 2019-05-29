@@ -1,7 +1,10 @@
 package com.zxk175.well.module.dao.sys;
 
-import com.zxk175.well.module.entity.sys.SysMenu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zxk175.well.common.model.param.sys.menu.SysMenuListParam;
+import com.zxk175.well.module.entity.sys.SysMenu;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysMenuDao extends BaseMapper<SysMenu> {
 
+    List<SysMenu> listByUserId(SysMenuListParam param);
 }
