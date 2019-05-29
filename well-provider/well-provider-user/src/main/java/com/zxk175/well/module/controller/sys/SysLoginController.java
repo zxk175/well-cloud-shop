@@ -74,7 +74,7 @@ public class SysLoginController extends BaseController {
 
             SysUserPermsParam permsParam = new SysUserPermsParam(userDTO.getUserId());
             permsParam.setHasSupper(sysSubjectDTO.hasSupper());
-            data.put("perms", "");
+            data.put("perms", sysUserService.setUserPerms(permsParam));
 
             return ok(data);
         }
