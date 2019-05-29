@@ -15,6 +15,9 @@
             t_sys_role AS sr
         WHERE
             1 = 1
+        <if test="roleName != null and roleName != ''">
+            AND sr.role_name LIKE CONCAT(#{roleName}, '%')
+        </if>
         LIMIT #{page}, #{size}
     </select>
 
@@ -26,5 +29,8 @@
             t_sys_role AS sr
         WHERE
             1 = 1
+        <if test="roleName != null and roleName != ''">
+            AND sr.role_name LIKE CONCAT(#{roleName}, '%')
+        </if>
     </select>
 </mapper>

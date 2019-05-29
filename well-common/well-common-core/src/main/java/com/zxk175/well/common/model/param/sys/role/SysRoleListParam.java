@@ -1,6 +1,7 @@
 package com.zxk175.well.common.model.param.sys.role;
 
 import com.zxk175.well.common.model.param.PageParam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,4 +13,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class SysRoleListParam extends PageParam {
 
+    @ApiModelProperty(value = "角色名", example = "超级")
+    private String roleName;
 }
