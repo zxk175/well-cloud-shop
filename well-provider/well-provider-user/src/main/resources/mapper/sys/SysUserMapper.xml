@@ -21,7 +21,7 @@
             AND su.user_id = #{userId}
         </if>
         <if test="mobile != null and mobile != ''">
-            AND su.mobile = #{mobile}
+            AND su.mobile LIKE CONCAT(#{mobile}, '%')
         </if>
         LIMIT #{page}, #{size}
     </select>
@@ -38,7 +38,7 @@
             AND su.user_id = #{userId}
         </if>
         <if test="mobile != null and mobile != ''">
-            AND su.mobile = #{mobile}
+            AND su.mobile LIKE CONCAT(#{mobile}, '%')
         </if>
     </select>
 
