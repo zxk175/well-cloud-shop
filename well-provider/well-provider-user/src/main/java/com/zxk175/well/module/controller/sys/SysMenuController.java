@@ -141,7 +141,11 @@ public class SysMenuController extends BaseController {
         // 上级菜单类型
         int parentType = MenuType.CATALOG.value();
         if (menu.getParentId() != 0) {
-            SysMenu parentMenu = sysMenuService.getById(menu.getParentId());
+            QueryWrapper<SysMenu> sysMenuQW = new QueryWrapper<>();
+            sysMenuQW.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
+            sysMenuQW.eq("menu_id", menu.getParentId());
+
+            SysMenu parentMenu = sysMenuService.getOne(sysMenuQW);
             parentType = parentMenu.getType();
         }
 
