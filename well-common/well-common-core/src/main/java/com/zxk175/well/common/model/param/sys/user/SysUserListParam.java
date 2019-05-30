@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class SysUserListParam extends PageParam {
 
-    @ApiModelProperty(value = "用户Id", example = Const.DEFAULT_UID)
+    @ApiModelProperty(value = "用户Id", hidden = true)
     private String userId;
 
     @ApiModelProperty(value = "手机号", example = Const.DEFAULT_MOBILE)
