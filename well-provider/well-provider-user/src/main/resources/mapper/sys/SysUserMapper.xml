@@ -5,20 +5,23 @@
     <select id="listSysUser" resultType="java.util.Map"
             parameterType="com.zxk175.well.common.model.param.sys.user.SysUserListParam">
         SELECT
-        su.user_id AS userId,
-        su.user_name AS userName,
-        su.avatar,
-        su.mobile,
-        su.identity,
-        su.create_time AS createTime,
-        su.state,
-        IFNULL((SELECT GROUP_CONCAT(sr.role_name) FROM t_sys_user_role AS sur, t_sys_role AS sr WHERE sur.role_id = sr.role_id AND sur.user_id = su.user_id), '') AS roleName
+            su.user_id AS userId,
+            su.user_name AS userName,
+            su.avatar,
+            su.mobile,
+            su.identity,
+            su.create_time AS createTime,
+            su.state,
+            IFNULL((SELECT GROUP_CONCAT(sr.role_name) FROM t_sys_user_role AS sur, t_sys_role AS sr WHERE sur.role_id = sr.role_id AND sur.user_id = su.user_id), '') AS roleName
         FROM
-        t_sys_user AS su
+            t_sys_user AS su
         WHERE
-        1 = 1
+            1 = 1
         <if test="userId != null and userId != ''">
             AND su.user_id = #{userId}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND su.mobile = #{mobile}
         </if>
         LIMIT #{page}, #{size}
     </select>
@@ -26,13 +29,16 @@
     <select id="countSysUser" resultType="java.lang.Long"
             parameterType="com.zxk175.well.common.model.param.sys.user.SysUserListParam">
         SELECT
-        COUNT(su.user_id) AS `count`
+            COUNT(su.user_id) AS `count`
         FROM
-        t_sys_user AS su
+            t_sys_user AS su
         WHERE
-        1 = 1
+            1 = 1
         <if test="userId != null and userId != ''">
             AND su.user_id = #{userId}
+        </if>
+        <if test="mobile != null and mobile != ''">
+            AND su.mobile = #{mobile}
         </if>
     </select>
 
