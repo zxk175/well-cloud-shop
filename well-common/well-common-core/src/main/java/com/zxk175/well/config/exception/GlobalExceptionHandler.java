@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     public Response handleNoHandlerFoundException(NoHandlerFoundException ex) {
         buildExceptionInfo(ex, "请求地址不存在");
-        String msg = "请求地址不存在：" + RequestUtil.requestUrl(false);
+        String msg = "请求地址不存在：" + RequestUtil.requestUrl(true, false);
         return Response.fail(Const.FAIL_CODE, msg);
     }
 
