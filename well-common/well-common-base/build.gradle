@@ -1,8 +1,11 @@
 dependencies {
     compile(
             [
+                    libraries.boot_web,
+
                     libraries.swagger2,
 
+                    libraries.javax_servlet_api,
                     libraries.hutool_core,
                     libraries.hutool_crypto,
                     libraries.fast_json,
