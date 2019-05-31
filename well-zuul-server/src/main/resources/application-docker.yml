@@ -2,3 +2,11 @@ eureka:
   client:
     service-url:
       defaultZone: http://root:root@well-eureka:8761/eureka/
+
+logging:
+  level:
+    root: info
+    org.mybatis: trace
+    com.alibaba: trace
+    com.baomidou: trace
+    org.springframework.cloud: trace

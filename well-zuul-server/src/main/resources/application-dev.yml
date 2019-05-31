@@ -2,3 +2,11 @@ zuul:
   routes:
     provider-user:
       url: http://localhost:9000
+
+logging:
+  level:
+    root: info
+    org.mybatis: trace
+    com.alibaba: trace
+    com.baomidou: trace
+    org.springframework.cloud: trace

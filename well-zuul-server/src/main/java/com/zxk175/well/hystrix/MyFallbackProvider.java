@@ -1,5 +1,6 @@
 package com.zxk175.well.hystrix;
 
+import com.netflix.hystrix.exception.HystrixTimeoutException;
 import com.zxk175.well.common.consts.Const;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
@@ -28,6 +29,18 @@ public class MyFallbackProvider implements FallbackProvider {
 
     @Override
     public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
+        if (cause instanceof HystrixTimeoutException) {
+            return this.response(HttpStatus.GATEWAY_TIMEOUT, route, cause);
+        } else {
+            return this.response(route, cause);
+        }
+    }
+
+    private ClientHttpResponse response(String route, Throwable cause) {
+        return this.response(HttpStatus.OK, route, cause);
+    }
+
+    private ClientHttpResponse response(HttpStatus httpStatus, String route, Throwable cause) {
         log.info("route：{}", route);
         cause.printStackTrace();
 
@@ -36,7 +49,7 @@ public class MyFallbackProvider implements FallbackProvider {
             @Override
             @NonNull
             public HttpStatus getStatusCode() {
-                return HttpStatus.OK;
+                return httpStatus;
             }
 
             @Override
