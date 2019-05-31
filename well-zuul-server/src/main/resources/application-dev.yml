@@ -1,0 +1,4 @@
+zuul:
+  routes:
+    provider-user:
+      url: http://localhost:9000
