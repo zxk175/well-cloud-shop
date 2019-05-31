@@ -71,7 +71,7 @@ public class MyFallbackProvider implements FallbackProvider {
             @Override
             @NonNull
             public InputStream getBody() {
-                String msg = "服务不可用";
+                String msg = "服务不可用，请稍后再试。" + getStatusCode();
                 log.error("调用：{}，异常：{}", route, msg);
                 return new ByteArrayInputStream(msg.getBytes(Const.UTF_8_OBJ));
             }
