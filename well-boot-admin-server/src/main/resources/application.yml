@@ -23,9 +23,7 @@ spring:
 
 eureka:
   instance:
-    hostname: ${spring.cloud.client.ip-address}
     status-page-url: http://127.0.0.1:${server.port}/
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
     metadata-map:
       user:
         name: ${spring.security.user.name}
