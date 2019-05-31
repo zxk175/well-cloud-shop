@@ -61,7 +61,7 @@ public class MyZuulFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        log.info("{}，request to {}", request.getMethod(), RequestUtil.requestUrl(request));
+        log.info("send {}，request to {}", request.getMethod(), RequestUtil.requestUrl(request));
 
         return null;
     }
