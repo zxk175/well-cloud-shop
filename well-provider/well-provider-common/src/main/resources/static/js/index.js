@@ -29,7 +29,7 @@ new Vue({
                     that.$message.error("清除失败");
                 }
             }).catch(() => {
-                that.$message.error("清除操作异常");
+                that.$message.info("取消清除操作");
             });
         }
     }
