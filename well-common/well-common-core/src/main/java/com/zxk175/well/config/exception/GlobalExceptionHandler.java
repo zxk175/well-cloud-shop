@@ -53,7 +53,7 @@ public class GlobalExceptionHandler {
     public String handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
         buildExceptionInfo(ex, "请求方式处理不支持");
         final HttpServletRequest request = RequestUtil.request();
-        return String.format("Cannot %s %s", request.getMethod(), request.getRequestURI());
+        return String.format("Cannot %s %s", request.getMethod(), RequestUtil.requestUrl(request, true));
     }
 
     @ResponseBody
@@ -61,8 +61,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     public Response handleNoHandlerFoundException(NoHandlerFoundException ex) {
         buildExceptionInfo(ex, "请求地址不存在");
-        final HttpServletRequest request = RequestUtil.request();
-        String msg = "请求地址不存在：" + request.getRequestURI();
+        String msg = "请求地址不存在：" + RequestUtil.requestUrl(false);
         return Response.fail(Const.FAIL_CODE, msg);
     }
 
@@ -144,7 +143,7 @@ public class GlobalExceptionHandler {
 
         try {
             InputStream inputStream = CommonUtil.createExceptionHTML(title, ex);
-            
+
             String dir = CommonUtil.buildErrorPath("error");
             String ossUrl = UploadUtil.single(inputStream, dir, "html");
             msg.append(FORMAT1);

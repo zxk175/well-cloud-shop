@@ -26,6 +26,11 @@ public class RequestUtil {
         throw new RuntimeException("RequestAttributes is null");
     }
 
+    public static String requestUrl(boolean flag) {
+        final HttpServletRequest request = request();
+        return requestUrl(request, flag);
+    }
+
     public static String requestUrl(HttpServletRequest request) {
         return requestUrl(request, false);
     }
