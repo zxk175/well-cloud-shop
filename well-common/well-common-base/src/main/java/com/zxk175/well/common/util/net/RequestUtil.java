@@ -35,7 +35,9 @@ public class RequestUtil {
         String queryString;
 
         if (flag) {
-            requestUri = Convert.toStr(request.getAttribute("javax.servlet.error.request_uri"));
+            String host = request.getHeader("Host");
+            requestUri = request.getScheme() + "://" + host;
+            requestUri = requestUri + Convert.toStr(request.getAttribute("javax.servlet.error.request_uri"));
             queryString = Convert.toStr(request.getAttribute("javax.servlet.forward.query_string"));
         } else {
             requestUri = request.getRequestURL().toString();

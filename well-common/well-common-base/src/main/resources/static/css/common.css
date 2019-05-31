@@ -61,4 +61,5 @@ a {
 .error-txt {
     margin: 10px 10px;
     color: #606465;
+    word-break: break-all;
 }

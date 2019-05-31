@@ -18,7 +18,9 @@
 <h1 class="error-txt">Whitelabel Error Page</h1>
 <div class="error-txt">当前时间：${timestamp!"没有数据"}</div>
 <div class="error-txt">请求状态：${status!"没有数据"}</div>
-<div class="error-txt">请求地址：${path!"没有数据"}</div>
+<div class="error-txt">请求地址：
+    <a href="${path!"javascript:;"}">${path!"没有数据"}</a>
+</div>
 <div class="error-txt">错误类型：${error!"没有数据"}</div>
 <div class="error-txt">异常信息：${message!"没有数据"}</div>
 
