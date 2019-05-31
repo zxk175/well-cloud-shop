@@ -58,7 +58,9 @@ public class MyFallbackProvider implements FallbackProvider {
             @Override
             @NonNull
             public InputStream getBody() {
-                return new ByteArrayInputStream("Ops Error, I'm the fallback.".getBytes(Const.UTF_8_OBJ));
+                String msg = "服务不可用";
+                log.error("调用：{}，异常：{}", route, msg);
+                return new ByteArrayInputStream(msg.getBytes(Const.UTF_8_OBJ));
             }
 
             @Override
