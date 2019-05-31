@@ -1,6 +1,11 @@
 dependencies {
     compile(
             [
+                    libraries.swagger2,
+
+                    libraries.hutool_core,
+                    libraries.hutool_crypto,
+                    libraries.fast_json,
                     libraries.lombok,
             ]
     )

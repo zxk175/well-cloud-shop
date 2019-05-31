@@ -17,15 +17,10 @@ dependencies {
                     libraries.boot_druid,
                     libraries.boot_shiro,
 
-                    libraries.swagger2,
-
                     libraries.hibernate_validator,
                     libraries.validation_api,
 
                     libraries.javax_servlet_api,
-                    libraries.hutool_core,
-                    libraries.hutool_crypto,
-                    libraries.fast_json,
                     libraries.ip2region,
                     libraries.easy_okhttp,
                     libraries.fst,
