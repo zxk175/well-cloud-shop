@@ -14,6 +14,8 @@ server:
 spring:
   application:
     name: zuul-server
+  mvc:
+    throw-exception-if-no-handler-found: true
 
 eureka:
   instance:
@@ -23,6 +25,18 @@ eureka:
   client:
     service-url:
       defaultZone: http://root:root@127.0.0.1:8761/eureka/
+
+zuul:
+  # zuul默认跳转规则：
+  # http://localhost:6666/api-a/aa/bb ====> http://localhost:6666/aa/bb
+  # true是不加前缀（默认），false就会添加到路径上
+  strip-prefix: true
+  host:
+    connect-timeout-millis: 6000
+  routes:
+    provider-user:
+      path: /user/*
+      serviceId: provider-user
 
 management:
   endpoints:
