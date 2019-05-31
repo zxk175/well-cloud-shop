@@ -30,7 +30,7 @@ public class MyZuulFilter extends ZuulFilter {
     }
 
     /**
-     * filter执行顺序，通过数字指定
+     * filter顺序，数字越小表示顺序越高，越先执行
      *
      * @return ignore
      */
@@ -40,13 +40,13 @@ public class MyZuulFilter extends ZuulFilter {
     }
 
     /**
-     * filter是否需要执行 true执行 false 不执行
+     * filter是否需要执行 true执行 false不执行
      *
      * @return ignore
      */
     @Override
     public boolean shouldFilter() {
-        return false;
+        return true;
     }
 
     /**
