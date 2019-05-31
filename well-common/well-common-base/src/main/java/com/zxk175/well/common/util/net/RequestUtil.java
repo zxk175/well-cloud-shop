@@ -26,26 +26,36 @@ public class RequestUtil {
         throw new RuntimeException("RequestAttributes is null");
     }
 
-    public static String requestUrl(boolean flag) {
+    public static String requestUrl(boolean isUri, boolean flag) {
         final HttpServletRequest request = request();
-        return requestUrl(request, flag);
+        return requestUrl(request, isUri, flag);
     }
 
     public static String requestUrl(HttpServletRequest request) {
-        return requestUrl(request, false);
+        return requestUrl(request, false, false);
     }
 
     public static String requestUrl(HttpServletRequest request, boolean flag) {
+        return requestUrl(request, false, flag);
+    }
+
+    private static String requestUrl(HttpServletRequest request, boolean isUri, boolean flag) {
         String requestUri;
         String queryString;
 
         if (flag) {
-            String host = request.getHeader("Host");
-            requestUri = request.getScheme() + "://" + host;
-            requestUri = requestUri + Convert.toStr(request.getAttribute("javax.servlet.error.request_uri"));
+            String uri = Convert.toStr(request.getAttribute("javax.servlet.error.request_uri"));
+            if (isUri) {
+                requestUri = uri;
+            } else {
+                String host = request.getHeader("Host");
+                requestUri = request.getScheme() + "://" + host;
+                requestUri = requestUri + uri;
+            }
+
             queryString = Convert.toStr(request.getAttribute("javax.servlet.forward.query_string"));
         } else {
-            requestUri = request.getRequestURL().toString();
+            requestUri = isUri ? request.getRequestURI() : request.getRequestURL().toString();
             queryString = request.getQueryString();
         }
 
