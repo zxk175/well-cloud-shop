@@ -1,6 +1,7 @@
 package com.zxk175.well.hystrix;
 
 import com.zxk175.well.common.consts.Const;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import java.io.InputStream;
  * @author zxk175
  * @since 2019/05/31 18:12
  */
+@Slf4j
 @Component
 public class MyFallbackProvider implements FallbackProvider {
 
@@ -26,8 +28,8 @@ public class MyFallbackProvider implements FallbackProvider {
 
     @Override
     public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
-        System.out.println("route:" + route);
-        System.out.println("exception:" + cause.getMessage());
+        log.info("route：{}", route);
+        cause.printStackTrace();
 
         return new ClientHttpResponse() {
 
