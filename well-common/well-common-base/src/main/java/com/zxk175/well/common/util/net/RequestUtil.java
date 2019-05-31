@@ -1,5 +1,6 @@
 package com.zxk175.well.common.util.net;
 
+import cn.hutool.core.convert.Convert;
 import com.google.common.collect.Maps;
 import com.zxk175.well.common.util.MyStrUtil;
 import org.springframework.web.context.request.RequestAttributes;
@@ -26,10 +27,22 @@ public class RequestUtil {
     }
 
     public static String requestUrl(HttpServletRequest request) {
-        String requestURL = request.getRequestURL().toString();
-        String queryString = request.getQueryString();
+        return requestUrl(request, false);
+    }
 
-        return requestURL + (MyStrUtil.isBlank(queryString) ? MyStrUtil.EMPTY : "?" + queryString);
+    public static String requestUrl(HttpServletRequest request, boolean flag) {
+        String requestUri;
+        String queryString;
+
+        if (flag) {
+            requestUri = Convert.toStr(request.getAttribute("javax.servlet.error.request_uri"));
+            queryString = Convert.toStr(request.getAttribute("javax.servlet.forward.query_string"));
+        } else {
+            requestUri = request.getRequestURL().toString();
+            queryString = request.getQueryString();
+        }
+
+        return requestUri + (MyStrUtil.isBlank(queryString) ? MyStrUtil.EMPTY : "?" + queryString);
     }
 
     public static Map<String, String> getHeaders(HttpServletRequest request) {

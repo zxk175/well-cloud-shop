@@ -50,6 +50,7 @@ public class MyErrorController extends AbstractErrorController {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         errorAttributes.put("timestamp", dtf.format(LocalDateTime.now()));
+        errorAttributes.put("path", RequestUtil.requestUrl(request, true));
         return errorAttributes;
     }
 
@@ -71,7 +72,7 @@ public class MyErrorController extends AbstractErrorController {
         int code = httpStatus.value();
         switch (code) {
             case 404:
-                String errorUri = RequestUtil.requestUrl(request);
+                String errorUri = RequestUtil.requestUrl(request, true);
                 msg = "请求地址不存在：" + errorUri;
                 break;
             case 500:
