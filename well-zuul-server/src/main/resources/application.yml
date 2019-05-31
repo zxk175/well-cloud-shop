@@ -27,15 +27,14 @@ eureka:
       defaultZone: http://root:root@127.0.0.1:8761/eureka/
 
 zuul:
-  # zuul默认跳转规则：
-  # http://localhost:6666/api-a/aa/bb ====> http://localhost:6666/aa/bb
-  # true是不加前缀（默认），false就会添加到路径上
-  strip-prefix: true
+  # 忽略所有微服务或某些微服务
+  # 微服务的名字 ==> spring.application.name值
+  ignored-services: "*"
   host:
     connect-timeout-millis: 6000
   routes:
     provider-user:
-      path: /user/*
+      path: /**
       serviceId: provider-user
 
 management:
