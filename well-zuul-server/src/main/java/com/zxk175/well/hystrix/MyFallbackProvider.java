@@ -2,6 +2,8 @@ package com.zxk175.well.hystrix;
 
 import com.netflix.hystrix.exception.HystrixTimeoutException;
 import com.zxk175.well.common.consts.Const;
+import com.zxk175.well.common.http.Response;
+import com.zxk175.well.common.util.json.FastJsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
@@ -71,9 +73,11 @@ public class MyFallbackProvider implements FallbackProvider {
             @Override
             @NonNull
             public InputStream getBody() {
-                String msg = "服务不可用，请稍后再试。" + getStatusCode();
+                String msg = "服务不可用，请稍后再试。";
                 log.error("调用：{}，异常：{}", route, msg);
-                return new ByteArrayInputStream(msg.getBytes(Const.UTF_8_OBJ));
+                Response fail = Response.fail(httpStatus.value(), msg);
+                String failStr = FastJsonUtil.jsonStr(fail);
+                return new ByteArrayInputStream(failStr.getBytes(Const.UTF_8_OBJ));
             }
 
             @Override
