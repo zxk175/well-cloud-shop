@@ -116,6 +116,7 @@ mybatis-plus:
 
 eureka:
   instance:
+    prefer-ip-address: true
     status-page-url: http://127.0.0.1:${server.port}/
   client:
     service-url:

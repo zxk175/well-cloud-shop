@@ -41,13 +41,13 @@ public class MyFallbackProvider implements FallbackProvider {
 
             @Override
             public int getRawStatusCode() {
-                return 200;
+                return this.getStatusCode().value();
             }
 
             @Override
             @NonNull
             public String getStatusText() {
-                return "ok";
+                return this.getStatusCode().getReasonPhrase();
             }
 
             @Override
@@ -65,7 +65,7 @@ public class MyFallbackProvider implements FallbackProvider {
             @NonNull
             public HttpHeaders getHeaders() {
                 HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
                 return headers;
             }
         };

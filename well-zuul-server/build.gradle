@@ -13,6 +13,7 @@ dependencies {
                     libraries.boot_undertow,
 
                     libraries.cloud_eureka_client,
+                    libraries.cloud_ribbon,
                     libraries.cloud_zuul,
             ])
 }
