@@ -5,6 +5,7 @@ include 'well-eureka-server'
 include 'well-zuul-server'
 
 include 'well-common'
+include 'well-common:well-common-base'
 include 'well-common:well-common-core'
 
 include 'well-provider'

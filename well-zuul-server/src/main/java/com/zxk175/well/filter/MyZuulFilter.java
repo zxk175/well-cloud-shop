@@ -2,15 +2,17 @@ package com.zxk175.well.filter;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 
 /**
  * @author zxk175
  * @since 2018/12/30 18:11
  */
+@Slf4j
 @Component
 public class MyZuulFilter extends ZuulFilter {
 
@@ -58,13 +60,22 @@ public class MyZuulFilter extends ZuulFilter {
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
+        String token = request.getParameter("token");
+        if (token == null) {
+            log.warn("token is empty");
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(401);
 
-        try {
-            request.setCharacterEncoding("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            try {
+                ctx.getResponse().getWriter().write("token is empty");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
         }
 
+        log.info("ok");
         return null;
     }
 }

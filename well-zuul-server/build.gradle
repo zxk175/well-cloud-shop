@@ -6,13 +6,15 @@ bootJar {
 }
 
 dependencies {
-    compile([
-            libraries.boot_web,
-            libraries.boot_undertow,
+    compile(
+            project(":well-common:well-common-base"),
+            [
+                    libraries.boot_web,
+                    libraries.boot_undertow,
 
-            libraries.cloud_eureka_client,
-            libraries.cloud_zuul,
-    ])
+                    libraries.cloud_eureka_client,
+                    libraries.cloud_zuul,
+            ])
 }
 
 task docker(type: Docker, dependsOn: build) {

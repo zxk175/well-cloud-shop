@@ -1,39 +1,41 @@
 dependencies {
-    compile([
-            libraries.boot_aop,
-            libraries.boot_web,
-            libraries.boot_jdbc,
-            libraries.boot_redis,
-            libraries.boot_freemarker,
-            libraries.boot_undertow,
-            libraries.aspect,
+    compile(
+            project(":well-common:well-common-base"),
+            [
+                    libraries.boot_aop,
+                    libraries.boot_web,
+                    libraries.boot_jdbc,
+                    libraries.boot_redis,
+                    libraries.boot_freemarker,
+                    libraries.boot_undertow,
+                    libraries.aspect,
 
-            libraries.boot_mybatis,
-            libraries.boot_mybatis_plus,
+                    libraries.boot_mybatis,
+                    libraries.boot_mybatis_plus,
 
-            libraries.mysql,
-            libraries.boot_druid,
-            libraries.boot_shiro,
-            
-            libraries.swagger2,
+                    libraries.mysql,
+                    libraries.boot_druid,
+                    libraries.boot_shiro,
 
-            libraries.hibernate_validator,
-            libraries.validation_api,
+                    libraries.swagger2,
 
-            libraries.javax_servlet_api,
-            libraries.hutool_core,
-            libraries.hutool_crypto,
-            libraries.fast_json,
-            libraries.lombok,
-            libraries.ip2region,
-            libraries.easy_okhttp,
-            libraries.fst,
-            libraries.jwt,
+                    libraries.hibernate_validator,
+                    libraries.validation_api,
 
-            libraries.guava,
-            libraries.tuple,
-            libraries.easy_excel,
+                    libraries.javax_servlet_api,
+                    libraries.hutool_core,
+                    libraries.hutool_crypto,
+                    libraries.fast_json,
+                    libraries.ip2region,
+                    libraries.easy_okhttp,
+                    libraries.fst,
+                    libraries.jwt,
 
-            libraries.ali_oss,
-    ])
+                    libraries.guava,
+                    libraries.tuple,
+                    libraries.easy_excel,
+
+                    libraries.ali_oss,
+            ]
+    )
 }
