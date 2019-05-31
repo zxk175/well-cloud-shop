@@ -2,6 +2,7 @@ dependencies {
     compile(
             [
                     libraries.boot_web,
+                    libraries.boot_freemarker,
 
                     libraries.swagger2,
 

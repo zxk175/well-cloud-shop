@@ -5,7 +5,6 @@ dependencies {
                     libraries.boot_aop,
                     libraries.boot_jdbc,
                     libraries.boot_redis,
-                    libraries.boot_freemarker,
                     libraries.boot_undertow,
                     libraries.aspect,
 

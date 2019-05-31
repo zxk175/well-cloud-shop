@@ -1,6 +1,7 @@
-package com.zxk175.well.config.error;
+package com.zxk175.well.common.error;
 
 import com.zxk175.well.common.http.Response;
+import com.zxk175.well.common.util.net.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -70,7 +71,7 @@ public class MyErrorController extends AbstractErrorController {
         int code = httpStatus.value();
         switch (code) {
             case 404:
-                Object errorUri = request.getAttribute("javax.servlet.error.request_uri");
+                String errorUri = RequestUtil.requestUrl(request);
                 msg = "请求地址不存在：" + errorUri;
                 break;
             case 500:

@@ -17,7 +17,12 @@ spring:
   application:
     name: zuul-server
   mvc:
+    view:
+      prefix: /templates/
+    static-path-pattern: /static/**
     throw-exception-if-no-handler-found: true
+  freemarker:
+    suffix: .html
 
 eureka:
   instance:
