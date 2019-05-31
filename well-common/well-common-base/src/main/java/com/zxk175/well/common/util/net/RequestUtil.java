@@ -39,7 +39,7 @@ public class RequestUtil {
         return requestUrl(request, false, flag);
     }
 
-    private static String requestUrl(HttpServletRequest request, boolean isUri, boolean flag) {
+    public static String requestUrl(HttpServletRequest request, boolean isUri, boolean flag) {
         String requestUri;
         String queryString;
 
