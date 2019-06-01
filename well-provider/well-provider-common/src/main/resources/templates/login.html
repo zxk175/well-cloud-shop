@@ -115,7 +115,7 @@
 
                 that.$refs.loginForm.validate((valid) => {
                     if (valid) {
-                        let url = ctx + "/well/api/sys/login/v1";
+                        let url = ctx + "/sys/login/v1";
                         post(url, that.form, function (res) {
                             let data = res.data;
                             if (data.success) {
