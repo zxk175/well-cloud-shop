@@ -24,7 +24,7 @@ public abstract class AbstractRouteFilter extends ZuulFilter {
         this.urlPathHelper = urlPathHelper;
     }
 
-    protected Route route(HttpServletRequest request) {
+    Route route(HttpServletRequest request) {
         String requestURI = urlPathHelper.getPathWithinApplication(request);
         return routeLocator.getMatchingRoute(requestURI);
     }

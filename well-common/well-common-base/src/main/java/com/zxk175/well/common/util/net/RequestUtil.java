@@ -54,7 +54,7 @@ public class RequestUtil {
         String host = request.getScheme() + "://" + headerHost;
 
         if (isError) {
-            String uri = Convert.toStr(request.getAttribute("javax.servlet.error.request_uri"));
+            String uri = Convert.toStr(request.getAttribute("javax.servlet.error.request_uri"), "");
             if (isUri) {
                 requestUri = uri;
             } else {
