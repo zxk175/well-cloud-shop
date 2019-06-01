@@ -113,7 +113,7 @@
             login: function () {
                 let that = this;
 
-                that.$refs.loginForm.validate((valid) => {
+                that.$refs["loginForm"].validate((valid) => {
                     if (valid) {
                         let url = ctx + "/sys/login/v1";
                         post(url, that.form, function (res) {
