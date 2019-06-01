@@ -25,6 +25,11 @@ spring:
 eureka:
   instance:
     status-page-url: http://127.0.0.1:${server.port}/
+    # 解决/actuator/health（401 Unauthorized)
+    metadata-map:
+      user:
+        name: ${spring.security.user.name}
+        password: ${spring.security.user.password}
   server:
     # false表示eureka服务器关闭自我保护模式
     enable-self-preservation: false
