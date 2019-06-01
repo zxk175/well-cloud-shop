@@ -50,7 +50,7 @@ public class ExceptionUtil {
     public static void sendRequestInfo(String title, StringBuilder sb) {
         StringBuilder msg = new StringBuilder(16);
 
-        String now = DateUtil.getNow(FORMAT_DEFAULT);
+        String now = DateUtil.now(FORMAT_DEFAULT);
         msg.append(now);
         msg.append(sb);
         msg.append(sendRequestInfo(false));
@@ -67,7 +67,7 @@ public class ExceptionUtil {
         StringBuilder msg = new StringBuilder(16);
 
         if (flag) {
-            String now = DateUtil.getNow(FORMAT_DEFAULT);
+            String now = DateUtil.now(FORMAT_DEFAULT);
             msg.append(now);
         }
 

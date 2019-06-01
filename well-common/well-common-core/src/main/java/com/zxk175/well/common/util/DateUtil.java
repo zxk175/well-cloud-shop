@@ -15,7 +15,7 @@ public class DateUtil {
     private static final String FORMAT_DEFAULT = Const.DEFAULT_DATE_FORMAT;
 
 
-    public static String getNow(String format) {
+    public static String now(String format) {
         if (MyStrUtil.isBlank(format)) {
             format = FORMAT_DEFAULT;
         }

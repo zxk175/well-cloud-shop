@@ -13,9 +13,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TokenDTO {
 
+    private String iat;
+
     private Long ttl;
 
     private String token;
 
     private Long expireIn;
+
+
+    public Long getTtl() {
+        return ttl / 1000;
+    }
 }

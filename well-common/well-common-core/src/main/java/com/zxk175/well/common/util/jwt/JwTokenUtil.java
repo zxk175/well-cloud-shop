@@ -1,6 +1,7 @@
 package com.zxk175.well.common.util.jwt;
 
 import com.zxk175.well.common.consts.Const;
+import com.zxk175.well.common.util.DateUtil;
 import com.zxk175.well.common.util.id.ClockUtil;
 import com.zxk175.well.common.util.json.FastJsonUtil;
 import com.zxk175.well.common.util.jwt.bean.SysSubjectDTO;
@@ -56,7 +57,7 @@ public class JwTokenUtil {
         builder.setExpiration(exp);
 
         // 生成jwt
-        return new TokenDTO(ttlMillis, builder.compact(), expMillis);
+        return new TokenDTO(DateUtil.now(Const.DEFAULT_DATE_FORMAT), ttlMillis, builder.compact(), expMillis);
     }
 
     static Key getKeyInstance() {

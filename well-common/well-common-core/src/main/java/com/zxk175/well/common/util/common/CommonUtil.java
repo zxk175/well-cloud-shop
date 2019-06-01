@@ -131,7 +131,7 @@ public class CommonUtil {
     }
 
     public static String buildErrorPath(String prefix) {
-        return prefix + MyStrUtil.SLASH + SpringActiveUtil.getActive() + MyStrUtil.SLASH + DateUtil.getNow(Const.DATE_FORMAT_NO_TIME) + MyStrUtil.SLASH;
+        return prefix + MyStrUtil.SLASH + SpringActiveUtil.getActive() + MyStrUtil.SLASH + DateUtil.now(Const.DATE_FORMAT_NO_TIME) + MyStrUtil.SLASH;
     }
 
     public static InputStream createExceptionHTML(String title, Exception ex) throws Exception {
