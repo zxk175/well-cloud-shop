@@ -1,7 +1,7 @@
 zuul:
   routes:
     provider-user:
-      url: http://localhost:9000
+      url: http://localhost:9010
 
 logging:
   level:

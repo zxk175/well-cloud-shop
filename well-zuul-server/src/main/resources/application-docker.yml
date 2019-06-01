@@ -1,7 +1,7 @@
 eureka:
   client:
     service-url:
-      defaultZone: http://root:root@well-eureka:8761/eureka/
+      defaultZone: http://root:root@well-eureka:8000/eureka/
 
 logging:
   level:

@@ -1,6 +1,6 @@
 # 汉化参考：https://gitee.com/ifaxin/eureka-server-hans
 server:
-  port: 8761
+  port: 8000
   use-forward-headers: true
   undertow:
     # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程

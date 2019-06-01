@@ -1,5 +1,5 @@
 server:
-  port: 7000
+  port: 9000
   use-forward-headers: true
   undertow:
     # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
@@ -29,7 +29,7 @@ eureka:
     status-page-url: http://127.0.0.1:${server.port}/
   client:
     service-url:
-      defaultZone: http://root:root@127.0.0.1:8761/eureka/
+      defaultZone: http://root:root@127.0.0.1:8000/eureka/
 
 zuul:
   # zuul默认跳转规则：

@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8010
   use-forward-headers: true
   undertow:
     # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
@@ -30,7 +30,7 @@ eureka:
         password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://root:root@127.0.0.1:8761/eureka/
+      defaultZone: http://root:root@127.0.0.1:8000/eureka/
 
 management:
   endpoints:

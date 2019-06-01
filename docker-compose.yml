@@ -5,15 +5,15 @@ services:
     image: com.zxk175/well-eureka:1.0.0
     ports:
       # 宿主机端口:容器端口
-      - "8761:8761"
+      - "8000:8000"
     networks:
       - cloud
 
-  well-zuul:
-    container_name: well-zuul-1.0.0
-    image: com.zxk175/well-zuul:1.0.0
+  well-boot-admin:
+    container_name: well-boot-admin-1.0.0
+    image: com.zxk175/well-boot-admin:1.0.0
     ports:
-      - "7000:7000"
+      - "8010:8010"
     environment:
       - 'spring.profiles.active=docker'
     networks:
@@ -21,11 +21,11 @@ services:
     depends_on:
       - well-eureka
 
-  well-boot-admin:
-    container_name: well-boot-admin-1.0.0
-    image: com.zxk175/well-boot-admin:1.0.0
+  well-zuul:
+    container_name: well-zuul-1.0.0
+    image: com.zxk175/well-zuul:1.0.0
     ports:
-      - "8000:8000"
+      - "9000:9000"
     environment:
       - 'spring.profiles.active=docker'
     networks:
@@ -37,7 +37,7 @@ services:
     container_name: well-provider-user-1.0.0
     image: com.zxk175/well-provider-user:1.0.0
     ports:
-      - "9000:9000"
+      - "9010:9010"
     environment:
       - 'spring.profiles.active=docker'
     networks:
