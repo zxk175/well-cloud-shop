@@ -4,6 +4,7 @@ services:
     container_name: well-eureka-1.0.0
     image: com.zxk175/well-eureka:1.0.0
     ports:
+      # 宿主机端口:容器端口
       - "8761:8761"
     networks:
       - cloud
@@ -14,7 +15,7 @@ services:
     ports:
       - "7000:7000"
     environment:
-      - 'SPRING_PROFILES_ACTIVE=docker'
+      - 'spring.profiles.active=docker'
     networks:
       - cloud
     depends_on:
@@ -26,7 +27,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - 'SPRING_PROFILES_ACTIVE=docker'
+      - 'spring.profiles.active=docker'
     networks:
       - cloud
     depends_on:
@@ -38,7 +39,7 @@ services:
     ports:
       - "9000:9000"
     environment:
-      - 'SPRING_PROFILES_ACTIVE=docker'
+      - 'spring.profiles.active=docker'
     networks:
       - cloud
     depends_on:
