@@ -19,3 +19,9 @@ docker run -d --name well-boot-admin-1.0.0 -p 9000:9000 --network cloud com.zxk1
 ```
 sh docker-up.sh 
 ```
+
+## Zuul首页
+![](doc/shot/1.png)
+
+## Zuul Swagger
+![](doc/shot/2.png)
