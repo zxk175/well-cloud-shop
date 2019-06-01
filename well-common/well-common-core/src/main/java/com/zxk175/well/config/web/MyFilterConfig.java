@@ -1,6 +1,7 @@
-package com.zxk175.well.config.filter;
+package com.zxk175.well.config.web;
 
 import com.google.common.collect.Lists;
+import com.zxk175.well.config.filter.RequestAuthFilter;
 import com.zxk175.well.config.filter.request.RepeatedlyReadFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ import java.util.List;
  * @since 2019/03/23 15:00
  */
 @Configuration
-public class SystemFilterConfig {
+public class MyFilterConfig {
 
     @Bean
     public FilterRegistrationBean repeatedlyReadFilterRegistration() {

@@ -5,8 +5,8 @@ new Vue({
         mobile: ""
     },
     mounted() {
-        this.userName = localStorage.getItem("userName");
-        this.mobile = localStorage.getItem("mobile");
+        this.userName = localStorage.getItem("userName") || "未登录";
+        this.mobile = localStorage.getItem("mobile") || "未登录";
     },
     methods: {
         clearAuth: function () {

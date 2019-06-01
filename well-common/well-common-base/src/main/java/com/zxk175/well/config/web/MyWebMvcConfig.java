@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @since 2019/03/28 14:46
  */
 @Configuration
-public class MySpringMvcConfig implements WebMvcConfigurer {
+public class MyWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {

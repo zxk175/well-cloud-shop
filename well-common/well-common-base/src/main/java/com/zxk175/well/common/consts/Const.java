@@ -21,7 +21,7 @@ public class Const {
     public static final String DEFAULT_MOBILE = "18820216402";
     public static final String TOKEN_DESC_KEY = "GQ0A0k1DdsJ1XcJiDPg5M235vjiODPHcJ1XT0uXOYHjiXHj10NHwDJ1iwDvViwDrk";
     public static final String TOKEN_KEY = "token";
-    public static final String BASE_URL = "/well/api";
+    public static final String BASE_URL = "";
 
     public static final String DEV = "dev";
     public static final String TEST = "test";
