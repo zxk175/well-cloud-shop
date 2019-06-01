@@ -1,6 +1,5 @@
 # 汉化参考：https://gitee.com/ifaxin/eureka-server-hans
 server:
-  port: 8000
   use-forward-headers: true
   undertow:
     # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
@@ -33,3 +32,48 @@ eureka:
     register-with-eureka: false
     # 是否从服务中心获取注册信息，默认为true
     fetch-registry: false
+
+---
+server:
+  port: 8001
+
+spring:
+  profiles:
+    active: eureka1
+
+eureka:
+  instance:
+    hostname: eureka1
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@eureka2:8002/eureka/,http://root:root@eureka3:8003/eureka/
+
+---
+server:
+  port: 8002
+
+spring:
+  profiles:
+    active: eureka2
+
+eureka:
+  instance:
+    hostname: eureka2
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@eureka1:8001/eureka/,http://root:root@eureka3:8003/eureka/
+
+---
+server:
+  port: 8003
+
+spring:
+  profiles:
+    active: eureka3
+
+eureka:
+  instance:
+    hostname: eureka3
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@eureka1:8001/eureka/,http://root:root@eureka2:8002/eureka/

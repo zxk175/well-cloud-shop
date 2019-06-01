@@ -1,11 +1,35 @@
 version: "3"
 services:
-  well-eureka:
-    container_name: well-eureka-1.0.0
+  well-eureka1:
+    container_name: well-eureka-1.0.0_1
     image: com.zxk175/well-eureka:1.0.0
+    # 宿主机端口:容器端口
     ports:
-      # 宿主机端口:容器端口
-      - "8000:8000"
+      - "8001:8001"
+    environment:
+      - 'spring.profiles.active=eureka1'
+    networks:
+      - cloud
+
+  well-eureka2:
+    container_name: well-eureka-1.0.0_2
+    image: com.zxk175/well-eureka:1.0.0
+    # 宿主机端口:容器端口
+    ports:
+      - "8002:8002"
+    environment:
+      - 'spring.profiles.active=eureka2'
+    networks:
+      - cloud
+
+  well-eureka3:
+    container_name: well-eureka-1.0.0_3
+    image: com.zxk175/well-eureka:1.0.0
+    # 宿主机端口:容器端口
+    ports:
+      - "8003:8003"
+    environment:
+      - 'spring.profiles.active=eureka3'
     networks:
       - cloud
 
@@ -19,7 +43,9 @@ services:
     networks:
       - cloud
     depends_on:
-      - well-eureka
+      - well-eureka1
+      - well-eureka2
+      - well-eureka3
 
   well-zuul:
     container_name: well-zuul-1.0.0
@@ -31,7 +57,9 @@ services:
     networks:
       - cloud
     depends_on:
-      - well-eureka
+      - well-eureka1
+      - well-eureka2
+      - well-eureka3
 
   well-provider-user:
     container_name: well-provider-user-1.0.0
@@ -43,7 +71,9 @@ services:
     networks:
       - cloud
     depends_on:
-      - well-eureka
+      - well-eureka1
+      - well-eureka2
+      - well-eureka3
 
 networks:
   cloud:
