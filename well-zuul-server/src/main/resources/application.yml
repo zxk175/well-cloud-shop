@@ -39,6 +39,8 @@ zuul:
   # 忽略所有微服务或某些微服务，多个服务逗号分隔
   # 微服务的名字 ==> spring.application.name值
   ignored-services: "*"
+  # 处理zuul丢失cookie，默认值是"Cookie", "Set-Cookie", "Authorization"
+  sensitive-headers:
   host:
     connect-timeout-millis: 6000
     socket-timeout-millis: 6000
