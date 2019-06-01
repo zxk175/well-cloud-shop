@@ -12,6 +12,7 @@ dependencies {
                     libraries.fast_json,
                     libraries.lombok,
 
+                    libraries.jwt,
                     libraries.tuple,
             ]
     )

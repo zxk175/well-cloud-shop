@@ -21,7 +21,6 @@ dependencies {
                     libraries.ip2region,
                     libraries.easy_okhttp,
                     libraries.fst,
-                    libraries.jwt,
 
                     libraries.guava,
                     libraries.easy_excel,

@@ -1,5 +1,6 @@
 package com.zxk175.well.common.util;
 
+import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -12,5 +13,9 @@ public class FilterUtil {
         // 得到请求地址
         String uri = httpRequest.getRequestURI();
         return uri.contains("/lpr/v1");
+    }
+
+    public static void doFilter(HttpServletRequest httpRequest, FilterChain filterChain) {
+
     }
 }
