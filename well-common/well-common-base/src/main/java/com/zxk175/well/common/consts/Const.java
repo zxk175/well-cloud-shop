@@ -64,6 +64,8 @@ public class Const {
 
     public static final String ZERO_STR = "0";
 
+    public static final String MY_HOST = "MyHost";
+
     public static final String IPV6_LOCAL = "0:0:0:0:0:0:0:1";
 
     public static SerializerFeature[] serializerFeatures() {

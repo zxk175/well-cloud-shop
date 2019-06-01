@@ -1,6 +1,8 @@
 package com.zxk175.well.common.util.net;
 
 import cn.hutool.core.convert.Convert;
+import com.github.sd4324530.jtuple.Tuple2;
+import com.github.sd4324530.jtuple.Tuples;
 import com.google.common.collect.Maps;
 import com.zxk175.well.common.util.MyStrUtil;
 import org.springframework.web.context.request.RequestAttributes;
@@ -26,31 +28,37 @@ public class RequestUtil {
         throw new RuntimeException("RequestAttributes is null");
     }
 
-    public static String requestUrl(boolean isUri, boolean flag) {
+    public static String requestUrl(boolean isUri, boolean isError) {
         final HttpServletRequest request = request();
-        return requestUrl(request, isUri, flag);
+        return requestUrl(request, isUri, isError);
     }
 
     public static String requestUrl(HttpServletRequest request) {
         return requestUrl(request, false, false);
     }
 
-    public static String requestUrl(HttpServletRequest request, boolean flag) {
-        return requestUrl(request, false, flag);
+    public static String requestUrl(HttpServletRequest request, boolean isError) {
+        return requestUrl(request, false, isError);
     }
 
-    public static String requestUrl(HttpServletRequest request, boolean isUri, boolean flag) {
+    public static String requestUrl(HttpServletRequest request, boolean isUri, boolean isError) {
+        Tuple2<String, String> tuple = requestUrlWithTuple(request, isUri, isError);
+        return tuple.second;
+    }
+
+    public static Tuple2<String, String> requestUrlWithTuple(HttpServletRequest request, boolean isUri, boolean isError) {
         String requestUri;
         String queryString;
 
-        if (flag) {
+        String headerHost = request.getHeader("Host");
+        String host = request.getScheme() + "://" + headerHost;
+
+        if (isError) {
             String uri = Convert.toStr(request.getAttribute("javax.servlet.error.request_uri"));
             if (isUri) {
                 requestUri = uri;
             } else {
-                String host = request.getHeader("Host");
-                requestUri = request.getScheme() + "://" + host;
-                requestUri = requestUri + uri;
+                requestUri = host + uri;
             }
 
             queryString = Convert.toStr(request.getAttribute("javax.servlet.forward.query_string"));
@@ -59,7 +67,7 @@ public class RequestUtil {
             queryString = request.getQueryString();
         }
 
-        return requestUri + (MyStrUtil.isBlank(queryString) ? MyStrUtil.EMPTY : "?" + queryString);
+        return Tuples.tuple(host, requestUri + (MyStrUtil.isBlank(queryString) ? MyStrUtil.EMPTY : "?" + queryString));
     }
 
     public static Map<String, String> getHeaders(HttpServletRequest request) {

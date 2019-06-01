@@ -11,6 +11,8 @@ dependencies {
                     libraries.hutool_crypto,
                     libraries.fast_json,
                     libraries.lombok,
+
+                    libraries.tuple,
             ]
     )
 }

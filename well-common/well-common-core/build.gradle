@@ -24,7 +24,6 @@ dependencies {
                     libraries.jwt,
 
                     libraries.guava,
-                    libraries.tuple,
                     libraries.easy_excel,
 
                     libraries.ali_oss,

@@ -42,9 +42,10 @@ public class RequestAuthFilter implements Filter {
             if (flag) {
                 filterChain.doFilter(request, response);
             } else {
+                String myHost = httpRequest.getHeader(Const.MY_HOST);
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
                 String fullUrl = CommonUtil.getLoginUrl(httpRequest);
-                httpResponse.sendRedirect(fullUrl);
+                httpResponse.sendRedirect(myHost + fullUrl);
             }
         }
     }

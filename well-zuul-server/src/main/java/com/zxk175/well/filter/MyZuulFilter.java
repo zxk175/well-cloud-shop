@@ -1,11 +1,15 @@
 package com.zxk175.well.filter;
 
-import com.netflix.zuul.ZuulFilter;
+import com.github.sd4324530.jtuple.Tuple2;
 import com.netflix.zuul.context.RequestContext;
+import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.util.net.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.netflix.zuul.filters.Route;
+import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UrlPathHelper;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +19,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Component
-public class MyZuulFilter extends ZuulFilter {
+public class MyZuulFilter extends AbstractRouteFilter {
+
+    public MyZuulFilter(RouteLocator routeLocator, UrlPathHelper urlPathHelper) {
+        super(routeLocator, urlPathHelper);
+    }
 
     /**
      * filter类型
@@ -62,7 +70,10 @@ public class MyZuulFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        log.info("send {}，request to {}", request.getMethod(), RequestUtil.requestUrl(request));
+        Route route = route(request);
+        Tuple2<String, String> tuple = RequestUtil.requestUrlWithTuple(request, false, false);
+        log.info("send {}，request to {}", request.getMethod(), tuple.second);
+        ctx.addZuulRequestHeader(Const.MY_HOST, route.getLocation());
 
         return null;
     }
