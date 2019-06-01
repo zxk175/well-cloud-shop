@@ -117,6 +117,10 @@ mybatis-plus:
 eureka:
   instance:
     prefer-ip-address: true
+    # 服务续约间隔时间（缺省为30s）
+    lease-renewal-interval-in-seconds: 5
+    # 服务续约到期时间（缺省为90s）
+    lease-expiration-duration-in-seconds: 10
     status-page-url: http://127.0.0.1:${server.port}/
   client:
     service-url:
