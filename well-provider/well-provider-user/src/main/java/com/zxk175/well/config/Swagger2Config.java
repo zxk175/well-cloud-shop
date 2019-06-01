@@ -43,7 +43,7 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("WellCloudShop APIs项目")
+                .title("用户APIs项目")
                 .description("了解更多请点击：https://zxk175.com")
                 .termsOfServiceUrl("https://zxk175.com")
                 .contact(new Contact("张小康", "https://zxk175.com", "zxk175@qq.com"))
