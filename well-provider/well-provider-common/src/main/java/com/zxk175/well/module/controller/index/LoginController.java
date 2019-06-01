@@ -9,12 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @since 2019/03/06 20:19
  */
 @Controller
-public class IndexController extends BaseController {
-
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
+public class LoginController extends BaseController {
 
     @GetMapping("/login.html")
     public String login() {
