@@ -11,7 +11,7 @@ dependencies {
             libraries.boot_security,
 
             libraries.cloud_eureka_server,
-            
+
             libraries.lombok,
     ])
 }
@@ -24,7 +24,7 @@ task docker(type: Docker, dependsOn: build) {
     doFirst {
         copy {
             from bootJar
-            into "${stageDir}/target"
+            into stageDir
         }
     }
 }

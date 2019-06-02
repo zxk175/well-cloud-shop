@@ -43,6 +43,36 @@ eureka:
     serviceUrl:
       defaultZone: http://root:root@well-eureka:8001/eureka/
 
+---
+server:
+  port: 8001
+
+spring:
+  profiles:
+    active: peer1
+
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@peer2:8002/eureka/
+
+---
+server:
+  port: 8002
+
+spring:
+  profiles:
+    active: peer2
+
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    serviceUrl:
+      defaultZone: http://root:root@peer1:8001/eureka/
+
 management:
   endpoints:
     web:

@@ -24,7 +24,7 @@ task docker(type: Docker, dependsOn: build) {
     doFirst {
         copy {
             from bootJar
-            into "${stageDir}/target"
+            into stageDir
         }
     }
 }
