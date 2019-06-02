@@ -6,8 +6,8 @@ services:
     ports:
       - "8010:8010"
     environment:
-      - 'spring.profiles.active=docker'
-      - 'eureka.list=http://root:root@peer1:8001/eureka/,http://root:root@peer2:8002/eureka/,http://root:root@peer3:8003/eureka/'
+      - 'eureka.list=${EUREKA_LIST}'
+      - 'spring.profiles.active=${ACTIVE}'
     networks:
       - cloud
 
@@ -17,8 +17,8 @@ services:
     ports:
       - "9000:9000"
     environment:
-      - 'spring.profiles.active=docker'
-      - 'eureka.list=http://root:root@peer1:8001/eureka/,http://root:root@peer2:8002/eureka/,http://root:root@peer3:8003/eureka/'
+      - 'eureka.list=${EUREKA_LIST}'
+      - 'spring.profiles.active=${ACTIVE}'
     networks:
       - cloud
 
@@ -28,8 +28,8 @@ services:
     ports:
       - "9010:9010"
     environment:
-      - 'spring.profiles.active=docker'
-      - 'eureka.list=http://root:root@peer1:8001/eureka/,http://root:root@peer2:8002/eureka/,http://root:root@peer3:8003/eureka/'
+      - 'eureka.list=${EUREKA_LIST}'
+      - 'spring.profiles.active=${ACTIVE}'
     networks:
       - cloud
 
