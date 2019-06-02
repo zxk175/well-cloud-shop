@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker-compose down --remove-orphans
+#docker-compose -f dc-eureka.yml down --remove-orphans
 
 gradle task clear
 
