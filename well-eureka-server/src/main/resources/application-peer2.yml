@@ -10,6 +10,6 @@ eureka:
     hostname: peer2
     prefer-ip-address: true
   client:
-    register-with-eureka: true
+    register-with-eureka: false
     serviceUrl:
       defaultZone: http://root:root@peer1:8001/eureka/,http://root:root@peer3:8003/eureka/

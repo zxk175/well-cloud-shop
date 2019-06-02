@@ -4,6 +4,10 @@
 
 gradle task clear
 
-gradle task docker
+gradle task :well-boot-admin-server:docker
+
+gradle task :well-zuul-server:docker
+
+gradle task :well-provider:well-provider-user:docker
 
 docker-compose -f dc-app.yml up -d
