@@ -1,0 +1,38 @@
+version: "3"
+services:
+  peer1:
+    container_name: peer1
+    image: com.zxk175/well-eureka:1.0.0
+    # 宿主机端口:容器端口
+    ports:
+      - "8001:8001"
+    environment:
+      - 'spring.profiles.active=peer1'
+    networks:
+      - cloud
+
+  peer2:
+    container_name: peer2
+    image: com.zxk175/well-eureka:1.0.0
+    # 宿主机端口:容器端口
+    ports:
+      - "8002:8002"
+    environment:
+      - 'spring.profiles.active=peer2'
+    networks:
+      - cloud
+
+  peer3:
+    container_name: peer3
+    image: com.zxk175/well-eureka:1.0.0
+    # 宿主机端口:容器端口
+    ports:
+      - "8003:8003"
+    environment:
+      - 'spring.profiles.active=peer3'
+    networks:
+      - cloud
+
+networks:
+  cloud:
+    driver: bridge

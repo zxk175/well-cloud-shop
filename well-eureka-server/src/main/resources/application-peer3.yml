@@ -1,0 +1,15 @@
+server:
+  port: 8003
+
+spring:
+  profiles:
+    active: peer3
+
+eureka:
+  instance:
+    hostname: peer3
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://root:root@peer1:8001/eureka/,http://root:root@peer2:8002/eureka/
