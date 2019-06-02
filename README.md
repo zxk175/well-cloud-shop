@@ -6,10 +6,15 @@
 sh dc-base.sh 
 
 sh dc-app.sh 
+
+eureka用户名/密码: root/root
 ```
 
-## Zuul首页
+## Eureka首页
 ![](doc/shot/1.png)
 
-## Zuul Swagger
+## Zuul首页
 ![](doc/shot/2.png)
+
+## User首页
+![](doc/shot/3.png)
