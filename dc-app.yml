@@ -1,7 +1,7 @@
 version: "3"
 services:
   well-boot-admin:
-    container_name: well-boot-admin-1.0.0
+    container_name: well-boot-admin
     image: com.zxk175/well-boot-admin:1.0.0
     ports:
       - "8010:8010"
@@ -12,7 +12,7 @@ services:
       - cloud
 
   well-zuul:
-    container_name: well-zuul-1.0.0
+    container_name: well-zuul
     image: com.zxk175/well-zuul:1.0.0
     ports:
       - "9000:9000"
@@ -23,7 +23,7 @@ services:
       - cloud
 
   well-provider-user:
-    container_name: well-provider-user-1.0.0
+    container_name: well-provider-user
     image: com.zxk175/well-provider-user:1.0.0
     ports:
       - "9010:9010"
