@@ -17,7 +17,9 @@ docker run -d --name well-boot-admin-1.0.0 -p 9000:9000 --network cloud com.zxk1
 ## 使用docker-compose
 
 ```
-sh docker-up.sh 
+sh dc-base.sh 
+
+sh dc-app.sh 
 ```
 
 ## Zuul首页
