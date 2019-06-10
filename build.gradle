@@ -7,7 +7,7 @@ buildscript {
     repositories {
         mavenLocal()
 
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/google' }
     }
@@ -32,7 +32,7 @@ allprojects {
     repositories {
         mavenLocal()
 
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/google' }
     }
@@ -58,8 +58,8 @@ subprojects { subPro ->
     configurations {
         // 编译期排除
         //compile.exclude group: 'mysql', module: 'mysql-connector-java'
-        compile.exclude group: "org.apache.tomcat"
-        compile.exclude module: "undertow-websockets-jsr"
+        compile.exclude group: 'org.apache.tomcat'
+        compile.exclude module: 'undertow-websockets-jsr'
         // 在整个构建过程中排除
         all*.exclude module: 'spring-boot-starter-tomcat'
     }
@@ -89,17 +89,11 @@ subprojects { subPro ->
     compileJava.dependsOn(processResources)
 }
 
-// 生成gradlew文件，统一gradle版本
-// 避免因为版本不同产生的问题
-task wrapper(type: Wrapper) {
-    gradleVersion = "4.10.2"
-}
-
 // 清除编译后文件
 task clear {
     doLast {
         delete rootProject.buildDir
-        delete rootProject.projectDir.toString() + "/logs"
+        delete rootProject.projectDir.toString() + '/logs'
 
         delete subprojects.buildDir
 
@@ -111,9 +105,9 @@ task clear {
             println(outDir)
 
             if (flag) {
-                println("===> 删除成功\n")
+                println('===> 删除成功\n')
             } else {
-                println("===> 未找到out文件夹\n")
+                println('===> 未找到out文件夹\n')
             }
         }
     }
@@ -121,7 +115,7 @@ task clear {
 
 
 // 升级命令
-// ./gradlew wrapper --gradle-version=4.10.2
+// ./gradlew wrapper --gradle-version=5.4.1
 
 // 强制清除 gradle 依赖缓存
 // ./gradlew build --refresh-dependencies
