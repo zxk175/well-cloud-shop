@@ -45,7 +45,7 @@ public class CommonUtil {
     }
 
     public static void buildPageParam(PageParam param) {
-        int[] ints = transToStartEnd(param.getPage(), param.getSize());
+        long[] ints = transToStartEnd(param.getPage(), param.getSize());
 
         param.setPage(ints[0]);
         param.setSize(ints[1]);
@@ -73,8 +73,8 @@ public class CommonUtil {
 
     private static Response putPageExtra(Object data, Long count, PageParam param, Map<String, Object> extra, boolean removeTotal) {
         PageBeanDTO pageBeanDTO = new PageBeanDTO()
-                .setPage((long) (param.getSize() + 1))
-                .setSize((long) param.getSize());
+                .setPage((param.getSize() + 1))
+                .setSize(param.getSize());
 
         pageBeanDTO.put("total", count);
 
@@ -96,7 +96,7 @@ public class CommonUtil {
         return Response.ok(data, pageBeanDTO);
     }
 
-    private static int[] transToStartEnd(int page, int size) {
+    private static long[] transToStartEnd(long page, long size) {
         // 最多一次100条数据
         int tmp = 100;
         if (size > tmp) {
@@ -104,17 +104,17 @@ public class CommonUtil {
         }
 
         if (page < 1) {
-            page = 1;
+            page = 1L;
         }
 
         if (size < 1) {
-            size = 0;
+            size = 0L;
         }
 
-        int start = (page - 1) * size;
-        int end = size;
+        long start = (page - 1) * size;
+        long end = size;
 
-        return new int[]{start, end};
+        return new long[]{start, end};
     }
 
     public static String requestLimitKey(String url, String ip) {

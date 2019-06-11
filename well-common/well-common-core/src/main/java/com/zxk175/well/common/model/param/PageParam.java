@@ -17,9 +17,9 @@ public class PageParam implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "第几页", example = "0")
-    private Integer page;
+    private Long page;
 
     @ApiModelProperty(value = "每页记录数", example = "10")
-    private Integer size;
+    private Long size;
 }
 
