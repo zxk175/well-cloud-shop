@@ -116,7 +116,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_role`;
 CREATE TABLE `t_sys_role` (
-  `role_id` bigint(30) NOT NULL COMMENT '角色 Id',
+  `role_id` bigint(30) NOT NULL COMMENT '角色Id',
   `role_name` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '角色名称',
   `role_sign` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '角色标识',
   `remark` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '备注',

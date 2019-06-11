@@ -92,6 +92,7 @@ spring:
         max-wait: -1s
         max-active: -1
 
+
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.zxk175.well.**.entity.**
