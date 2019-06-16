@@ -1,4 +1,7 @@
 dependencies {
+    compile libraries.lombok
+    annotationProcessor libraries.lombok
+
     compile(
             [
                     libraries.boot_web,
@@ -10,7 +13,6 @@ dependencies {
                     libraries.hutool_core,
                     libraries.hutool_crypto,
                     libraries.fast_json,
-                    libraries.lombok,
 
                     libraries.jwt,
                     libraries.tuple,

@@ -1,30 +1,17 @@
-apply plugin: 'org.springframework.boot'
-apply plugin: 'docker'
+apply plugin: "org.springframework.boot"
 
 bootJar {
-    baseName = 'well-eureka'
+    setArchivesBaseName("well-eureka")
 }
 
 dependencies {
+    compile libraries.lombok
+    annotationProcessor libraries.lombok
+
     compile([
             libraries.boot_undertow,
             libraries.boot_security,
 
             libraries.cloud_eureka_server,
-
-            libraries.lombok,
     ])
-}
-
-task docker(type: Docker, dependsOn: build) {
-    applicationName = bootJar.baseName
-    tagVersion = bootJar.version
-    dockerfile = file('Dockerfile')
-
-    doFirst {
-        copy {
-            from bootJar
-            into stageDir
-        }
-    }
 }

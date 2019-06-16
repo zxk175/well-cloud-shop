@@ -1,8 +1,7 @@
-apply plugin: 'org.springframework.boot'
-apply plugin: 'docker'
+apply plugin: "org.springframework.boot"
 
 bootJar {
-    baseName = 'well-boot-admin'
+    setArchivesBaseName("well-boot-admin")
 }
 
 dependencies {
@@ -14,17 +13,4 @@ dependencies {
             libraries.cloud_eureka_client,
             libraries.boot_admin_server,
     ])
-}
-
-task docker(type: Docker, dependsOn: build) {
-    applicationName = bootJar.baseName
-    tagVersion = bootJar.version
-    dockerfile = file('Dockerfile')
-
-    doFirst {
-        copy {
-            from bootJar
-            into stageDir
-        }
-    }
 }

@@ -5,12 +5,12 @@
 # 删除容器
 #docker-compose -f dc-app.yml down --remove-orphans
 
-gradle task clear
+#gradle task clear
 
-gradle task :well-boot-admin-server:docker
+gradle :well-zuul-server:build -x test
 
-gradle task :well-zuul-server:docker
+gradle :well-boot-admin-server:build -x test
 
-gradle task :well-provider:well-provider-user:docker
+gradle :well-provider:well-provider-user:build -x test
 
-docker-compose -f dc-app.yml up -d
+docker-compose -f dc-app.yml up -d --build

@@ -7,14 +7,13 @@ buildscript {
     repositories {
         mavenLocal()
 
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url "https://maven.aliyun.com/repository/google" }
     }
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${versions.spring_boot}")
-        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
@@ -32,9 +31,9 @@ allprojects {
     repositories {
         mavenLocal()
 
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "https://maven.aliyun.com/repository/jcenter" }
+        maven { url "https://maven.aliyun.com/repository/google" }
     }
 }
 
@@ -48,16 +47,18 @@ subprojects { subPro ->
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 
-    // 全局性的关闭依赖传递特性
-    configurations.all {
-        transitive = true
-    }
-
-    // 所有需要忽略的包定义在此
-    // group是必选项，module可选
     configurations {
-        // 编译期排除
-        //compile.exclude group: 'mysql', module: 'mysql-connector-java'
+        // 全局性的关闭依赖传递特性
+        all {
+            transitive = true
+        }
+
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+
+        // 所有需要忽略的包定义在此
+        // group是必选项，module可选
         compile.exclude group: 'org.apache.tomcat'
         compile.exclude module: 'undertow-websockets-jsr'
         // 在整个构建过程中排除
