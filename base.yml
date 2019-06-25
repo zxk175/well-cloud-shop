@@ -4,7 +4,7 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.eureka
-    image: 'zxk175/well-peer1:${VERSION}'
+    image: '${AUTHOR}/well-peer1:${TAG}'
     container_name: 'peer1'
     # 宿主机端口:容器端口
     ports:
@@ -18,7 +18,7 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.eureka
-    image: 'zxk175/well-peer2:${VERSION}'
+    image: '${AUTHOR}/well-peer2:${TAG}'
     container_name: 'peer2'
     # 宿主机端口:容器端口
     ports:
@@ -32,7 +32,7 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.eureka
-    image: 'zxk175/well-peer3:${VERSION}'
+    image: '${AUTHOR}/well-peer3:${TAG}'
     container_name: 'peer3'
     # 宿主机端口:容器端口
     ports:
