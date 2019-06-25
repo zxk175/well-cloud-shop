@@ -1,0 +1,8 @@
+dependencies {
+    compile(
+            project(":well-common:well-common-core"),
+            [
+                    libraries.mybatis_plus_gen,
+            ]
+    )
+}
