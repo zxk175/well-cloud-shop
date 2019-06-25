@@ -1,8 +1,8 @@
 rootProject.name = 'well-cloud-shop'
 
-include 'well-boot-admin-server'
-include 'well-eureka-server'
-include 'well-zuul-server'
+include ':well-base-server:well-boot-admin'
+include ':well-base-server:well-eureka'
+include ':well-base-server:well-zuul'
 
 include 'well-common'
 include 'well-common:well-common-base'
@@ -12,7 +12,7 @@ include 'well-provider'
 include 'well-provider:well-provider-common'
 include 'well-provider:well-provider-user'
 
-include 'well-generator'
-include 'well-generator:well-generator-common'
-include 'well-generator:well-generator-user'
+include 'well-generate'
+include 'well-generate:well-generate-common'
+include 'well-generate:well-generate-user'
 

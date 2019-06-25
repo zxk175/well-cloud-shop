@@ -1,5 +1,0 @@
-dependencies {
-    compile(
-            project(':well-generator:well-generator-common')
-    )
-}

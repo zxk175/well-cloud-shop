@@ -3,8 +3,9 @@ services:
   peer1:
     build:
       context: ./
-      dockerfile: docker/Dockerfile-eureka
-    container_name: peer1
+      dockerfile: docker/Dockerfile.eureka
+    image: 'zxk175/well-peer1:${VERSION}'
+    container_name: 'peer1'
     # 宿主机端口:容器端口
     ports:
       - "8001:8001"
@@ -16,8 +17,9 @@ services:
   peer2:
     build:
       context: ./
-      dockerfile: docker/Dockerfile-eureka
-    container_name: peer2
+      dockerfile: docker/Dockerfile.eureka
+    image: 'zxk175/well-peer2:${VERSION}'
+    container_name: 'peer2'
     # 宿主机端口:容器端口
     ports:
       - "8002:8002"
@@ -29,8 +31,9 @@ services:
   peer3:
     build:
       context: ./
-      dockerfile: docker/Dockerfile-eureka
-    container_name: peer3
+      dockerfile: docker/Dockerfile.eureka
+    image: 'zxk175/well-peer3:${VERSION}'
+    container_name: 'peer3'
     # 宿主机端口:容器端口
     ports:
       - "8003:8003"

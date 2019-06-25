@@ -3,8 +3,9 @@ services:
   well-boot-admin:
     build:
       context: ./
-      dockerfile: docker/Dockerfile-boot-admin
-    container_name: well-boot-admin
+      dockerfile: docker/Dockerfile.boot-admin
+    image: 'zxk175/well-boot-admin:${VERSION}'
+    container_name: 'well-boot-admin'
     ports:
       - "8010:8010"
     environment:
@@ -16,8 +17,9 @@ services:
   well-zuul:
     build:
       context: ./
-      dockerfile: docker/Dockerfile-zuul
-    container_name: well-zuul
+      dockerfile: docker/Dockerfile.zuul
+    image: 'zxk175/well-zuul:${VERSION}'
+    container_name: 'well-zuul'
     ports:
       - "9000:9000"
     environment:
@@ -29,8 +31,9 @@ services:
   well-provider-user:
     build:
       context: ./
-      dockerfile: docker/Dockerfile-provider-user
-    container_name: well-provider-user
+      dockerfile: docker/Dockerfile.provider-user
+    image: 'zxk175/well-provider-user:${VERSION}'
+    container_name: 'well-provider-user'
     ports:
       - "9010:9010"
     environment:
