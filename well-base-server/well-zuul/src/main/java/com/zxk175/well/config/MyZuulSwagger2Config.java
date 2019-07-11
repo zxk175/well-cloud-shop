@@ -1,7 +1,7 @@
 package com.zxk175.well.config;
 
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cloud.netflix.zuul.filters.Route;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Primary;
@@ -17,9 +17,9 @@ import java.util.List;
  */
 @Component
 @Primary
+@AllArgsConstructor
 public class MyZuulSwagger2Config implements SwaggerResourcesProvider {
 
-    @Autowired
     private RouteLocator routeLocator;
 
 
