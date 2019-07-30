@@ -38,6 +38,7 @@ public class ExceptionUtil {
     private static final String FORMAT5 = Const.FORMAT5;
     private static final String FORMAT_DEFAULT = Const.DATE_FORMAT_CN;
 
+
     private static void sendRequestInfo(String title, StringBuilder sb) {
         StringBuilder msg = new StringBuilder(16);
 
