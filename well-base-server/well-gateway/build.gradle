@@ -15,6 +15,6 @@ dependencies {
                     libraries.swagger2_ui,
 
                     libraries.cloud_eureka_client,
-                    libraries.cloud_zuul,
+                    libraries.cloud_gateway,
             ])
 }

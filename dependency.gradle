@@ -8,13 +8,14 @@ ext {
 
     // jar包版本
     versions = [
-            spring_boot      : "2.1.5.RELEASE",
+            spring_boot      : "2.1.6.RELEASE",
             spring_cloud     : 'Greenwich.RELEASE',
             aspect           : "1.9.2",
 
             boot_admin       : "2.1.5",
             boot_mybatis     : "2.0.1",
-            boot_mybatis_plus: "3.1.1",
+            boot_mybatis_plus: "3.1.2",
+            boot_druid       : "1.1.19",
 
             swagger2         : "2.7.0",
 
@@ -51,7 +52,7 @@ ext {
             cloud_zuul             : "org.springframework.cloud:spring-cloud-starter-netflix-zuul",
             cloud_hystrix          : "org.springframework.cloud:spring-cloud-starter-netflix-hystrix",
             cloud_hystrix_dashboard: "org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard",
-            cloud_turbine          : "org.springframework.cloud:spring-cloud-starter-netflix-turbine",
+            cloud_gateway          : "org.springframework.cloud:spring-cloud-starter-gateway",
 
             boot_admin_server      : "de.codecentric:spring-boot-admin-starter-server:${versions.boot_admin}",
             boot_admin_client      : "de.codecentric:spring-boot-admin-starter-client:${versions.boot_admin}",
@@ -61,13 +62,13 @@ ext {
             mybatis_plus_gen       : "com.baomidou:mybatis-plus-generator:${versions.boot_mybatis_plus}",
 
             mysql                  : "mysql:mysql-connector-java:8.0.16",
-            boot_druid             : "com.alibaba:druid-spring-boot-starter:1.1.16",
+            boot_druid             : "com.alibaba:druid-spring-boot-starter:${versions.boot_druid}",
             boot_shiro             : "org.apache.shiro:shiro-spring-boot-web-starter:1.4.1",
 
             swagger2               : "io.springfox:springfox-swagger2:${versions.swagger2}",
             swagger2_ui            : "io.springfox:springfox-swagger-ui:${versions.swagger2}",
 
-            hibernate_validator    : "org.hibernate:hibernate-validator:6.0.16.Final",
+            hibernate_validator    : "org.hibernate:hibernate-validator:6.0.17.Final",
             validation_api         : "javax.validation:validation-api:2.0.1.Final",
 
             javax_servlet_api      : "javax.servlet:javax.servlet-api:${versions.javax_servlet_api}",
@@ -82,7 +83,7 @@ ext {
             fst                    : "de.ruedigermoeller:fst:2.57",
             jwt                    : "io.jsonwebtoken:jjwt:0.9.1",
 
-            guava                  : "com.google.guava:guava:27.1-jre",
+            guava                  : "com.google.guava:guava:28.0-jre",
             tuple                  : "com.github.sd4324530:JTuple:1.2.1",
             zxing                  : "com.google.zxing:core:3.3.3",
             easy_excel             : "com.alibaba:easyexcel:1.1.1",

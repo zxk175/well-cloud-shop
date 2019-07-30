@@ -14,12 +14,12 @@ services:
     networks:
       - cloud
 
-  well-zuul:
+  well-gateway:
     build:
       context: ./
-      dockerfile: docker/Dockerfile.zuul
-    image: '${AUTHOR}/well-zuul:${TAG}'
-    container_name: 'well-zuul'
+      dockerfile: docker/Dockerfile.gateway
+    image: '${AUTHOR}/well-gateway:${TAG}'
+    container_name: 'well-gateway'
     ports:
       - "9000:9000"
     environment:
