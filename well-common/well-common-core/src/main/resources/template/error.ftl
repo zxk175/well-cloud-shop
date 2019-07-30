@@ -18,6 +18,8 @@
 <body>
 <h3 class="title">${title}</h3>
 <br/>
+<pre>
 ${ex}
+</pre>
 </body>
 </html>
