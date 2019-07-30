@@ -105,8 +105,8 @@ public class Const {
         config.put(java.util.Date.class, new SimpleDateFormatSerializer(Const.DEFAULT_DATE_FORMAT));
         config.put(java.sql.Date.class, new SimpleDateFormatSerializer(Const.DEFAULT_DATE_FORMAT));
         config.put(java.time.LocalDateTime.class, new MyLocalDateFormatSerializer(Const.DEFAULT_DATE_FORMAT));
-        config.put(Long.class, MyToStringSerializer.instance);
-        config.put(Long.TYPE, MyToStringSerializer.instance);
+        config.put(Long.class, MyToStringSerializer.INSTANCE);
+        config.put(Long.TYPE, MyToStringSerializer.INSTANCE);
 
         return config;
     }

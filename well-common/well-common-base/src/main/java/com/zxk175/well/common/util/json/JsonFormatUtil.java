@@ -1,4 +1,4 @@
-package com.zxk175.well.common.util;
+package com.zxk175.well.common.util.json;
 
 /**
  * https://blog.csdn.net/weixin_40393909/article/details/80369300

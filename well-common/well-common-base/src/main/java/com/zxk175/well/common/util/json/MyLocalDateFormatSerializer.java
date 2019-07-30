@@ -7,6 +7,10 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * @author zxk175
+ * @since 2019/03/23 15:27
+ */
 public class MyLocalDateFormatSerializer implements ObjectSerializer {
 
     private final String pattern;
@@ -15,6 +19,7 @@ public class MyLocalDateFormatSerializer implements ObjectSerializer {
         this.pattern = pattern;
     }
 
+    @Override
     public void write(JSONSerializer serializer, Object object, Object fieldName, Type fieldType, int features) {
         if (object == null) {
             serializer.out.writeNull();

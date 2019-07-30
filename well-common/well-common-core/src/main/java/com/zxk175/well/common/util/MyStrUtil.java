@@ -41,8 +41,4 @@ public class MyStrUtil {
     public static boolean eqIgnoreCase(CharSequence one, CharSequence two) {
         return StrUtil.equals(one, two, true);
     }
-
-    public static String format(CharSequence template, Object... params) {
-        return StrUtil.format(template, params);
-    }
 }

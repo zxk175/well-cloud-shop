@@ -7,6 +7,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.zxk175.well.common.consts.Const;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.Type;
+
 /**
  * @author zxk175
  * @since 2019/03/23 20:42
@@ -31,15 +33,23 @@ public class FastJsonUtil {
         return JSON.toJSONString(object, CONFIG, FAST_JSON_VALUE_FILTER, FEATURES);
     }
 
+    public static String jsonStrByMy(Object object, SerializeFilter[] filters) {
+        return JSON.toJSONString(object, CONFIG, filters, FEATURES);
+    }
+
     public static String jsonStrByNotEmpty(Object object) {
         return JSON.toJSONString(object, CONFIG);
     }
 
-    public static String jsonStrByCustom(Object object, SerializeFilter[] filters) {
-        return JSON.toJSONString(object, CONFIG, filters, FEATURES);
+    public static String jsonPrettyFormat(Object json) {
+        return JSON.toJSONString(json, true);
     }
 
     public static <T> T toObject(String jsonStr, Class<T> clazz) {
+        return JSON.parseObject(jsonStr, clazz);
+    }
+
+    public static <T> T toObject(String jsonStr, Type clazz) {
         return JSON.parseObject(jsonStr, clazz);
     }
 }
