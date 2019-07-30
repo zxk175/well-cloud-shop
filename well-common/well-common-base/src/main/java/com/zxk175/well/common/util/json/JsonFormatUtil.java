@@ -13,7 +13,7 @@ public class JsonFormatUtil {
      * @param jsonStr ignore
      * @return ignore
      */
-    static String formatJsonStr(String jsonStr) {
+   public static String formatJsonStr(String jsonStr) {
         int level = 0;
         // 存放格式化的json字符串
         StringBuilder jsonForMatStr = new StringBuilder();
