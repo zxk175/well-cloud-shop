@@ -37,7 +37,7 @@ public class MySwaggerProvider implements SwaggerResourcesProvider {
             public void accept(RouteDefinition routeDefinition) {
                 // webSocket代理路由
                 URI uri = routeDefinition.getUri();
-                if (lb.startsWith(uri.toString())) {
+                if (uri.toString().startsWith(lb)) {
                     resources.add(swaggerResource(routeDefinition.getId(), "/" + uri.getHost().toLowerCase() + API_URI));
                 }
             }
