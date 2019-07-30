@@ -1,6 +1,0 @@
-FROM openjdk:8-jdk-alpine
-LABEL maintainer="zxk175 zxk175@qq.com"
-
-ADD well-base-server/well-zuul/build/libs/well-zuul*.jar app.jar
-ENV JAVA_OPTS="-Xmx300m -Xms300m -Djava.security.egd=file:/dev/./urandom"
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar app.jar" ]

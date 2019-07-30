@@ -15,7 +15,7 @@ ext {
             boot_admin       : "2.1.5",
             boot_mybatis     : "2.0.1",
             boot_mybatis_plus: "3.1.2",
-            boot_druid       : "1.1.19",
+            boot_druid       : "1.1.18",
 
             swagger2         : "2.7.0",
 
