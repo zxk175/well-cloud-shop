@@ -1,8 +1,8 @@
 package com.zxk175.well.common.model.param.sys.user;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.zxk175.well.common.consts.enums.MenuType;
 import com.zxk175.well.common.consts.Const;
+import com.zxk175.well.common.consts.enums.MenuType;
 import com.zxk175.well.common.model.param.sys.SysUserBaseParam;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

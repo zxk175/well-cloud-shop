@@ -1,0 +1,8 @@
+zuul:
+  routes:
+    provider-user:
+      url: http://localhost:9010
+
+logging:
+  level:
+    root: info

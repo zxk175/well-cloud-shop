@@ -1,7 +1,8 @@
 package com.zxk175.well.module.controller.sys;
 
-import com.zxk175.well.common.http.Response;
 import com.zxk175.well.common.consts.Const;
+import com.zxk175.well.common.http.Response;
+import com.zxk175.well.module.controller.BaseController;
 import com.zxk175.well.module.entity.sys.SysRoleMenu;
 import com.zxk175.well.module.service.sys.SysRoleMenuService;
 import io.swagger.annotations.Api;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.zxk175.well.module.controller.BaseController;
 
 /**
  * <p>

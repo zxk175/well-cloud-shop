@@ -1,7 +1,7 @@
 package com.zxk175.well.module.dao.sys;
 
-import com.zxk175.well.module.entity.sys.SysUserToken;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zxk175.well.module.entity.sys.SysUserToken;
 
 /**
  * <p>

@@ -1,9 +1,9 @@
 package com.zxk175.well.module.service.impl.sys;
 
-import com.zxk175.well.module.entity.sys.SysUserToken;
-import com.zxk175.well.module.dao.sys.SysUserTokenDao;
-import com.zxk175.well.module.service.sys.SysUserTokenService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zxk175.well.module.dao.sys.SysUserTokenDao;
+import com.zxk175.well.module.entity.sys.SysUserToken;
+import com.zxk175.well.module.service.sys.SysUserTokenService;
 import org.springframework.stereotype.Service;
 
 /**
