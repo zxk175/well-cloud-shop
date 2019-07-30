@@ -1,23 +1,13 @@
 package com.zxk175.well.common.util.common;
 
 import cn.hutool.core.collection.CollUtil;
-import com.google.common.collect.Maps;
-import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.consts.enums.IdentityType;
 import com.zxk175.well.common.http.Response;
 import com.zxk175.well.common.model.dto.PageBeanDTO;
 import com.zxk175.well.common.model.param.PageParam;
-import com.zxk175.well.common.util.DateUtil;
-import com.zxk175.well.common.util.ExceptionUtil;
 import com.zxk175.well.common.util.MyStrUtil;
-import com.zxk175.well.common.util.spring.SpringActiveUtil;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -128,25 +118,6 @@ public class CommonUtil {
         }
 
         return "";
-    }
-
-    public static String buildErrorPath(String prefix) {
-        return prefix + MyStrUtil.SLASH + SpringActiveUtil.getActive() + MyStrUtil.SLASH + DateUtil.now(Const.DATE_FORMAT_NO_TIME) + MyStrUtil.SLASH;
-    }
-
-    public static InputStream createExceptionHTML(String title, Exception ex) throws Exception {
-        Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
-        configuration.setClassForTemplateLoading(CommonUtil.class, "/template/");
-
-        Map<String, Object> data = Maps.newHashMap();
-        data.put("title", title);
-        String exDetailInfo = ExceptionUtil.getExceptionDetail(ex);
-        data.put("ex", exDetailInfo);
-
-        Template template = configuration.getTemplate("error.ftl");
-        StringWriter out = new StringWriter();
-        template.process(data, out);
-        return new ByteArrayInputStream(out.toString().getBytes(Const.UTF_8_OBJ));
     }
 
     public static String getLoginUrl(HttpServletRequest httpRequest) {

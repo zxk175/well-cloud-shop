@@ -18,11 +18,11 @@ import java.util.concurrent.ExecutorService;
 @Slf4j
 public class PushWellUtil {
 
-    public static void sendNotify(String title, String msg) {
+    public static void sendNotify(String title, StringBuilder msg) {
         send(title, msg);
     }
 
-    private static void send(String title, String msg) {
+    private static void send(String title, StringBuilder msg) {
         ExecutorService singleThreadPool = ThreadUtil.newExecutor(5, "notify");
         boolean flag = SpringActiveUtil.getBoolean();
 
@@ -31,7 +31,7 @@ public class PushWellUtil {
             try {
                 Map<String, String> params = Maps.newHashMap();
                 params.put("title", active2ChineseStr + "=" + title);
-                params.put("content", msg);
+                params.put("content", msg.toString());
                 params.put("sendKey", Const.MSG_KEY);
 
                 String jsonStr = FastJsonUtil.jsonStr(params);

@@ -37,6 +37,9 @@ public class Const {
 
     public static final String FORMAT1 = "\n\n### ";
     public static final String FORMAT2 = "\n\n- ";
+    public static final String FORMAT3 = "\n\n";
+    public static final String FORMAT4 = "\n```\n";
+    public static final String FORMAT5 = "\n```";
 
     public static final int OK_CODE = 0;
     public static final int FAIL_CODE = -1;
