@@ -10,8 +10,6 @@ dependencies {
     compile(
             project(":well-common:well-common-base"),
             [
-                    libraries.boot_undertow,
-
                     libraries.swagger2_ui,
 
                     libraries.cloud_eureka_client,
