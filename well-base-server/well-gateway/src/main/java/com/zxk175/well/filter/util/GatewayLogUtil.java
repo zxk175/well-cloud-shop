@@ -21,6 +21,7 @@ import reactor.core.publisher.Flux;
 
 import java.net.URI;
 import java.nio.CharBuffer;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -34,6 +35,16 @@ public class GatewayLogUtil {
     private static boolean hasBody(HttpMethod method) {
         // 只记录这3种body
         return (method == HttpMethod.GET || method == HttpMethod.POST || method == HttpMethod.PUT || method == HttpMethod.PATCH);
+    }
+
+    private static void resolveHeader(StringBuilder logBuffer, HttpHeaders headers) {
+        for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
+            String name = entry.getKey();
+            List<String> values = entry.getValue();
+            for (String value : values) {
+                logBuffer.append(name).append(":").append(value).append('\n');
+            }
+        }
     }
 
     private static String resolveBody(Flux<DataBuffer> body) {
@@ -74,11 +85,7 @@ public class GatewayLogUtil {
 
         logBuffer.append("\n------------请求头------------\n");
         HttpHeaders headers = httpRequest.getHeaders();
-        headers.forEach((name, values) -> {
-            values.forEach(value -> {
-                logBuffer.append(name).append(":").append(value).append('\n');
-            });
-        });
+        resolveHeader(logBuffer, headers);
 
         if (hasBody(method)) {
             logBuffer.append("------------请求体------------\n");
@@ -125,11 +132,7 @@ public class GatewayLogUtil {
 
         HttpHeaders headers = httpResponse.getHeaders();
         logBuffer.append("\n------------响应头------------\n");
-        headers.forEach((name, values) -> {
-            values.forEach(value -> {
-                logBuffer.append(name).append(":").append(value).append('\n');
-            });
-        });
+        resolveHeader(logBuffer, headers);
 
         logBuffer.append("------------响应体------------\n");
 
@@ -140,9 +143,8 @@ public class GatewayLogUtil {
             logBuffer.append("响应体为空");
         } else {
             body = JsonFormatUtil.formatJsonStr(body);
+            logBuffer.append(body);
         }
-
-        logBuffer.append(body);
 
         logBuffer.append("\n------------ end ------------\n\n");
 
