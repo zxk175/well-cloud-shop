@@ -46,12 +46,8 @@ public class RequestLogGlobalFilter implements GlobalFilter, Ordered {
             return filterChain.filter(exchange);
         }
 
-        // 记录请求记录
-        MyRequestDecorator myRequestDecorator = new MyRequestDecorator(originRequest);
-        // 原始请求
+        // 记录原始请求
         GatewayLogUtil.recorderOriginRequest(exchange);
-        // 代理请求
-        GatewayLogUtil.recorderRouteRequest(exchange);
 
         ServerHttpResponse response = exchange.getResponse();
         DataBufferFactory bufferFactory = response.bufferFactory();
@@ -80,6 +76,8 @@ public class RequestLogGlobalFilter implements GlobalFilter, Ordered {
                 return super.writeWith(body);
             }
         };
+
+        MyRequestDecorator myRequestDecorator = new MyRequestDecorator(originRequest);
 
         return filterChain.filter(exchange.mutate().request(myRequestDecorator).response(decoratedResponse).build());
     }
