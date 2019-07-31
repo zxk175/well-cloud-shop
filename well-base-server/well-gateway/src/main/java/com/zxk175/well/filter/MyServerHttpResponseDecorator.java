@@ -4,6 +4,7 @@ import org.reactivestreams.Publisher;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
 
@@ -26,6 +27,16 @@ public class MyServerHttpResponseDecorator extends ServerHttpResponseDecorator {
     @NonNull
     @Override
     public Mono<Void> writeWith(@NonNull Publisher<? extends DataBuffer> body) {
-        return super.writeWith(body);
+        return super.writeWith(copy());
+    }
+
+    @NonNull
+    @Override
+    public Mono<Void> writeAndFlushWith(@NonNull Publisher<? extends Publisher<? extends DataBuffer>> body) {
+        return writeWith(copy());
+    }
+
+    public Flux<DataBuffer> copy() {
+        return Flux.fromIterable(dataBuffers).map(buf -> buf.factory().wrap(buf.asByteBuffer()));
     }
 }

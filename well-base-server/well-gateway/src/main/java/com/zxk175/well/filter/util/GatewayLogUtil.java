@@ -6,6 +6,7 @@ import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.util.MyStrUtil;
 import com.zxk175.well.common.util.json.FastJsonUtil;
 import com.zxk175.well.common.util.json.JsonFormatUtil;
+import com.zxk175.well.filter.MyServerHttpResponseDecorator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 
 import java.net.URI;
@@ -34,10 +36,7 @@ public class GatewayLogUtil {
         return (method == HttpMethod.GET || method == HttpMethod.POST || method == HttpMethod.PUT || method == HttpMethod.PATCH);
     }
 
-    private static String resolveBodyFromRequest(ServerHttpRequest httpRequest) {
-        // 获取请求体
-        Flux<DataBuffer> body = httpRequest.getBody();
-
+    private static String resolveBody(Flux<DataBuffer> body) {
         AtomicReference<String> requestBody = new AtomicReference<>();
         body.subscribe(buffer -> {
             CharBuffer charBuffer = Const.UTF_8_OBJ.decode(buffer.asByteBuffer());
@@ -91,7 +90,7 @@ public class GatewayLogUtil {
                 MediaType contentType = headers.getContentType();
                 if (ObjectUtil.isNotNull(contentType)) {
                     String subType = contentType.getSubtype();
-                    String body = resolveBodyFromRequest(httpRequest);
+                    String body = resolveBody(httpRequest.getBody());
 
                     String xml = "xml";
                     if (subType.equals(xml)) {
@@ -114,7 +113,7 @@ public class GatewayLogUtil {
         log.info(logBuffer.toString());
     }
 
-    public static void recorderResponse(ServerHttpResponse httpResponse) {
+    public static void recorderResponse(ServerWebExchange exchange, ServerHttpResponse httpResponse) {
         StringBuilder logBuffer = new StringBuilder();
         HttpStatus statusCode = httpResponse.getStatusCode();
         logBuffer.append("\n-----------------------------\n");
@@ -132,6 +131,21 @@ public class GatewayLogUtil {
                 logBuffer.append(name).append(":").append(value).append('\n');
             });
         });
+
+        logBuffer.append("------------请求体------------\n");
+        MediaType contentType = headers.getContentType();
+        if (ObjectUtil.isNotNull(contentType)) {
+            String subType = contentType.getSubtype();
+            MyServerHttpResponseDecorator myResponse = (MyServerHttpResponseDecorator) exchange.getResponse();
+            String body = resolveBody(myResponse.copy());
+
+            String json = "json";
+            if (subType.equals(json)) {
+                body = JsonFormatUtil.formatJsonStr(body);
+            }
+
+            logBuffer.append(body);
+        }
 
         logBuffer.append("\n------------ end ------------\n\n");
 

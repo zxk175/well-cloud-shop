@@ -37,7 +37,7 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
         // 记录响应记录
         ServerHttpResponse originResponse = exchange.getResponse();
         MyServerHttpResponseDecorator myResponseDecorator = new MyServerHttpResponseDecorator(originResponse);
-        GatewayLogUtil.recorderResponse(myResponseDecorator);
+        GatewayLogUtil.recorderResponse(exchange, myResponseDecorator);
 
         return filterChain.filter(exchange.mutate().response(myResponseDecorator).build());
     }
