@@ -28,7 +28,7 @@ import java.net.URI;
  */
 @Slf4j
 @Component
-public class RequestLogGlobalFilter implements GlobalFilter, Ordered {
+public class LowerGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
