@@ -17,7 +17,7 @@ import java.net.URI;
  * @since 2019/07/25 16:18
  */
 @Component
-public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
+public class ResponseGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
@@ -36,7 +36,7 @@ public class WrapperResponseGlobalFilter implements GlobalFilter, Ordered {
 
         // 记录响应记录
         ServerHttpResponse originResponse = exchange.getResponse();
-        MyServerHttpResponseDecorator myResponseDecorator = new MyServerHttpResponseDecorator(originResponse);
+        MyResponseDecorator myResponseDecorator = new MyResponseDecorator(originResponse);
         GatewayLogUtil.recorderResponse(exchange, myResponseDecorator);
 
         return filterChain.filter(exchange.mutate().response(myResponseDecorator).build());

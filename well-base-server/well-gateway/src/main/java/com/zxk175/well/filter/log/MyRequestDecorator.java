@@ -13,12 +13,12 @@ import java.util.List;
  * @author zxk175
  * @since 2019/07/25 16:18
  */
-public class MyServerHttpRequestDecorator extends ServerHttpRequestDecorator {
+public class MyRequestDecorator extends ServerHttpRequestDecorator {
 
     private final List<DataBuffer> dataBuffers = new ArrayList<>();
 
 
-    MyServerHttpRequestDecorator(ServerHttpRequest delegateRequest) {
+    MyRequestDecorator(ServerHttpRequest delegateRequest) {
         super(delegateRequest);
         super.getBody().map(this::apply).subscribe();
     }

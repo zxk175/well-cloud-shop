@@ -6,7 +6,7 @@ import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.util.MyStrUtil;
 import com.zxk175.well.common.util.json.FastJsonUtil;
 import com.zxk175.well.common.util.json.JsonFormatUtil;
-import com.zxk175.well.filter.log.MyServerHttpResponseDecorator;
+import com.zxk175.well.filter.log.MyResponseDecorator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -132,21 +132,17 @@ public class GatewayLogUtil {
         });
 
         logBuffer.append("------------响应体------------\n");
-        MediaType contentType = headers.getContentType();
-        if (ObjectUtil.isNull(contentType)) {
+
+        MyResponseDecorator myResponseDecorator = (MyResponseDecorator) exchange.getResponse();
+        String body = resolveBody(myResponseDecorator.copy());
+
+        if (MyStrUtil.isBlank(body)) {
             logBuffer.append("响应体为空");
         } else {
-            String subType = contentType.getSubtype();
-            MyServerHttpResponseDecorator myResponse = (MyServerHttpResponseDecorator) exchange.getResponse();
-            String body = resolveBody(myResponse.copy());
-
-            String json = "json";
-            if (subType.equals(json)) {
-                body = JsonFormatUtil.formatJsonStr(body);
-            }
-
-            logBuffer.append(body);
+            body = JsonFormatUtil.formatJsonStr(body);
         }
+
+        logBuffer.append(body);
 
         logBuffer.append("\n------------ end ------------\n\n");
 

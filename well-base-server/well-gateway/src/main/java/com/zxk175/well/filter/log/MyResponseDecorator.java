@@ -16,12 +16,12 @@ import java.util.List;
  * @author zxk175
  * @since 2019/07/25 16:18
  */
-public class MyServerHttpResponseDecorator extends ServerHttpResponseDecorator {
+public class MyResponseDecorator extends ServerHttpResponseDecorator {
 
     private final List<DataBuffer> dataBuffers = new ArrayList<>();
 
 
-    MyServerHttpResponseDecorator(ServerHttpResponse delegateResponse) {
+    MyResponseDecorator(ServerHttpResponse delegateResponse) {
         super(delegateResponse);
     }
 

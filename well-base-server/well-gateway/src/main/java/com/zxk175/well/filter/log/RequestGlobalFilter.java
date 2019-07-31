@@ -19,7 +19,7 @@ import java.net.URI;
  */
 @Slf4j
 @Component
-public class WrapperRequestGlobalFilter implements GlobalFilter, Ordered {
+public class RequestGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
@@ -38,10 +38,10 @@ public class WrapperRequestGlobalFilter implements GlobalFilter, Ordered {
         }
 
         // 记录请求记录
-        MyServerHttpRequestDecorator myRequestDecorator = new MyServerHttpRequestDecorator(originRequest);
+        MyRequestDecorator myRequestDecorator = new MyRequestDecorator(originRequest);
         GatewayLogUtil.recorderRequest(myRequestDecorator);
 
-        MyServerHttpResponseDecorator myResponseDecorator = new MyServerHttpResponseDecorator(exchange.getResponse());
+        MyResponseDecorator myResponseDecorator = new MyResponseDecorator(exchange.getResponse());
 
         return filterChain.filter(exchange.mutate().request(myRequestDecorator).response(myResponseDecorator).build());
     }
