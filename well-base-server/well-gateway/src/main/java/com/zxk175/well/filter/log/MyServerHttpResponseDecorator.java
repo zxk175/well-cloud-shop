@@ -1,8 +1,7 @@
-package com.zxk175.well.filter;
+package com.zxk175.well.filter.log;
 
 import org.reactivestreams.Publisher;
 import org.springframework.core.io.buffer.DataBuffer;
-import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
@@ -22,29 +21,16 @@ public class MyServerHttpResponseDecorator extends ServerHttpResponseDecorator {
     private final List<DataBuffer> dataBuffers = new ArrayList<>();
 
 
-    MyServerHttpResponseDecorator(ServerHttpResponse delegate) {
-        super(delegate);
+    MyServerHttpResponseDecorator(ServerHttpResponse delegateResponse) {
+        super(delegateResponse);
     }
 
     @NonNull
     @Override
     public Mono<Void> writeWith(@NonNull Publisher<? extends DataBuffer> body) {
-        DataBufferFactory bufferFactory = this.bufferFactory();
-        if (body instanceof Flux) {
-            Flux<? extends DataBuffer> fluxBody = Flux.from(body);
-            return super.writeWith(fluxBody.map(dataBuffer -> {
-                dataBuffers.add(dataBuffer);
-
-                byte[] content = new byte[dataBuffer.readableByteCount()];
-                dataBuffer.read(content);
-                // 释放掉内存
-                DataBufferUtils.release(dataBuffer);
-
-                return bufferFactory.wrap(content);
-            }));
-        }
-
-        return super.writeWith(body);
+        return DataBufferUtils.join(Flux.from(body))
+                .doOnNext(this.dataBuffers::add)
+                .flatMap(dataBuffer -> super.writeWith(copy()));
     }
 
     @NonNull

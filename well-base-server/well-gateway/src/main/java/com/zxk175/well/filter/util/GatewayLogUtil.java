@@ -6,7 +6,7 @@ import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.util.MyStrUtil;
 import com.zxk175.well.common.util.json.FastJsonUtil;
 import com.zxk175.well.common.util.json.JsonFormatUtil;
-import com.zxk175.well.filter.MyServerHttpResponseDecorator;
+import com.zxk175.well.filter.log.MyServerHttpResponseDecorator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
