@@ -37,15 +37,15 @@ public class GatewayLogUtil {
     }
 
     private static String resolveBody(Flux<DataBuffer> body) {
-        AtomicReference<String> requestBody = new AtomicReference<>();
+        AtomicReference<String> bodyReference = new AtomicReference<>();
         body.subscribe(buffer -> {
             CharBuffer charBuffer = Const.UTF_8_OBJ.decode(buffer.asByteBuffer());
             DataBufferUtils.release(buffer);
-            requestBody.set(charBuffer.toString());
+            bodyReference.set(charBuffer.toString());
         });
 
-        // 获取requestBody
-        return requestBody.get();
+        // 获取body
+        return bodyReference.get();
     }
 
     public static boolean isRecorder(ServerHttpRequest httpRequest, URI uri) {

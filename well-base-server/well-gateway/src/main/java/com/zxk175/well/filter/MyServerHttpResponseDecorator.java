@@ -2,6 +2,8 @@ package com.zxk175.well.filter;
 
 import org.reactivestreams.Publisher;
 import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferFactory;
+import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import reactor.core.publisher.Flux;
@@ -27,16 +29,31 @@ public class MyServerHttpResponseDecorator extends ServerHttpResponseDecorator {
     @NonNull
     @Override
     public Mono<Void> writeWith(@NonNull Publisher<? extends DataBuffer> body) {
-        return super.writeWith(copy());
+        DataBufferFactory bufferFactory = this.bufferFactory();
+        if (body instanceof Flux) {
+            Flux<? extends DataBuffer> fluxBody = Flux.from(body);
+            return super.writeWith(fluxBody.map(dataBuffer -> {
+                dataBuffers.add(dataBuffer);
+
+                byte[] content = new byte[dataBuffer.readableByteCount()];
+                dataBuffer.read(content);
+                // 释放掉内存
+                DataBufferUtils.release(dataBuffer);
+
+                return bufferFactory.wrap(content);
+            }));
+        }
+
+        return super.writeWith(body);
     }
 
     @NonNull
     @Override
     public Mono<Void> writeAndFlushWith(@NonNull Publisher<? extends Publisher<? extends DataBuffer>> body) {
-        return writeWith(copy());
+        return writeWith(Flux.from(body).flatMapSequential(p -> p));
     }
 
     public Flux<DataBuffer> copy() {
-        return Flux.fromIterable(dataBuffers).map(buf -> buf.factory().wrap(buf.asByteBuffer()));
+        return Flux.fromIterable(dataBuffers).map(buffer -> buffer.factory().wrap(buffer.asByteBuffer()));
     }
 }
