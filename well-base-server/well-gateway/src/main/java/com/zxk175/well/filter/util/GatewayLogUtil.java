@@ -6,7 +6,6 @@ import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.util.MyStrUtil;
 import com.zxk175.well.common.util.json.FastJsonUtil;
 import com.zxk175.well.common.util.json.JsonFormatUtil;
-import com.zxk175.well.filter.log.MyResponseDecorator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -25,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
+
 /**
  * @author zxk175
  * @since 2019/7/25 20:04
@@ -42,16 +43,17 @@ public class GatewayLogUtil {
             String name = entry.getKey();
             List<String> values = entry.getValue();
             for (String value : values) {
-                logBuffer.append(name).append(":").append(value).append('\n');
+                logBuffer.append(name).append("：").append(value).append('\n');
             }
         }
     }
 
-    private static String resolveBody(Flux<DataBuffer> body) {
+    public static String resolveBody(Flux<? extends DataBuffer> body) {
         AtomicReference<String> bodyReference = new AtomicReference<>();
-        body.subscribe(buffer -> {
-            CharBuffer charBuffer = Const.UTF_8_OBJ.decode(buffer.asByteBuffer());
-            DataBufferUtils.release(buffer);
+        body.subscribe(dataBuffer -> {
+            CharBuffer charBuffer = Const.UTF_8_OBJ.decode(dataBuffer.asByteBuffer());
+            // 释放内存
+            DataBufferUtils.release(dataBuffer);
             bodyReference.set(charBuffer.toString());
         });
 
@@ -73,12 +75,25 @@ public class GatewayLogUtil {
         return websocket.equalsIgnoreCase(upgrade);
     }
 
-    public static void recorderRequest(ServerHttpRequest httpRequest) {
-        URI uri = httpRequest.getURI();
-        HttpMethod method = httpRequest.getMethod();
-
+    public static void recorderOriginRequest(ServerWebExchange exchange) {
         StringBuilder logBuffer = new StringBuilder();
         logBuffer.append("\n-----------------------------\n");
+
+        ServerHttpRequest request = exchange.getRequest();
+        recorderRequest(request, request.getURI(), logBuffer.append("原始请求：\n"));
+    }
+
+    public static void recorderRouteRequest(ServerWebExchange exchange) {
+        StringBuilder logBuffer = new StringBuilder();
+        logBuffer.append("\n-----------------------------\n");
+
+        URI requestUrl = exchange.getRequiredAttribute(GATEWAY_REQUEST_URL_ATTR);
+        recorderRequest(exchange.getRequest(), requestUrl, logBuffer.append("代理请求：\n"));
+    }
+
+    private static void recorderRequest(ServerHttpRequest httpRequest, URI uri, StringBuilder logBuffer) {
+        HttpMethod method = httpRequest.getMethod();
+
         if (ObjectUtil.isNotNull(method)) {
             logBuffer.append(method.name()).append(' ').append(uri.toString());
         }
@@ -119,7 +134,7 @@ public class GatewayLogUtil {
         log.info(logBuffer.toString());
     }
 
-    public static void recorderResponse(ServerWebExchange exchange, ServerHttpResponse httpResponse) {
+    public static void recorderResponse(ServerHttpResponse httpResponse, String body) {
         StringBuilder logBuffer = new StringBuilder();
         HttpStatus statusCode = httpResponse.getStatusCode();
         logBuffer.append("\n-----------------------------\n");
@@ -136,14 +151,19 @@ public class GatewayLogUtil {
 
         logBuffer.append("------------响应体------------\n");
 
-        MyResponseDecorator myResponseDecorator = (MyResponseDecorator) exchange.getResponse();
-        String body = resolveBody(myResponseDecorator.copy());
-
         if (MyStrUtil.isBlank(body)) {
             logBuffer.append("响应体为空");
         } else {
-            body = JsonFormatUtil.formatJsonStr(body);
-            logBuffer.append(body);
+            MediaType contentType = headers.getContentType();
+            if (ObjectUtil.isNotNull(contentType)) {
+                String subType = contentType.getSubtype();
+
+                String json = "json";
+                if (subType.equals(json)) {
+                    String newBody = JsonFormatUtil.formatJsonStr(body);
+                    logBuffer.append(newBody);
+                }
+            }
         }
 
         logBuffer.append("\n------------ end ------------\n\n");

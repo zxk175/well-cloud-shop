@@ -30,7 +30,7 @@ public class MyRequestDecorator extends ServerHttpRequestDecorator {
     }
 
     private Flux<DataBuffer> copy() {
-        return Flux.fromIterable(dataBuffers).map(buf -> buf.factory().wrap(buf.asByteBuffer()));
+        return Flux.fromIterable(dataBuffers).map(dataBuffer -> dataBuffer.factory().wrap(dataBuffer.asByteBuffer()));
     }
 
     private DataBuffer apply(DataBuffer dataBuffer) {
