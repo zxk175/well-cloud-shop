@@ -81,10 +81,9 @@ public class GatewayLogUtil {
         });
 
         if (hasBody(method)) {
+            logBuffer.append("------------请求体------------\n");
             long length = headers.getContentLength();
-
             if (length <= 0) {
-                logBuffer.append("------------请求体------------\n");
                 logBuffer.append("请求体为空");
             } else {
                 MediaType contentType = headers.getContentType();
@@ -132,9 +131,11 @@ public class GatewayLogUtil {
             });
         });
 
-        logBuffer.append("------------请求体------------\n");
+        logBuffer.append("------------响应体------------\n");
         MediaType contentType = headers.getContentType();
-        if (ObjectUtil.isNotNull(contentType)) {
+        if (ObjectUtil.isNull(contentType)) {
+            logBuffer.append("响应体为空");
+        } else {
             String subType = contentType.getSubtype();
             MyServerHttpResponseDecorator myResponse = (MyServerHttpResponseDecorator) exchange.getResponse();
             String body = resolveBody(myResponse.copy());
