@@ -36,9 +36,11 @@ public class HigherGlobalFilter implements GlobalFilter, Ordered {
             return filterChain.filter(exchange);
         }
 
+        MyRequestDecorator myRequestDecorator = new MyRequestDecorator(originRequest);
+
         // 记录代理请求
         GatewayLogUtil.recorderRouteRequest(exchange);
 
-        return filterChain.filter(exchange.mutate().build());
+        return filterChain.filter(exchange.mutate().request(myRequestDecorator).build());
     }
 }
