@@ -1,5 +1,6 @@
 package com.zxk175.well.filter.util;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.XmlUtil;
 import com.zxk175.well.common.consts.Const;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
 
@@ -96,6 +98,10 @@ public class GatewayLogUtil {
 
         if (ObjectUtil.isNotNull(method)) {
             logBuffer.append(method.name()).append(' ').append(uri.toString());
+            MultiValueMap<String, String> queryParams = httpRequest.getQueryParams();
+            if (CollUtil.isNotEmpty(queryParams)) {
+                logBuffer.append("\nQuery：\n").append(FastJsonUtil.jsonPrettyFormat(queryParams));
+            }
         }
 
         logBuffer.append("\n------------请求头------------\n");
