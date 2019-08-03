@@ -110,14 +110,13 @@ public class GatewayLogUtil {
 
         if (hasBody(method)) {
             logBuffer.append("------------请求体------------\n");
-            long length = headers.getContentLength();
-            if (length <= 0) {
+            String body = resolveBody(httpRequest.getBody());
+            if (MyStrUtil.isBlank(body)) {
                 logBuffer.append("请求体为空");
             } else {
                 MediaType contentType = headers.getContentType();
                 if (ObjectUtil.isNotNull(contentType)) {
                     String subType = contentType.getSubtype();
-                    String body = resolveBody(httpRequest.getBody());
 
                     String xml = "xml";
                     if (subType.equals(xml)) {
