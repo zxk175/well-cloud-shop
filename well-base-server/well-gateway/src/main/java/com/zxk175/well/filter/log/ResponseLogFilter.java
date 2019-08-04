@@ -71,7 +71,11 @@ public class ResponseLogFilter implements GlobalFilter, Ordered {
 
                             return getDefer(cachedFlux, bodyInsert, outputMessage);
                         });
+            }
 
+            @Override
+            public Mono<Void> writeAndFlushWith(@NonNull Publisher<? extends Publisher<? extends DataBuffer>> body) {
+                return writeWith(Flux.from(body).flatMapSequential(p -> p));
             }
 
             private Mono<Void> getDefer(Flux<DataBuffer> cachedFlux, BodyInserter<Flux<DataBuffer>, ReactiveHttpOutputMessage> bodyInsert, CachedBodyOutputMessage outputMessage) {
@@ -86,11 +90,6 @@ public class ResponseLogFilter implements GlobalFilter, Ordered {
                             return getDelegate().writeWith(messageBody);
                         })));
             }
-
-            @Override
-            public Mono<Void> writeAndFlushWith(@NonNull Publisher<? extends Publisher<? extends DataBuffer>> body) {
-                return writeWith(Flux.from(body).flatMapSequential(p -> p));
-            }
         };
 
         return filterChain.filter(exchange.mutate().response(responseDecorator).build());
@@ -100,6 +99,7 @@ public class ResponseLogFilter implements GlobalFilter, Ordered {
 
         private final Flux<DataBuffer> flux;
         private final HttpHeaders headers;
+
 
         ResponseAdapter(Publisher<? extends DataBuffer> body, HttpHeaders headers) {
             this.headers = headers;
