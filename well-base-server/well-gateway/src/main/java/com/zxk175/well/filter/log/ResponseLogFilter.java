@@ -21,6 +21,7 @@ import org.springframework.http.client.reactive.ClientHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -106,7 +107,8 @@ public class ResponseLogFilter implements GlobalFilter, Ordered {
             if (body instanceof Flux) {
                 flux = Flux.from(body);
             } else {
-                flux = ((Mono) body).flux();
+                Mono<DataBuffer> from = Mono.from(body);
+                flux = from.flux();
             }
         }
 
@@ -122,19 +124,21 @@ public class ResponseLogFilter implements GlobalFilter, Ordered {
             return headers;
         }
 
+        @NonNull
         @Override
         public HttpStatus getStatusCode() {
-            return null;
+            return HttpStatus.valueOf(getRawStatusCode());
         }
 
         @Override
         public int getRawStatusCode() {
-            return 0;
+            return 200;
         }
 
+        @NonNull
         @Override
         public MultiValueMap<String, ResponseCookie> getCookies() {
-            return null;
+            return new LinkedMultiValueMap<>();
         }
     }
 }
