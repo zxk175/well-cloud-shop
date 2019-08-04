@@ -38,6 +38,10 @@ public class MyStrUtil {
         return !eq(one, two);
     }
 
+    public static boolean neIgnoreCase(CharSequence one, CharSequence two) {
+        return !eqIgnoreCase(one, two);
+    }
+
     public static boolean eqIgnoreCase(CharSequence one, CharSequence two) {
         return StrUtil.equals(one, two, true);
     }

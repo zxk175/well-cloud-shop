@@ -14,16 +14,14 @@ import java.net.URI;
 
 /**
  * @author zxk175
- * @since 2019/07/25 16:18
  */
 @Slf4j
 @Component
-public class HigherGlobalFilter implements GlobalFilter, Ordered {
+public class RouteRequestLogFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        // 在向业务服务转发前执行 NettyRoutingFilter 或 WebClientHttpRoutingFilter
-        return Ordered.LOWEST_PRECEDENCE - 10;
+        return FilterConst.ROUTE_REQUEST_LOG_FILTER;
     }
 
     @Override
@@ -36,11 +34,9 @@ public class HigherGlobalFilter implements GlobalFilter, Ordered {
             return filterChain.filter(exchange);
         }
 
-        MyRequestDecorator myRequestDecorator = new MyRequestDecorator(originRequest);
-
         // 记录代理请求
         GatewayLogUtil.recorderRouteRequest(exchange);
 
-        return filterChain.filter(exchange.mutate().request(myRequestDecorator).build());
+        return filterChain.filter(exchange);
     }
 }

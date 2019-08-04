@@ -3,11 +3,14 @@ package com.zxk175.well.filter.util;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.XmlUtil;
-import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.util.MyStrUtil;
+import com.zxk175.well.common.util.id.ClockUtil;
 import com.zxk175.well.common.util.json.FastJsonUtil;
 import com.zxk175.well.common.util.json.JsonFormatUtil;
+import com.zxk175.well.filter.log.FilterConst;
+import com.zxk175.well.filter.log.GatewayContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
@@ -19,14 +22,11 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.net.URI;
-import java.nio.CharBuffer;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
 
 /**
  * @author zxk175
@@ -50,17 +50,16 @@ public class GatewayLogUtil {
         }
     }
 
-    public static String resolveBody(Flux<? extends DataBuffer> body) {
-        AtomicReference<String> bodyReference = new AtomicReference<>();
-        body.subscribe(dataBuffer -> {
-            CharBuffer charBuffer = Const.UTF_8_OBJ.decode(dataBuffer.asByteBuffer());
-            // 释放内存
-            DataBufferUtils.release(dataBuffer);
-            bodyReference.set(charBuffer.toString());
-        });
+    public static Flux<DataBuffer> packByte(ServerWebExchange exchange, DataBuffer dataBuffer) {
+        byte[] bytes = new byte[dataBuffer.readableByteCount()];
+        dataBuffer.read(bytes);
+        DataBufferUtils.release(dataBuffer);
 
-        // 获取body
-        return bodyReference.get();
+        return Flux.defer(() -> {
+            DataBuffer buffer = exchange.getResponse().bufferFactory().wrap(bytes);
+            DataBufferUtils.retain(buffer);
+            return Mono.just(buffer);
+        });
     }
 
     public static boolean isRecorder(ServerHttpRequest httpRequest, URI uri) {
@@ -68,7 +67,7 @@ public class GatewayLogUtil {
         String http = "http";
         String https = "https";
         String scheme = uri.getScheme();
-        if (MyStrUtil.ne(http, scheme) && MyStrUtil.ne(https, scheme)) {
+        if (MyStrUtil.neIgnoreCase(http, scheme) && MyStrUtil.neIgnoreCase(https, scheme)) {
             return true;
         }
 
@@ -82,18 +81,25 @@ public class GatewayLogUtil {
         logBuffer.append("\n-----------------------------\n");
 
         ServerHttpRequest request = exchange.getRequest();
-        recorderRequest(request, request.getURI(), logBuffer.append("原始请求：\n"));
+        recorderRequest(exchange, request.getURI(), logBuffer.append("原始请求\n"));
     }
 
     public static void recorderRouteRequest(ServerWebExchange exchange) {
+        long startTime = ClockUtil.now();
+        exchange.getAttributes().put(FilterConst.START_TIME, startTime);
+
         StringBuilder logBuffer = new StringBuilder();
         logBuffer.append("\n-----------------------------\n");
 
-        URI requestUrl = exchange.getRequiredAttribute(GATEWAY_REQUEST_URL_ATTR);
-        recorderRequest(exchange.getRequest(), requestUrl, logBuffer.append("代理请求：\n"));
+        URI requestUri = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
+        recorderRequest(exchange, requestUri, logBuffer.append("代理请求\n"));
     }
 
-    private static void recorderRequest(ServerHttpRequest httpRequest, URI uri, StringBuilder logBuffer) {
+    private static void recorderRequest(ServerWebExchange exchange, URI uri, StringBuilder logBuffer) {
+        long startTime = ClockUtil.now();
+        exchange.getAttributes().put(FilterConst.START_TIME, startTime);
+
+        ServerHttpRequest httpRequest = exchange.getRequest();
         HttpMethod method = httpRequest.getMethod();
 
         if (ObjectUtil.isNotNull(method)) {
@@ -110,7 +116,12 @@ public class GatewayLogUtil {
 
         if (hasBody(method)) {
             logBuffer.append("------------请求体------------\n");
-            String body = resolveBody(httpRequest.getBody());
+            GatewayContext gatewayContext = exchange.getAttribute(GatewayContext.CACHE_GATEWAY_CONTEXT);
+            String body = "";
+            if (ObjectUtil.isNotNull(gatewayContext)) {
+                body = gatewayContext.getRequestBody();
+            }
+
             if (MyStrUtil.isBlank(body)) {
                 logBuffer.append("请求体为空");
             } else {
@@ -139,8 +150,9 @@ public class GatewayLogUtil {
         log.info(logBuffer.toString());
     }
 
-    public static void recorderResponse(ServerHttpResponse httpResponse, String body) {
+    public static void recorderResponse(ServerWebExchange exchange) {
         StringBuilder logBuffer = new StringBuilder();
+        ServerHttpResponse httpResponse = exchange.getResponse();
         HttpStatus statusCode = httpResponse.getStatusCode();
         logBuffer.append("\n-----------------------------\n");
         if (statusCode == null) {
@@ -148,13 +160,28 @@ public class GatewayLogUtil {
             return;
         }
 
-        logBuffer.append("响应：").append(statusCode.value()).append(" ").append(statusCode.getReasonPhrase());
+        Long startTime = exchange.getAttribute(FilterConst.START_TIME);
+        long executeTime = 0L;
+        if (ObjectUtil.isNotNull(startTime)) {
+            executeTime = (ClockUtil.now() - startTime);
+        }
+
+        logBuffer.append("响应\n")
+                .append(statusCode.value())
+                .append(" ").append(statusCode.getReasonPhrase())
+                .append(" ").append(executeTime).append("ms");
 
         HttpHeaders headers = httpResponse.getHeaders();
         logBuffer.append("\n------------响应头------------\n");
         resolveHeader(logBuffer, headers);
 
         logBuffer.append("------------响应体------------\n");
+
+        GatewayContext gatewayContext = exchange.getAttribute(GatewayContext.CACHE_GATEWAY_CONTEXT);
+        String body = "";
+        if (ObjectUtil.isNotNull(gatewayContext)) {
+            body = gatewayContext.getResponseBody();
+        }
 
         if (MyStrUtil.isBlank(body)) {
             logBuffer.append("响应体为空");
