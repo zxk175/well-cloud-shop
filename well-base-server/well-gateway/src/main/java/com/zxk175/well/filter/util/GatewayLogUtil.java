@@ -101,6 +101,7 @@ public class GatewayLogUtil {
 
         ServerHttpRequest httpRequest = exchange.getRequest();
         HttpMethod method = httpRequest.getMethod();
+
         if (ObjectUtil.isNotNull(method)) {
             logBuffer.append(method.name()).append(' ').append(uri.toString());
             MultiValueMap<String, String> queryParams = httpRequest.getQueryParams();

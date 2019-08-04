@@ -59,7 +59,7 @@ public class ResponseLogFilter implements GlobalFilter, Ordered {
                             CachedBodyOutputMessage outputMessage = new CachedBodyOutputMessage(exchange, httpHeaders);
 
                             MediaType contentType = clientResponse.headers().contentType().orElse(MediaType.APPLICATION_OCTET_STREAM);
-                            if (contentType.equals(MediaType.APPLICATION_JSON) && contentType.equals(MediaType.APPLICATION_JSON_UTF8)) {
+                            if (contentType.equals(MediaType.APPLICATION_JSON) || contentType.equals(MediaType.APPLICATION_JSON_UTF8)) {
                                 return clientResponse.bodyToMono(String.class)
                                         .doOnNext(originBody -> {
                                             GatewayContext gatewayContext = exchange.getAttribute(GatewayContext.CACHE_GATEWAY_CONTEXT);
