@@ -8,6 +8,8 @@ spring:
       password: 123456
   redis:
     password: 123456
+  zipkin:
+      base-url: http://127.0.0.1:9411/
 
 mybatis-plus:
   configuration:

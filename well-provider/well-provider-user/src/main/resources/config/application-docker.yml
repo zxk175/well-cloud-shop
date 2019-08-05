@@ -10,6 +10,8 @@ spring:
   redis:
     host: ${mysql.host}
     password: 123456
+  zipkin:
+    base-url: ${zipkin.list}
 
 mybatis-plus:
   configuration:

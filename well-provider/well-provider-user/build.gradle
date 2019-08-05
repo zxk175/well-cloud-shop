@@ -10,7 +10,9 @@ dependencies {
     compile(
             project(":well-provider:well-provider-common"),
             [
-                    libraries.swagger2_ui
+                    libraries.swagger2_ui,
+
+                    libraries.sleuth_zipkin,
             ]
     )
 }
