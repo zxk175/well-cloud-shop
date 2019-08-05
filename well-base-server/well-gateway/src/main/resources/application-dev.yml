@@ -1,3 +1,7 @@
+spring:
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+
 eureka:
   instance:
     # 服务续约间隔时间（缺省为30s）

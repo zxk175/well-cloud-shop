@@ -14,5 +14,6 @@ dependencies {
 
                     libraries.cloud_eureka_client,
                     libraries.cloud_gateway,
+                    libraries.sleuth_zipkin,
             ])
 }

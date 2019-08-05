@@ -1,3 +1,7 @@
+spring:
+  zipkin:
+    base-url: ${zipkin.list}
+
 eureka:
   client:
     service-url:
