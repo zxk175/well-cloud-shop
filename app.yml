@@ -24,6 +24,21 @@ services:
       - "9000:9000"
     environment:
       - 'eureka.list=${EUREKA_LIST}'
+      - 'zipkin.list=${ZIPKIN_LIST}'
+      - 'spring.profiles.active=${ACTIVE}'
+    networks:
+      - cloud
+
+  well-zipkin:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.zipkin
+    image: '${AUTHOR}/well-zipkin:${TAG}'
+    container_name: 'well-zipkin'
+    ports:
+      - "9411:9411"
+    environment:
+      - 'eureka.list=${EUREKA_LIST}'
       - 'spring.profiles.active=${ACTIVE}'
     networks:
       - cloud

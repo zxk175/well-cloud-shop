@@ -7,11 +7,11 @@
 
 #gradle task clear
 
-#gradle :well-base-server:well-zuul:build -x test
+gradle :well-monitor:well-boot-admin:build -x test
 
-gradle :well-base-server:well-gateway:build -x test
+gradle :well-monitor:well-gateway:build -x test
 
-gradle :well-base-server:well-boot-admin:build -x test
+gradle :well-monitor:well-zipkin:build -x test
 
 gradle :well-provider:well-provider-user:build -x test
 
