@@ -7,6 +7,6 @@
 
 #gradle task clear
 
-gradle :well-base-server:well-eureka:build -x test
+gradle :well-monitor:well-eureka:build -x test
 
 docker-compose -f base.yml up -d --build
