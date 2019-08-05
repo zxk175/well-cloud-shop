@@ -64,7 +64,12 @@ spring:
         wall:
           enabled: true
           config:
+            alter-table-allow: false
+            drop-table-allow: false
+            truncate-allow: false
             multi-statement-allow: true
+            update-where-none-check: true
+          log-violation: true
       stat-view-servlet:
         enabled: true
         url-pattern: /druid/*
