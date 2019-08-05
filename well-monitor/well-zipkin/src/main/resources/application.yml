@@ -10,14 +10,14 @@ server:
     buffer-size: 1024
     # 是否分配的直接内存
     direct-buffers: true
+  compression:
+    enabled: true
 
 spring:
   profiles:
     active: dev
   application:
     name: zipkin-server
-  main:
-    allow-bean-definition-overriding: true
 
 management:
   endpoints:
@@ -28,3 +28,7 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
