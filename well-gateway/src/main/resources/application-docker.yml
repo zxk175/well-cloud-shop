@@ -1,6 +1,9 @@
 spring:
   zipkin:
     base-url: ${zipkin.list}
+  sleuth:
+    sampler:
+      probability: 1.0
 
 eureka:
   client:

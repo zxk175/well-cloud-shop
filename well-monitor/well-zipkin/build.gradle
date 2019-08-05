@@ -14,8 +14,8 @@ dependencies {
             libraries.cloud_eureka_client,
     ])
 
-    compile(libraries.cloud_zipkin){
-        exclude module: 'spring-boot-starter-log4j2'
+    compile(libraries.cloud_zipkin) {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-log4j2'
     }
 
     runtime(libraries.cloud_zipkin_ui)

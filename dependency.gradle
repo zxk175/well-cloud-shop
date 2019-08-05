@@ -10,7 +10,7 @@ ext {
     versions = [
             spring_boot      : "2.1.6.RELEASE",
             spring_cloud     : 'Greenwich.RELEASE',
-            zipkin           : "2.12.0",
+            zipkin           : "2.12.3",
             aspect           : "1.9.2",
 
             boot_admin       : "2.1.5",
