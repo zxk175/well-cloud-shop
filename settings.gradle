@@ -1,8 +1,9 @@
 rootProject.name = 'well-cloud-shop'
 
+include ':well-eureka'
+include ':well-gateway'
+
 include ':well-monitor:well-boot-admin'
-include ':well-monitor:well-gateway'
-include ':well-monitor:well-eureka'
 include ':well-monitor:well-zipkin'
 
 include 'well-common'
