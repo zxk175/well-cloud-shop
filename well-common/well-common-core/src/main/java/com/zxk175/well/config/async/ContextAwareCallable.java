@@ -5,6 +5,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import java.util.concurrent.Callable;
 
+/**
+ * @param <T>
+ * @author zxk175
+ */
 public class ContextAwareCallable<T> implements Callable<T> {
 
     private Callable<T> task;
