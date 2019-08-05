@@ -1,6 +1,5 @@
 package com.zxk175.well.config.async;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurerSupport;
 
@@ -14,7 +13,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class TaskExecutorConfig extends AsyncConfigurerSupport {
 
-    @Bean
     @Override
     public Executor getAsyncExecutor() {
         ContextAwarePoolExecutor executor = new ContextAwarePoolExecutor();
