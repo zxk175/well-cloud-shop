@@ -10,6 +10,7 @@ ext {
     versions = [
             spring_boot      : "2.1.6.RELEASE",
             spring_cloud     : 'Greenwich.RELEASE',
+            zipkin           : "2.12.9",
             aspect           : "1.9.2",
 
             boot_admin       : "2.1.5",
@@ -53,6 +54,10 @@ ext {
             cloud_hystrix          : "org.springframework.cloud:spring-cloud-starter-netflix-hystrix",
             cloud_hystrix_dashboard: "org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard",
             cloud_gateway          : "org.springframework.cloud:spring-cloud-starter-gateway",
+
+            sleuth_zipkin          : "org.springframework.cloud:spring-cloud-sleuth-zipkin",
+            cloud_zipkin           : "io.zipkin.java:zipkin-server:${versions.zipkin}",
+            cloud_zipkin_ui        : "io.zipkin.java:zipkin-autoconfigure-ui:${versions.zipkin}",
 
             boot_admin_server      : "de.codecentric:spring-boot-admin-starter-server:${versions.boot_admin}",
             boot_admin_client      : "de.codecentric:spring-boot-admin-starter-client:${versions.boot_admin}",
