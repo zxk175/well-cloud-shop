@@ -130,7 +130,7 @@ eureka:
     status-page-url: http://127.0.0.1:${server.port}/
   client:
     service-url:
-      defaultZone: http://root:root@127.0.0.1:8001/eureka/
+      defaultZone: http://root:root@127.0.0.1:8001/eureka
 
 management:
   endpoints:

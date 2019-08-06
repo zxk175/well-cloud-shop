@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway-server
+  cloud:
+    config:
+      profile: dev
+      name: well-gateway
+      fail-fast: true
+      discovery:
+        enabled: true
+        service-id: config-server

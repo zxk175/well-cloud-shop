@@ -8,8 +8,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @author zxk175
  * @since 2018/12/25 16:18
  */
-@SpringBootApplication
 @EnableDiscoveryClient
+@SpringBootApplication
 public class WellGatewayApplication {
 
     public static void main(String[] args) {

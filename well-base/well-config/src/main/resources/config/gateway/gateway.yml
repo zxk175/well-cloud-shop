@@ -12,10 +12,6 @@ server:
     direct-buffers: true
 
 spring:
-  profiles:
-    active: dev
-  application:
-    name: gateway-server
   mvc:
     view:
       prefix: /templates/
