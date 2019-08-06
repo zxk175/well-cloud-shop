@@ -29,15 +29,15 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenu> impleme
 
     @Override
     public Response listMenu(boolean isTerm) {
-        QueryWrapper<SysMenu> sysMenuQW = new QueryWrapper<>();
-        sysMenuQW.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
+        QueryWrapper<SysMenu> sysMenuQw = new QueryWrapper<>();
+        sysMenuQw.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
         if (isTerm) {
-            sysMenuQW.ne("type", MenuType.BUTTON.value());
-            sysMenuQW.eq(Const.DB_STATE, Const.ONE);
+            sysMenuQw.ne("type", MenuType.BUTTON.value());
+            sysMenuQw.eq(Const.DB_STATE, Const.ONE);
         }
-        sysMenuQW.orderByAsc(Const.DB_SORT);
+        sysMenuQw.orderByAsc(Const.DB_SORT);
 
-        List<SysMenu> menuList = this.list(sysMenuQW);
+        List<SysMenu> menuList = this.list(sysMenuQw);
         return treeMenu(menuList);
     }
 
@@ -79,25 +79,25 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuDao, SysMenu> impleme
 
     @Override
     public List<SysMenu> listMenuByParentId(Long parentId, boolean isRemove) {
-        QueryWrapper<SysMenu> sysMenuQW = new QueryWrapper<>();
-        sysMenuQW.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
-        sysMenuQW.eq("parent_id", parentId);
+        QueryWrapper<SysMenu> sysMenuQw = new QueryWrapper<>();
+        sysMenuQw.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
+        sysMenuQw.eq("parent_id", parentId);
         if (isRemove) {
-            sysMenuQW.eq(Const.DB_STATE, Const.ONE);
+            sysMenuQw.eq(Const.DB_STATE, Const.ONE);
         }
-        sysMenuQW.orderByDesc(Const.DB_SORT);
+        sysMenuQw.orderByDesc(Const.DB_SORT);
 
-        return baseMapper.selectList(sysMenuQW);
+        return baseMapper.selectList(sysMenuQw);
     }
 
     @Override
     public List<SysMenu> listNotButtonList() {
-        QueryWrapper<SysMenu> sysMenuQW = new QueryWrapper<>();
-        sysMenuQW.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
-        sysMenuQW.ne("type", MenuType.BUTTON.value());
-        sysMenuQW.orderByAsc(Const.DB_SORT);
+        QueryWrapper<SysMenu> sysMenuQw = new QueryWrapper<>();
+        sysMenuQw.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
+        sysMenuQw.ne("type", MenuType.BUTTON.value());
+        sysMenuQw.orderByAsc(Const.DB_SORT);
 
-        return baseMapper.selectList(sysMenuQW);
+        return baseMapper.selectList(sysMenuQw);
     }
 
     private Response treeMenu(List<SysMenu> menuList) {

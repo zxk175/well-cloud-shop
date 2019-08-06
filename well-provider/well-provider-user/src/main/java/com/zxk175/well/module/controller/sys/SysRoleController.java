@@ -16,8 +16,8 @@ import com.zxk175.well.module.service.sys.SysRoleMenuService;
 import com.zxk175.well.module.service.sys.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -40,13 +40,12 @@ import java.util.Map;
  * @since 2019-05-26 22:49:45
  */
 @Controller
+@AllArgsConstructor
 @RequestMapping(Const.BASE_URL + "/sys-role")
 @Api(tags = "SysRole", description = "系统角色V1")
 public class SysRoleController extends BaseController {
 
-    @Autowired
     private SysRoleService sysRoleService;
-    @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
 
@@ -96,16 +95,16 @@ public class SysRoleController extends BaseController {
     @ApiOperation(value = "系统角色信息", notes = "系统角色信息")
     @RequiresPermissions("sys:role:info")
     public Response info(@PathVariable("roleId") String roleId) {
-        QueryWrapper<SysRole> sysRoleQW = new QueryWrapper<>();
-        sysRoleQW.select("role_id, role_name, role_sign, remark, state");
-        sysRoleQW.eq("role_id", roleId);
-        SysRole sysRole = sysRoleService.getOne(sysRoleQW);
+        QueryWrapper<SysRole> sysRoleQw = new QueryWrapper<>();
+        sysRoleQw.select("role_id, role_name, role_sign, remark, state");
+        sysRoleQw.eq("role_id", roleId);
+        SysRole sysRole = sysRoleService.getOne(sysRoleQw);
 
         // 查询角色对应的菜单
-        QueryWrapper<SysRoleMenu> sysRoleMenuQW = new QueryWrapper<>();
-        sysRoleMenuQW.select("menu_id");
-        sysRoleMenuQW.eq("role_id", roleId);
-        List<SysRoleMenu> sysRoleMenus = sysRoleMenuService.list(sysRoleMenuQW);
+        QueryWrapper<SysRoleMenu> sysRoleMenuQw = new QueryWrapper<>();
+        sysRoleMenuQw.select("menu_id");
+        sysRoleMenuQw.eq("role_id", roleId);
+        List<SysRoleMenu> sysRoleMenus = sysRoleMenuService.list(sysRoleMenuQw);
         List<String> menuList = Lists.newArrayList();
         for (SysRoleMenu sysRoleMenu : sysRoleMenus) {
             menuList.add(Convert.toStr(sysRoleMenu.getMenuId()));

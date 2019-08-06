@@ -98,12 +98,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     public Set<String> setUserPerms(SysUserPermsParam param) {
         List<String> permsList;
         if (param.hasSupper()) {
-            QueryWrapper<SysMenu> sysMenuQW = new QueryWrapper<>();
-            sysMenuQW.select("menu_id, perms");
-            sysMenuQW.eq("type", MenuType.BUTTON.value());
-            sysMenuQW.eq(Const.DB_STATE, Const.ONE);
+            QueryWrapper<SysMenu> sysMenuQw = new QueryWrapper<>();
+            sysMenuQw.select("menu_id, perms");
+            sysMenuQw.eq("type", MenuType.BUTTON.value());
+            sysMenuQw.eq(Const.DB_STATE, Const.ONE);
 
-            List<SysMenu> menuList = sysMenuService.list(sysMenuQW);
+            List<SysMenu> menuList = sysMenuService.list(sysMenuQw);
             permsList = Lists.newArrayListWithCapacity(menuList.size());
             for (SysMenu sysMenu : menuList) {
                 permsList.add(sysMenu.getPerms());

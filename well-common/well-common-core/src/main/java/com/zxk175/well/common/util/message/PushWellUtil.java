@@ -24,10 +24,9 @@ public class PushWellUtil {
 
     private static void send(String title, StringBuilder msg) {
         ExecutorService singleThreadPool = ThreadUtil.newExecutor(5, "notify");
-        boolean flag = SpringActiveUtil.getBoolean();
 
         singleThreadPool.execute(() -> {
-            String active2ChineseStr = SpringActiveUtil.getChineseStr(flag);
+            String active2ChineseStr = SpringActiveUtil.getChineseStr();
             try {
                 Map<String, String> params = Maps.newHashMap();
                 params.put("title", active2ChineseStr + "=" + title);

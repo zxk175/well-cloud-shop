@@ -27,19 +27,19 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleDao, SysUserR
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void removeBatch(List<String> param, String by) {
-        QueryWrapper<SysUserRole> sysUserRoleQW = new QueryWrapper<>();
-        sysUserRoleQW.in(by, param);
+        QueryWrapper<SysUserRole> sysUserRoleQw = new QueryWrapper<>();
+        sysUserRoleQw.in(by, param);
 
-        this.remove(sysUserRoleQW);
+        this.remove(sysUserRoleQw);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void saveOrModify(Long userId, List<String> roleList) {
         // 先删除用户与角色关联
-        QueryWrapper<SysUserRole> sysUserRoleQW = new QueryWrapper<>();
-        sysUserRoleQW.eq(Const.DB_USER_ID, userId);
-        this.remove(sysUserRoleQW);
+        QueryWrapper<SysUserRole> sysUserRoleQw = new QueryWrapper<>();
+        sysUserRoleQw.eq(Const.DB_USER_ID, userId);
+        this.remove(sysUserRoleQw);
 
         List<SysUserRole> dataList = Lists.newArrayList();
         for (String roleId : roleList) {

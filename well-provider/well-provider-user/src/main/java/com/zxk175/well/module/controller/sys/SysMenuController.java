@@ -13,8 +13,8 @@ import com.zxk175.well.module.entity.sys.SysMenu;
 import com.zxk175.well.module.service.sys.SysMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -36,11 +36,11 @@ import java.util.List;
  * @since 2019-05-26 22:49:44
  */
 @Controller
+@AllArgsConstructor
 @RequestMapping(Const.BASE_URL + "/sys-menu")
 @Api(tags = "SysMenu", description = "系统菜单V1")
 public class SysMenuController extends BaseController {
 
-    @Autowired
     private SysMenuService sysMenuService;
 
 
@@ -119,11 +119,11 @@ public class SysMenuController extends BaseController {
     @ApiOperation(value = "系统菜单信息", notes = "系统菜单信息")
     @RequiresPermissions("sys:menu:info")
     public Response info(@PathVariable("menuId") Long menuId) {
-        QueryWrapper<SysMenu> sysMenuQW = new QueryWrapper<>();
-        sysMenuQW.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
-        sysMenuQW.eq("menu_id", menuId);
+        QueryWrapper<SysMenu> sysMenuQw = new QueryWrapper<>();
+        sysMenuQw.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
+        sysMenuQw.eq("menu_id", menuId);
 
-        SysMenu menu = sysMenuService.getOne(sysMenuQW);
+        SysMenu menu = sysMenuService.getOne(sysMenuQw);
         return objectReturn(menu);
     }
 
@@ -146,11 +146,11 @@ public class SysMenuController extends BaseController {
         // 上级菜单类型
         int parentType = MenuType.CATALOG.value();
         if (menu.getParentId() != 0) {
-            QueryWrapper<SysMenu> sysMenuQW = new QueryWrapper<>();
-            sysMenuQW.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
-            sysMenuQW.eq("menu_id", menu.getParentId());
+            QueryWrapper<SysMenu> sysMenuQw = new QueryWrapper<>();
+            sysMenuQw.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");
+            sysMenuQw.eq("menu_id", menu.getParentId());
 
-            SysMenu parentMenu = sysMenuService.getOne(sysMenuQW);
+            SysMenu parentMenu = sysMenuService.getOne(sysMenuQw);
             parentType = parentMenu.getType();
         }
 

@@ -27,19 +27,19 @@ public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuDao, SysRoleM
     @Override
     @Transactional(rollbackFor = {RuntimeException.class})
     public void removeBatch(List<String> param) {
-        QueryWrapper<SysRoleMenu> sysRoleMenuQW = new QueryWrapper<>();
-        sysRoleMenuQW.in("role_id", param);
+        QueryWrapper<SysRoleMenu> sysRoleMenuQw = new QueryWrapper<>();
+        sysRoleMenuQw.in("role_id", param);
 
-        this.remove(sysRoleMenuQW);
+        this.remove(sysRoleMenuQw);
     }
 
     @Override
     @Transactional(rollbackFor = {RuntimeException.class})
     public void saveOrModify(Long roleId, List<String> menuList) {
         // 先删除角色与菜单关联
-        QueryWrapper<SysRoleMenu> sysRoleMenuQW = new QueryWrapper<>();
-        sysRoleMenuQW.eq("role_id", roleId);
-        this.remove(sysRoleMenuQW);
+        QueryWrapper<SysRoleMenu> sysRoleMenuQw = new QueryWrapper<>();
+        sysRoleMenuQw.eq("role_id", roleId);
+        this.remove(sysRoleMenuQw);
 
         List<SysRoleMenu> dataList = Lists.newArrayList();
         for (String menuId : menuList) {

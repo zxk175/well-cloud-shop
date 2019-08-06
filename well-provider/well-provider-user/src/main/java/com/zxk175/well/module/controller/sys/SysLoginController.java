@@ -17,8 +17,8 @@ import com.zxk175.well.module.entity.sys.SysUser;
 import com.zxk175.well.module.service.sys.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -34,11 +34,11 @@ import java.util.Map;
  * @since 2019/04/01 15:49
  */
 @Controller
+@AllArgsConstructor
 @RequestMapping(Const.BASE_URL + "/sys")
 @Api(tags = "SysLogin", description = "系统用户V1")
 public class SysLoginController extends BaseController {
 
-    @Autowired
     private SysUserService sysUserService;
 
 
@@ -47,29 +47,29 @@ public class SysLoginController extends BaseController {
     @ApiOperation(value = "系统用户登录", notes = "系统用户登录")
     public Response login(@Validated @RequestBody SysUserLoginParam param) {
         // 用户信息
-        QueryWrapper<SysUser> userQW = new QueryWrapper<>();
-        userQW.select("user_id AS userId, user_name AS userName, avatar, mobile, salt, password, identity, state");
-        userQW.eq("mobile", param.getMobile());
-        SysUser sysUserDB = sysUserService.getOne(userQW);
+        QueryWrapper<SysUser> userQw = new QueryWrapper<>();
+        userQw.select("user_id AS userId, user_name AS userName, avatar, mobile, salt, password, identity, state");
+        userQw.eq("mobile", param.getMobile());
+        SysUser sysUserDb = sysUserService.getOne(userQw);
 
         // 账号不存在
-        if (ObjectUtil.isNull(sysUserDB)) {
+        if (ObjectUtil.isNull(sysUserDb)) {
             return fail("账号不存在");
         }
 
         // 账号锁定
-        if (Const.ZERO == sysUserDB.getState()) {
+        if (Const.ZERO == sysUserDb.getState()) {
             return fail("账号已被锁定,请联系管理员");
         }
 
         // 账号存在
-        Sha256Hash sha256Hash = new Sha256Hash(param.getPassword(), sysUserDB.getSalt());
-        if (ObjectUtil.isNotNull(sysUserDB) && sysUserDB.getPassword().equals(sha256Hash.toHex())) {
-            SysSubjectDTO sysSubjectDTO = new SysSubjectDTO(sysUserDB.getUserId(), sysUserDB.getIdentity());
+        Sha256Hash sha256Hash = new Sha256Hash(param.getPassword(), sysUserDb.getSalt());
+        if (ObjectUtil.isNotNull(sysUserDb) && sysUserDb.getPassword().equals(sha256Hash.toHex())) {
+            SysSubjectDTO sysSubjectDTO = new SysSubjectDTO(sysUserDb.getUserId(), sysUserDb.getIdentity());
             TokenDTO tokenDTO = JwTokenUtil.buildToken(sysSubjectDTO);
 
             SysUserLoginDTO userDTO = new SysUserLoginDTO();
-            BeanUtil.copyProperties(sysUserDB, userDTO);
+            BeanUtil.copyProperties(sysUserDb, userDTO);
 
             Map<Object, Object> data = Maps.newHashMap();
             data.put("user", userDTO);

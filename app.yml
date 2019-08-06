@@ -73,6 +73,8 @@ services:
       - 'spring.profiles.active=${ACTIVE}'
     networks:
       - cloud
+    depends_on:
+      - well-config
 
 networks:
   cloud:

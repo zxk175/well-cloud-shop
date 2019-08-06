@@ -120,21 +120,21 @@ public class SysUserController extends BaseController {
     @ApiOperation(value = "系统用户信息", notes = "系统用户信息")
     @RequiresPermissions("sys:user:info")
     public Response info(@PathVariable("userId") String userId) {
-        QueryWrapper<SysUser> sysUserQW = new QueryWrapper<>();
-        sysUserQW.select("user_id, user_name, avatar, mobile, salt, identity, state");
-        sysUserQW.eq(Const.DB_USER_ID, userId);
+        QueryWrapper<SysUser> sysUserQw = new QueryWrapper<>();
+        sysUserQw.select("user_id, user_name, avatar, mobile, salt, identity, state");
+        sysUserQw.eq(Const.DB_USER_ID, userId);
 
-        SysUser sysUser = sysUserService.getOne(sysUserQW);
+        SysUser sysUser = sysUserService.getOne(sysUserQw);
         if (ObjectUtil.isNotNull(sysUser)) {
             sysUser.setSalt(null);
             sysUser.setPassword(null);
         }
 
         // 查询用户对应的角色
-        QueryWrapper<SysUserRole> sysUserRoleQW = new QueryWrapper<>();
-        sysUserRoleQW.select("role_id");
-        sysUserRoleQW.eq("user_id", userId);
-        List<SysUserRole> sysUserRoles = sysUserRoleService.list(sysUserRoleQW);
+        QueryWrapper<SysUserRole> sysUserRoleQw = new QueryWrapper<>();
+        sysUserRoleQw.select("role_id");
+        sysUserRoleQw.eq("user_id", userId);
+        List<SysUserRole> sysUserRoles = sysUserRoleService.list(sysUserRoleQw);
         List<String> roleList = Lists.newArrayList();
         for (SysUserRole sysUserRole : sysUserRoles) {
             roleList.add(Convert.toStr(sysUserRole.getRoleId()));

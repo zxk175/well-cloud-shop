@@ -7,7 +7,7 @@ import com.zxk175.well.module.entity.sys.SysRoleMenu;
 import com.zxk175.well.module.service.sys.SysRoleMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -25,11 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @since 2019-05-26 22:49:45
  */
 @Controller
+@AllArgsConstructor
 @RequestMapping(Const.BASE_URL + "/sys-role-menu")
 @Api(tags = "SysRoleMenu", description = "角色与菜单关联V1")
 public class SysRoleMenuController extends BaseController {
 
-    @Autowired
     private SysRoleMenuService sysRoleMenuService;
 
 

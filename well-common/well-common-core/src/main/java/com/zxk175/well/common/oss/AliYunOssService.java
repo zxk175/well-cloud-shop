@@ -43,7 +43,7 @@ public class AliYunOssService extends OssService {
         // 设置连接空闲超时时间。超时则关闭连接，默认为60000毫秒
         configuration.setIdleConnectionTime(AliConst.TIMEOUT);
 
-        this.isTest = SpringActiveUtil.getBoolean();
+        this.isTest = SpringActiveUtil.isDebug();
 
         Tuple2<String, String> tuple = getBucketNameAndBaseUrl();
         this.bucketName = tuple.first;

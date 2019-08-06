@@ -7,7 +7,7 @@ import com.zxk175.well.module.entity.sys.SysUserToken;
 import com.zxk175.well.module.service.sys.SysUserTokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -25,11 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @since 2019-05-27 01:11:35
  */
 @Controller
+@AllArgsConstructor
 @RequestMapping(Const.BASE_URL + "/sys-user-token")
 @Api(tags = "SysUserToken", description = "系统用户TokenV1")
 public class SysUserTokenController extends BaseController {
 
-    @Autowired
     private SysUserTokenService sysUserTokenService;
 
 
