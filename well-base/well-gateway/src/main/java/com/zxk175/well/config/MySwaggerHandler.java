@@ -24,25 +24,24 @@ import java.util.Optional;
 @RequestMapping("/swagger-resources")
 public class MySwaggerHandler {
 
-    private SecurityConfiguration securityConfiguration;
     private UiConfiguration uiConfiguration;
-
+    private SecurityConfiguration securityConfiguration;
     private final SwaggerResourcesProvider swaggerResources;
 
+    
     @Autowired
     public MySwaggerHandler(SwaggerResourcesProvider swaggerResources) {
         this.swaggerResources = swaggerResources;
     }
 
+    @GetMapping("/configuration/ui")
+    public Mono<ResponseEntity<UiConfiguration>> uiConfiguration() {
+        return Mono.just(new ResponseEntity<>(Optional.ofNullable(uiConfiguration).orElse(new UiConfiguration("")), HttpStatus.OK));
+    }
 
     @GetMapping("/configuration/security")
     public Mono<ResponseEntity<SecurityConfiguration>> securityConfiguration() {
         return Mono.just(new ResponseEntity<>(Optional.ofNullable(securityConfiguration).orElse(new SecurityConfiguration(null, null, null, null, null, ApiKeyVehicle.HEADER, "api_key", ",")), HttpStatus.OK));
-    }
-
-    @GetMapping("/configuration/ui")
-    public Mono<ResponseEntity<UiConfiguration>> uiConfiguration() {
-        return Mono.just(new ResponseEntity<>(Optional.ofNullable(uiConfiguration).orElse(new UiConfiguration("")), HttpStatus.OK));
     }
 
     @GetMapping("")
