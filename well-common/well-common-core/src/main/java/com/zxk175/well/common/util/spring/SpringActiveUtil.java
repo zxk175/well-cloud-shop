@@ -36,10 +36,6 @@ public class SpringActiveUtil {
     private static String getActive(Environment environment) {
         String[] active = environment.getActiveProfiles();
         if (ArrayUtil.isEmpty(active)) {
-            active = environment.getDefaultProfiles();
-        }
-
-        if (ArrayUtil.isEmpty(active)) {
             throw new RuntimeException("未获取到运行环境");
         }
 
