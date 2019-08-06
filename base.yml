@@ -10,6 +10,7 @@ services:
     ports:
       - "8001:8001"
     environment:
+      - 'config.list=${CONFIG_LIST}'
       - 'spring.profiles.active=peer1'
     networks:
       - cloud
@@ -24,6 +25,7 @@ services:
     ports:
       - "8002:8002"
     environment:
+      - 'config.list=${CONFIG_LIST}'
       - 'spring.profiles.active=peer2'
     networks:
       - cloud
@@ -38,6 +40,7 @@ services:
     ports:
       - "8003:8003"
     environment:
+      - 'config.list=${CONFIG_LIST}'
       - 'spring.profiles.active=peer3'
     networks:
       - cloud

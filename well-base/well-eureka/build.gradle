@@ -12,6 +12,7 @@ dependencies {
             libraries.boot_undertow,
             libraries.boot_security,
 
+            libraries.cloud_config_client,
             libraries.cloud_eureka_server,
     ])
 }
