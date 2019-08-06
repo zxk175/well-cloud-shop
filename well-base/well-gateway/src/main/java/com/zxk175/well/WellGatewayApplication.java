@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.reactive.config.ResourceHandlerRegistry;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 /**
  * @author zxk175
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @EnableDiscoveryClient
 @SpringBootApplication
-public class WellGatewayApplication {
+public class WellGatewayApplication implements WebFluxConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(WellGatewayApplication.class, args);
@@ -22,5 +24,11 @@ public class WellGatewayApplication {
     @GetMapping(value = "/")
     public String index() {
         return "index";
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
     }
 }
