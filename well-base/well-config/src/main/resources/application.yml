@@ -19,8 +19,12 @@ spring:
   cloud:
     config:
       server:
+        # 提前加载配置文件，保证后续数据库连接正常启动
+        bootstrap: true
         native:
-          search-locations: classpath:/config/**
+          search-locations:
+            - classpath:/config/eureka/
+            - classpath:/config/gateway/
 
 eureka:
   instance:
@@ -37,4 +41,5 @@ eureka:
 
 logging:
   level:
-    root: debug
+    root: info
+
