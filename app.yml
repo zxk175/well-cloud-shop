@@ -40,6 +40,7 @@ services:
     environment:
       - 'eureka.list=${EUREKA_LIST}'
       - 'zipkin.list=${ZIPKIN_LIST}'
+      - 'config.list=${CONFIG_LIST}'
       - 'spring.profiles.active=${ACTIVE}'
     networks:
       - cloud
@@ -70,6 +71,8 @@ services:
       - "9010:9010"
     environment:
       - 'eureka.list=${EUREKA_LIST}'
+      - 'zipkin.list=${ZIPKIN_LIST}'
+      - 'config.list=${CONFIG_LIST}'
       - 'spring.profiles.active=${ACTIVE}'
     networks:
       - cloud

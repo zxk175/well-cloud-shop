@@ -1,5 +1,5 @@
 spring:
   cloud:
     config:
-      uri: http://well-config:8888/
+      uri: ${config.list}
       profile: docker
