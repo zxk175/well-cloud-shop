@@ -36,10 +36,3 @@ eureka:
   client:
     # 表示eureka client间隔多久拉取服务注册信息
     registry-fetch-interval-seconds: 5
-    service-url:
-      defaultZone: http://root:root@127.0.0.1:8001/eureka
-
-logging:
-  level:
-    root: info
-
