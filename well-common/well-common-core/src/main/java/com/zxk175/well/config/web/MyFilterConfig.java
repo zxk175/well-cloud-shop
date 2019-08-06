@@ -37,7 +37,7 @@ public class MyFilterConfig {
     }
 
     @Bean
-    public FilterRegistrationBean FilterRegistration() {
+    public FilterRegistrationBean filterRegistration() {
         FilterRegistrationBean<RequestAuthFilter> registration = new FilterRegistrationBean<>();
 
         registration.setDispatcherTypes(DispatcherType.REQUEST);
