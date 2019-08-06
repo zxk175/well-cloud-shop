@@ -12,8 +12,6 @@ server:
     direct-buffers: true
 
 spring:
-  profiles:
-    active: native
   application:
     name: config-server
   cloud:
@@ -21,10 +19,9 @@ spring:
       server:
         # 提前加载配置文件，保证后续数据库连接正常启动
         bootstrap: true
-        native:
-          search-locations:
-            - classpath:/config/eureka/
-            - classpath:/config/gateway/
+        git:
+          uri: https://github.com/zxk175/well-cloud-config.git
+          search-paths: shop/**
 
 eureka:
   instance:
@@ -36,3 +33,5 @@ eureka:
   client:
     # 表示eureka client间隔多久拉取服务注册信息
     registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: http://root:root@127.0.0.1:8001/eureka
