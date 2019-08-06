@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk-alpine
 LABEL maintainer="zxk175 zxk175@qq.com"
 
-ADD well-monitor/well-eureka/build/libs/well-eureka*.jar app.jar
+ADD well-base/well-eureka/build/libs/well-eureka*.jar app.jar
 ENV JAVA_OPTS="-Xmx300m -Xms300m -Djava.security.egd=file:/dev/./urandom"
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -jar app.jar" ]

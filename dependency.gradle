@@ -48,11 +48,7 @@ ext {
             cloud_eureka_client    : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
             cloud_config_server    : "org.springframework.cloud:spring-cloud-config-server",
             cloud_config_client    : "org.springframework.cloud:spring-cloud-config-client",
-            cloud_ribbon           : "org.springframework.cloud:spring-cloud-starter-netflix-ribbon",
             cloud_feign            : "org.springframework.cloud:spring-cloud-starter-openfeign",
-            cloud_zuul             : "org.springframework.cloud:spring-cloud-starter-netflix-zuul",
-            cloud_hystrix          : "org.springframework.cloud:spring-cloud-starter-netflix-hystrix",
-            cloud_hystrix_dashboard: "org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard",
             cloud_gateway          : "org.springframework.cloud:spring-cloud-starter-gateway",
 
             sleuth_zipkin          : "org.springframework.cloud:spring-cloud-sleuth-zipkin",

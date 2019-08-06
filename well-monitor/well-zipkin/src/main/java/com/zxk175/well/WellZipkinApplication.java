@@ -12,9 +12,9 @@ import zipkin2.server.internal.EnableZipkinServer;
 @EnableZipkinServer
 @EnableEurekaClient
 @SpringBootApplication
-public class WellZipkinServerApplication {
+public class WellZipkinApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WellZipkinServerApplication.class, args);
+        SpringApplication.run(WellZipkinApplication.class, args);
     }
 }
