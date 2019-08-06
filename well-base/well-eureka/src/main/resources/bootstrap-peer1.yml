@@ -2,4 +2,4 @@ spring:
   cloud:
     config:
       uri: ${config.list}
-      profile: pree2
+      profile: pree1
