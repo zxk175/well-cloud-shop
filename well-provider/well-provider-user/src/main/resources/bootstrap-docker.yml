@@ -1,0 +1,5 @@
+spring:
+  cloud:
+    config:
+      uri: http://well-config:8888/
+      profile: docker

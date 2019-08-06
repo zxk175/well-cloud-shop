@@ -4,9 +4,13 @@ dependencies {
             [
                     libraries.boot_web,
                     libraries.boot_undertow,
-                    
+
+                    libraries.cloud_config_client,
                     libraries.cloud_eureka_client,
-                    
+                    libraries.sleuth_zipkin,
+
+                    libraries.swagger2_ui,
+
                     libraries.commons_pool2,
             ]
     )
