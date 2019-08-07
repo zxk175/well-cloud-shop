@@ -28,7 +28,7 @@ public class MySwaggerHandler {
     private SecurityConfiguration securityConfiguration;
     private final SwaggerResourcesProvider swaggerResources;
 
-    
+
     @Autowired
     public MySwaggerHandler(SwaggerResourcesProvider swaggerResources) {
         this.swaggerResources = swaggerResources;
@@ -44,7 +44,7 @@ public class MySwaggerHandler {
         return Mono.just(new ResponseEntity<>(Optional.ofNullable(securityConfiguration).orElse(new SecurityConfiguration(null, null, null, null, null, ApiKeyVehicle.HEADER, "api_key", ",")), HttpStatus.OK));
     }
 
-    @GetMapping("")
+    @GetMapping
     public Mono<ResponseEntity> swaggerResources() {
         return Mono.just((new ResponseEntity<>(swaggerResources.get(), HttpStatus.OK)));
     }

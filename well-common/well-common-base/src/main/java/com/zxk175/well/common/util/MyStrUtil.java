@@ -46,6 +46,14 @@ public class MyStrUtil {
         return StrUtil.equals(one, two, true);
     }
 
+    private static boolean eqEndWithIgnoreCase(CharSequence str, CharSequence suffix) {
+        return StrUtil.endWithIgnoreCase(str, suffix);
+    }
+
+    public static boolean neEndWithIgnoreCase(CharSequence str, CharSequence suffix) {
+        return !eqEndWithIgnoreCase(str, suffix);
+    }
+
     public static String format(CharSequence template, Object... params) {
         return StrUtil.format(template, params);
     }
