@@ -1,0 +1,17 @@
+apply plugin: 'org.springframework.boot'
+
+bootJar {
+    setArchivesBaseName("well-provider-test")
+}
+
+dependencies {
+    compile([
+            libraries.boot_web,
+            libraries.boot_undertow,
+
+            libraries.cloud_config_client,
+            libraries.cloud_eureka_client,
+
+            libraries.swagger2,
+    ])
+}
