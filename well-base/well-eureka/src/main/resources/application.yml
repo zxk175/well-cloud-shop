@@ -1,0 +1,47 @@
+server:
+  port: 8001
+  use-forward-headers: true
+  undertow:
+    io-threads: 4
+    buffer-size: 1024
+    worker-threads: 20
+    direct-buffers: true
+
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  security:
+    user:
+      name: root
+      password: root
+
+eureka:
+  instance:
+    status-page-url: http://127.0.0.1:${server.port}/
+    # 解决/actuator/health（401 Unauthorized)
+    metadata-map:
+      user:
+        name: ${spring.security.user.name}
+        password: ${spring.security.user.password}
+  server:
+    # 关闭自我保护模式
+    enable-self-preservation: false
+    # 清理无效节点的时间间隔
+    eviction-interval-timer-in-ms: 3000
+  client:
+    # 是否将自己注册到服务中心，默认true
+    register-with-eureka: true
+    # 是否从服务中心获取注册信息，默认true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://root:root@well-eureka:8001/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: env
+  endpoint:
+    health:
+      show-details: ALWAYS
