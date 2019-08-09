@@ -23,27 +23,27 @@ import java.util.function.Consumer;
 public class MySwaggerProvider implements SwaggerResourcesProvider {
 
     static final String API_URI = "/v2/api-docs";
-    private PropertiesRouteDefinitionLocator routeDefinitionLocator;
+    private PropertiesRouteDefinitionLocator propertiesRouteDefinition;
 
 
     @Override
     public List<SwaggerResource> get() {
         String lb = "lb://";
-        List<SwaggerResource> resources = new ArrayList<>();
+        List<SwaggerResource> swaggerResources = new ArrayList<>();
 
         // 取出application.yml配置的route
-        routeDefinitionLocator.getRouteDefinitions().subscribe(new Consumer<RouteDefinition>() {
+        propertiesRouteDefinition.getRouteDefinitions().subscribe(new Consumer<RouteDefinition>() {
             @Override
             public void accept(RouteDefinition routeDefinition) {
                 // webSocket代理路由
                 URI uri = routeDefinition.getUri();
                 if (uri.toString().startsWith(lb)) {
-                    resources.add(swaggerResource(routeDefinition.getId(), "/" + uri.getHost().toLowerCase() + API_URI));
+                    swaggerResources.add(swaggerResource(routeDefinition.getId(), "/" + uri.getHost().toLowerCase() + API_URI));
                 }
             }
         });
 
-        return resources;
+        return swaggerResources;
     }
 
     private SwaggerResource swaggerResource(String name, String location) {
