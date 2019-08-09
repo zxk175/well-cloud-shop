@@ -10,9 +10,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
-public class WellProviderUserApplication {
+public class WellProviderTestApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WellProviderUserApplication.class, args);
+        SpringApplication.run(WellProviderTestApplication.class, args);
     }
 }

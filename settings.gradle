@@ -13,9 +13,11 @@ include 'well-common:well-common-core'
 
 include 'well-provider'
 include 'well-provider:well-provider-common'
+include 'well-provider:well-provider-test'
 include 'well-provider:well-provider-user'
 
 include 'well-generate'
 include 'well-generate:well-generate-common'
+
 include 'well-generate:well-generate-user'
 
