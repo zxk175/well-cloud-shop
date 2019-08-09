@@ -14,17 +14,17 @@ public class MySwaggerHeaderFilter extends AbstractGatewayFilterFactory {
 
     @Override
     public GatewayFilter apply(Object config) {
-        return (exchange, chain) -> {
+        return (exchange, filterChain) -> {
             ServerHttpRequest request = exchange.getRequest();
             String path = request.getURI().getPath();
             if (MyStrUtil.neEndWithIgnoreCase(path, MySwaggerProvider.API_URI)) {
-                return chain.filter(exchange);
+                return filterChain.filter(exchange);
             }
 
             String headerName = "X-Forwarded-Prefix";
             String basePath = path.substring(0, path.lastIndexOf(MySwaggerProvider.API_URI));
             ServerHttpRequest newRequest = request.mutate().header(headerName, basePath).build();
-            return chain.filter(exchange.mutate().request(newRequest).build());
+            return filterChain.filter(exchange.mutate().request(newRequest).build());
         };
     }
 }
