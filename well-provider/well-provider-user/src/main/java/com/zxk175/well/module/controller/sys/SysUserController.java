@@ -19,8 +19,7 @@ import com.zxk175.well.module.service.sys.SysUserRoleService;
 import com.zxk175.well.module.service.sys.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -43,20 +42,18 @@ import java.util.Map;
  * @since 2019-05-26 22:49:45
  */
 @Controller
+@AllArgsConstructor
 @RequestMapping(Const.BASE_URL + "/sys-user")
 @Api(tags = "SysUser", description = "系统用户V1")
 public class SysUserController extends BaseController {
 
-    @Autowired
     private SysUserService sysUserService;
-    @Autowired
     private SysUserRoleService sysUserRoleService;
 
 
     @ResponseBody
     @PostMapping(value = "/save/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "添加系统用户", notes = "添加系统用户")
-    @RequiresPermissions("sys:user:save")
     public Response save(@Validated @RequestBody SysUser sysUser) {
         return sysUserService.saveUser(sysUser);
     }
@@ -64,7 +61,6 @@ public class SysUserController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/remove/batch/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "批量删除系统用户", notes = "批量删除系统用户")
-    @RequiresPermissions("sys:user:remove")
     public Response remove(@Validated @RequestBody List<SysUserRemoveParam> param) {
         List<String> userIdList = Lists.newArrayList();
         for (SysUserRemoveParam removeParam : param) {
@@ -87,7 +83,6 @@ public class SysUserController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/modify/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "修改系统用户", notes = "修改系统用户")
-    @RequiresPermissions("sys:user:modify")
     public Response modify(@RequestBody SysUser sysUser) {
         return sysUserService.modifyUser(sysUser);
     }
@@ -95,7 +90,6 @@ public class SysUserController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/list/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "所有用户列表", notes = "所有用户列表")
-    @RequiresPermissions("sys:user:list")
     public Response list(@Validated @RequestBody SysUserListParam param) {
         CommonUtil.buildPageParam(param);
 
@@ -118,7 +112,6 @@ public class SysUserController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/info/{userId}/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "系统用户信息", notes = "系统用户信息")
-    @RequiresPermissions("sys:user:info")
     public Response info(@PathVariable("userId") String userId) {
         QueryWrapper<SysUser> sysUserQw = new QueryWrapper<>();
         sysUserQw.select("user_id, user_name, avatar, mobile, salt, identity, state");

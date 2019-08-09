@@ -3,6 +3,7 @@ package com.zxk175.well.module.service.impl.sys;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.sd4324530.jtuple.Tuple2;
 import com.google.common.collect.Lists;
 import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.consts.enums.MenuType;
@@ -10,14 +11,14 @@ import com.zxk175.well.common.http.Response;
 import com.zxk175.well.common.model.param.sys.user.SysUserListParam;
 import com.zxk175.well.common.model.param.sys.user.SysUserPermsParam;
 import com.zxk175.well.common.util.MyStrUtil;
-import com.zxk175.well.common.util.common.CommonUtil;
+import com.zxk175.well.common.util.ShaUtils;
 import com.zxk175.well.module.dao.sys.SysUserDao;
 import com.zxk175.well.module.entity.sys.SysMenu;
 import com.zxk175.well.module.entity.sys.SysUser;
 import com.zxk175.well.module.service.sys.SysMenuService;
 import com.zxk175.well.module.service.sys.SysUserRoleService;
 import com.zxk175.well.module.service.sys.SysUserService;
-import org.apache.shiro.crypto.hash.Sha256Hash;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,24 +38,24 @@ import java.util.Set;
  * @since 2019-05-26 22:49:45
  */
 @Service
+@AllArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> implements SysUserService {
 
-    @Autowired
     private SysMenuService sysMenuService;
-    @Autowired
     private SysUserRoleService sysUserRoleService;
 
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Response saveUser(SysUser sysUser) {
-        String salt = CommonUtil.getRandom(false, 12);
-        sysUser.setPassword(new Sha256Hash(sysUser.getPassword(), salt).toHex());
-        sysUser.setSalt(salt);
+        Tuple2<String, String> tuple = ShaUtils.enc(sysUser.getPassword());
+        sysUser.setPassword(tuple.first);
+        sysUser.setSalt(tuple.second);
 
         this.save(sysUser);
 
         boolean save = saveOrModify(sysUser);
+
         return Response.saveReturn(save);
     }
 
@@ -73,9 +74,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     public Response modifyUser(SysUser sysUser) {
         String password = sysUser.getPassword();
         if (StrUtil.isNotBlank(password)) {
-            String salt = CommonUtil.getRandom(false, 12);
-            sysUser.setPassword(new Sha256Hash(password, salt).toHex());
-            sysUser.setSalt(salt);
+            Tuple2<String, String> tuple = ShaUtils.enc(sysUser.getPassword());
+            sysUser.setPassword(tuple.first);
+            sysUser.setSalt(tuple.second);
         }
 
         this.updateById(sysUser);

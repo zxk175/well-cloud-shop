@@ -8,6 +8,7 @@ import com.zxk175.well.module.entity.sys.SysRole;
 import com.zxk175.well.module.service.sys.SysRoleMenuService;
 import com.zxk175.well.module.service.sys.SysRoleService;
 import com.zxk175.well.module.service.sys.SysUserRoleService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,11 +25,10 @@ import java.util.Map;
  * @since 2019-05-26 22:49:45
  */
 @Service
+@AllArgsConstructor
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRole> implements SysRoleService {
 
-    @Autowired
     private SysRoleMenuService sysRoleMenuService;
-    @Autowired
     private SysUserRoleService sysUserRoleService;
 
 

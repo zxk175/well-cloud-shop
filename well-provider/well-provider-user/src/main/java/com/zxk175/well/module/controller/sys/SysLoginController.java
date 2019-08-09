@@ -3,12 +3,14 @@ package com.zxk175.well.module.controller.sys;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.sd4324530.jtuple.Tuple2;
 import com.google.common.collect.Maps;
 import com.zxk175.well.common.consts.Const;
 import com.zxk175.well.common.http.Response;
 import com.zxk175.well.common.model.dto.sys.SysUserLoginDTO;
 import com.zxk175.well.common.model.param.sys.user.SysUserLoginParam;
 import com.zxk175.well.common.model.param.sys.user.SysUserPermsParam;
+import com.zxk175.well.common.util.ShaUtils;
 import com.zxk175.well.common.util.jwt.JwTokenUtil;
 import com.zxk175.well.common.util.jwt.bean.SysSubjectDTO;
 import com.zxk175.well.common.util.jwt.bean.TokenDTO;
@@ -18,7 +20,6 @@ import com.zxk175.well.module.service.sys.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -63,8 +64,8 @@ public class SysLoginController extends BaseController {
         }
 
         // 账号存在
-        Sha256Hash sha256Hash = new Sha256Hash(param.getPassword(), sysUserDb.getSalt());
-        if (ObjectUtil.isNotNull(sysUserDb) && sysUserDb.getPassword().equals(sha256Hash.toHex())) {
+        Tuple2<String, String> tuple = ShaUtils.enc(param.getPassword(), sysUserDb.getSalt());
+        if (ObjectUtil.isNotNull(sysUserDb) && sysUserDb.getPassword().equals(tuple.first)) {
             SysSubjectDTO sysSubjectDTO = new SysSubjectDTO(sysUserDb.getUserId(), sysUserDb.getIdentity());
             TokenDTO tokenDTO = JwTokenUtil.buildToken(sysSubjectDTO);
 

@@ -14,7 +14,6 @@ import com.zxk175.well.module.service.sys.SysMenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -47,7 +46,6 @@ public class SysMenuController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/save/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "添加系统菜单", notes = "添加系统菜单")
-    @RequiresPermissions("sys:menu:save")
     public Response save(@RequestBody SysMenu menu) {
         Tuple2<Boolean, Response> tuple = verifyMenu(menu);
         if (tuple.first) {
@@ -61,7 +59,6 @@ public class SysMenuController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/remove/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "删除系统菜单", notes = "删除系统菜单")
-    @RequiresPermissions("sys:menu:remove")
     public Response remove(@Validated @RequestBody SysMenuRemoveParam param) {
         return sysMenuService.removeMenu(param);
     }
@@ -69,7 +66,6 @@ public class SysMenuController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/modify/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "修改系统菜单", notes = "修改系统菜单")
-    @RequiresPermissions("sys:menu:modify")
     public Response modify(@RequestBody SysMenu menu) {
         Tuple2<Boolean, Response> tuple = verifyMenu(menu);
         if (tuple.first) {
@@ -90,7 +86,6 @@ public class SysMenuController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/list/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "所有菜单列表", notes = "所有菜单列表")
-    @RequiresPermissions("sys:menu:list")
     public Response list() {
         return sysMenuService.listMenu(false);
     }
@@ -98,7 +93,6 @@ public class SysMenuController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/select/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "选择菜单(添加、修改菜单)", notes = "选择菜单(添加、修改菜单)")
-    @RequiresPermissions("sys:menu:list")
     public Response select() {
         // 查询列表数据
         List<SysMenu> menuList = sysMenuService.listNotButtonList();
@@ -117,7 +111,6 @@ public class SysMenuController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/info/{menuId}/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "系统菜单信息", notes = "系统菜单信息")
-    @RequiresPermissions("sys:menu:info")
     public Response info(@PathVariable("menuId") Long menuId) {
         QueryWrapper<SysMenu> sysMenuQw = new QueryWrapper<>();
         sysMenuQw.select("menu_id, parent_id, name, icon, url, perms, type, sort, state");

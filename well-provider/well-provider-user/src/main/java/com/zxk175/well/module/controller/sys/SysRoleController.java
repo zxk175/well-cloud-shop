@@ -17,7 +17,6 @@ import com.zxk175.well.module.service.sys.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -52,7 +51,6 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/save/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "添加系统角色", notes = "添加系统角色")
-    @RequiresPermissions("sys:role:save")
     public Response save(@Validated @RequestBody SysRole sysRole) {
         return sysRoleService.saveRole(sysRole);
     }
@@ -60,7 +58,6 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/remove/batch/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "批量删除系统角色", notes = "批量删除系统角色")
-    @RequiresPermissions("sys:role:remove")
     public Response remove(@Validated @RequestBody List<String> param) {
         return sysRoleService.removeRoles(param);
     }
@@ -68,7 +65,6 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/modify/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "修改系统角色", notes = "修改系统角色")
-    @RequiresPermissions("sys:role:modify")
     public Response modify(@RequestBody SysRole sysRole) {
         return sysRoleService.modifyRole(sysRole);
     }
@@ -76,7 +72,6 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     @PostMapping(value = "/list/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "所有系统角色列表", notes = "所有系统角色列表")
-    @RequiresPermissions("sys:role:list")
     public Response list(@Validated @RequestBody SysRoleListParam param) {
         CommonUtil.buildPageParam(param);
 
@@ -93,7 +88,6 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     @GetMapping(value = "/info/{roleId}/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "系统角色信息", notes = "系统角色信息")
-    @RequiresPermissions("sys:role:info")
     public Response info(@PathVariable("roleId") String roleId) {
         QueryWrapper<SysRole> sysRoleQw = new QueryWrapper<>();
         sysRoleQw.select("role_id, role_name, role_sign, remark, state");
