@@ -29,11 +29,6 @@ public class MySwaggerHandler {
     private final SwaggerResourcesProvider swaggerResources;
 
 
-    @Autowired
-    public MySwaggerHandler(SwaggerResourcesProvider swaggerResources) {
-        this.swaggerResources = swaggerResources;
-    }
-
     @GetMapping("/configuration/ui")
     public Mono<ResponseEntity<UiConfiguration>> uiConfiguration() {
         return Mono.just(new ResponseEntity<>(Optional.ofNullable(uiConfiguration).orElse(new UiConfiguration("")), HttpStatus.OK));
