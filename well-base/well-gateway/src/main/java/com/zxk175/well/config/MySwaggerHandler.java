@@ -26,8 +26,13 @@ public class MySwaggerHandler {
 
     private UiConfiguration uiConfiguration;
     private SecurityConfiguration securityConfiguration;
-    private final SwaggerResourcesProvider swaggerResources;
+    private SwaggerResourcesProvider swaggerResourcesProvider;
 
+
+    @Autowired
+    public MySwaggerHandler(SwaggerResourcesProvider swaggerResourcesProvider) {
+        this.swaggerResourcesProvider = swaggerResourcesProvider;
+    }
 
     @GetMapping("/configuration/ui")
     public Mono<ResponseEntity<UiConfiguration>> uiConfiguration() {
@@ -41,6 +46,6 @@ public class MySwaggerHandler {
 
     @GetMapping
     public Mono<ResponseEntity> swaggerResources() {
-        return Mono.just((new ResponseEntity<>(swaggerResources.get(), HttpStatus.OK)));
+        return Mono.just((new ResponseEntity<>(swaggerResourcesProvider.get(), HttpStatus.OK)));
     }
 }
