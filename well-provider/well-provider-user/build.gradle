@@ -1,0 +1,21 @@
+apply plugin: "org.springframework.boot"
+
+bootJar {
+    setArchivesBaseName("well-provider-user")
+}
+
+dependencies {
+    annotationProcessor libraries.lombok
+
+    compile([
+            libraries.boot_web,
+            libraries.boot_undertow,
+
+            libraries.cloud_config_client,
+            libraries.cloud_eureka_client,
+            libraries.cloud_zipkin,
+
+            libraries.swagger2,
+            libraries.swagger2_ui,
+    ])
+}
