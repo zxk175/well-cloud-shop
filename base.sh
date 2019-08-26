@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 验证.env是否有效
-#docker-compose -f base.yml config
+#docker-compose -f base.yml com.zxk175.well.config
 # 删除容器
 #docker-compose -f base.yml down --remove-orphans
 

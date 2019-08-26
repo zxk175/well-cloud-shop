@@ -1,7 +1,5 @@
 package com.zxk175.well.filter.log;
 
-import com.zxk175.well.common.util.MyStrUtil;
-import com.zxk175.well.config.MySwaggerProvider;
 import com.zxk175.well.filter.util.GatewayLogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -16,6 +14,7 @@ import java.net.URI;
 
 /**
  * @author zxk175
+ * @since 2019-08-11 01:28
  */
 @Slf4j
 @Component

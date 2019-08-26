@@ -13,6 +13,7 @@ import java.net.URI;
 
 /**
  * @author zxk175
+ * @since 2019-08-11 01:28
  */
 @Component
 public class RequestLogFilter implements GlobalFilter, Ordered {
@@ -35,11 +36,6 @@ public class RequestLogFilter implements GlobalFilter, Ordered {
         // 记录原始请求
         GatewayLogUtil.recorderOriginRequest(exchange);
 
-        return filterChain.filter(exchange).then(Mono.fromRunnable(new Runnable() {
-            @Override
-            public void run() {
-                GatewayLogUtil.recorderResponse(exchange);
-            }
-        }));
+        return filterChain.filter(exchange).then(Mono.fromRunnable(() -> GatewayLogUtil.recorderResponse(exchange)));
     }
 }

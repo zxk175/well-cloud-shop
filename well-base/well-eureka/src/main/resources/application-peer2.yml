@@ -14,4 +14,6 @@ eureka:
   client:
     register-with-eureka: false
     serviceUrl:
-      defaultZone: http://root:root@peer1:8001/eureka,http://root:root@peer3:8003/eureka
+      defaultZone:
+        http://${spring.security.user.name}:${spring.security.user.password}@peer1:8001/eureka
+        http://${spring.security.user.name}:${spring.security.user.password}@peer3:8003/eureka

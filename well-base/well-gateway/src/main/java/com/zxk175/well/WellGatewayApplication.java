@@ -10,7 +10,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 /**
  * @author zxk175
- * @since 2018/12/25 16:18
+ * @since 2019-08-11 00:11
  */
 @Controller
 @EnableDiscoveryClient

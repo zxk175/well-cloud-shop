@@ -1,9 +1,8 @@
 package com.zxk175.well.filter.log;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.zxk175.well.common.consts.Const;
+import com.zxk175.well.base.consts.Const;
 import com.zxk175.well.filter.util.GatewayLogUtil;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -36,13 +35,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Gateway Context Filter
- *
- * @author chenggang
- * @date 2019/01/29
+ * @author zxk175
+ * @since 2019-08-11 01:27
  */
 @Slf4j
-@AllArgsConstructor
 @Component
 public class GatewayContextFilter implements GlobalFilter, Ordered {
 

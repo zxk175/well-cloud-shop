@@ -1,18 +1,16 @@
-apply plugin: "org.springframework.boot"
+apply plugin: 'org.springframework.boot'
 
 bootJar {
-    setArchivesBaseName("well-eureka")
+    setArchivesBaseName('well-eureka')
 }
 
 dependencies {
-    compile libraries.lombok
     annotationProcessor libraries.lombok
 
     compile([
             libraries.boot_undertow,
             libraries.boot_security,
 
-            libraries.cloud_config_client,
             libraries.cloud_eureka_server,
     ])
 }

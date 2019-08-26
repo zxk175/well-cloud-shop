@@ -1,23 +1,12 @@
-rootProject.name = 'well-cloud-shop'
+rootProject.name = "well-cloud-shop"
 
-include ':well-base:well-eureka'
-include ':well-base:well-config'
-include ':well-base:well-gateway'
+include ":well-common:well-common-base"
+include ":well-common:well-common-core"
 
-include ':well-monitor:well-boot-admin'
-include ':well-monitor:well-zipkin'
+include ":well-monitor:well-zipkin"
 
-include 'well-common'
-include 'well-common:well-common-base'
-include 'well-common:well-common-core'
+include ":well-base:well-config"
+include ":well-base:well-eureka"
+include ":well-base:well-gateway"
 
-include 'well-provider'
-include 'well-provider:well-provider-common'
-include 'well-provider:well-provider-test'
-include 'well-provider:well-provider-user'
-
-include 'well-generate'
-include 'well-generate:well-generate-common'
-
-include 'well-generate:well-generate-user'
-
+include ":well-provider:well-provider-user"

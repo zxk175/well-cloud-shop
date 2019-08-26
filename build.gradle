@@ -1,8 +1,6 @@
 buildscript {
     // 引入jar包定义
-    // 这个文件中定义的jar包可以直接在子项目中使用
-    // 不需要再次使用 apply from 这个语句
-    apply from: 'dependency.gradle'
+    apply from: "dependency.gradle"
 
     repositories {
         mavenLocal()
@@ -13,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${versions.spring_boot}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${versions.spring_boot}"
     }
 }
 
@@ -40,7 +38,6 @@ allprojects {
 subprojects { subPro ->
     // 指定使用的gradle插件
     apply plugin: 'java'
-    apply plugin: 'idea'
     apply plugin: 'io.spring.dependency-management'
 
     // Jdk版本
@@ -58,26 +55,22 @@ subprojects { subPro ->
         }
 
         // 所有需要忽略的包定义在此
-        // group是必选项，module可选
-        compile.exclude group: 'org.apache.tomcat'
-        compile.exclude module: 'undertow-websockets-jsr'
-        // 在整个构建过程中排除
-        all*.exclude module: 'spring-boot-starter-tomcat'
+        implementation.exclude module: "spring-boot-starter-tomcat"
     }
 
     // java编译的时候缺省状态下会因为中文字符而失败
     [compileJava, compileTestJava, javadoc]*.options*.encoding = configs.project_encoding
 
     dependencies {
-        compile([
+        runtime([
                 libraries.boot_devtools,
                 libraries.boot_actuator,
         ])
 
         // 引入根目录和各子项目下的libs中的jar包
-        def rootProjectLibs = new File(rootProject.rootDir, 'libs').getAbsolutePath()
+        def rootProjectLibs = new File(rootProject.rootDir, "libs").getAbsolutePath()
 
-        compile fileTree(dir: rootProjectLibs, include: '**/*.jar')
+        implementation fileTree(dir: rootProjectLibs, include: "**/*.jar")
     }
 
     dependencyManagement {
@@ -94,29 +87,24 @@ subprojects { subPro ->
 task clear {
     doLast {
         delete rootProject.buildDir
-        delete rootProject.projectDir.toString() + '/logs'
+        delete rootProject.projectDir.toString() + "/logs"
 
         delete subprojects.buildDir
 
         for (Project project in subprojects) {
             def projectDir = project.projectDir.toString()
 
-            def outDir = projectDir + '/out'
+            def outDir = projectDir + "/out"
             def flag = delete outDir
-            println(outDir)
 
-            if (flag) {
-                println('===> 删除成功\n')
-            } else {
-                println('===> 未找到out文件夹\n')
-            }
+            println(flag ? "\n==> 删除成功\n[" + outDir : "\n==> 未找到out文件夹\n" + outDir)
         }
     }
 }
 
 
 // 升级命令
-// ./gradlew wrapper --gradle-version=5.4.1
+// ./gradlew wrapper --gradle-version=5.6
 
 // 强制清除 gradle 依赖缓存
 // ./gradlew build --refresh-dependencies

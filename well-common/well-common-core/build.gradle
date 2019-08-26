@@ -1,33 +1,7 @@
 dependencies {
     annotationProcessor libraries.lombok
 
-    compile(
-            project(":well-common:well-common-base"),
-            [
-                    libraries.boot_aop,
-                    libraries.boot_jdbc,
-                    libraries.boot_redis,
-                    libraries.boot_undertow,
-                    libraries.aspect,
-
-                    libraries.boot_mybatis,
-                    libraries.boot_mybatis_plus,
-
-                    libraries.mysql,
-                    libraries.boot_druid,
-                    libraries.boot_shiro,
-
-                    libraries.hibernate_validator,
-                    libraries.validation_api,
-
-                    libraries.ip2region,
-                    libraries.easy_okhttp,
-                    libraries.fst,
-
-                    libraries.guava,
-                    libraries.easy_excel,
-
-                    libraries.ali_oss,
-            ]
-    )
+    compile([
+            project(':well-common:well-common-base'),
+    ])
 }

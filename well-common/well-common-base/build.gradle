@@ -2,19 +2,12 @@ dependencies {
     compile libraries.lombok
     annotationProcessor libraries.lombok
 
-    compile(
-            [
-                    libraries.boot_freemarker,
+    compile([
+            libraries.boot_freemarker,
 
-                    libraries.swagger2,
+            libraries.swagger2,
 
-                    libraries.javax_servlet_api,
-                    libraries.hutool_core,
-                    libraries.hutool_crypto,
-                    libraries.fast_json,
-
-                    libraries.jwt,
-                    libraries.tuple,
-            ]
-    )
+            libraries.hutool_core,
+            libraries.fast_json,
+    ])
 }

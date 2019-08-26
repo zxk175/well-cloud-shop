@@ -3,10 +3,10 @@ package com.zxk175.well.filter.util;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.XmlUtil;
-import com.zxk175.well.common.util.MyStrUtil;
-import com.zxk175.well.common.util.id.ClockUtil;
-import com.zxk175.well.common.util.json.FastJsonUtil;
-import com.zxk175.well.common.util.json.JsonFormatUtil;
+import com.zxk175.well.base.util.MyStrUtil;
+import com.zxk175.well.base.util.id.ClockUtil;
+import com.zxk175.well.base.util.json.FastJsonUtil;
+import com.zxk175.well.base.util.json.JsonFormatUtil;
 import com.zxk175.well.filter.log.FilterConst;
 import com.zxk175.well.filter.log.GatewayContext;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * @author zxk175
- * @since 2019/7/25 20:04
+ * @since 2019-08-11 01:28
  */
 @Slf4j
 public class GatewayLogUtil {

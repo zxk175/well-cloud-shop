@@ -8,6 +8,10 @@ server:
     direct-buffers: true
 
 spring:
+  application:
+    name: eureka-server
+  profiles:
+    active: dev
   mvc:
     throw-exception-if-no-handler-found: true
   security:
@@ -17,7 +21,6 @@ spring:
 
 eureka:
   instance:
-    status-page-url: http://127.0.0.1:${server.port}/
     # 解决/actuator/health（401 Unauthorized)
     metadata-map:
       user:
@@ -26,15 +29,13 @@ eureka:
   server:
     # 关闭自我保护模式
     enable-self-preservation: false
-    # 清理无效节点的时间间隔
+    # 清理无效节点时间间隔
     eviction-interval-timer-in-ms: 3000
   client:
     # 是否将自己注册到服务中心，默认true
-    register-with-eureka: true
+    register-with-eureka: false
     # 是否从服务中心获取注册信息，默认true
     fetch-registry: false
-    serviceUrl:
-      defaultZone: http://root:root@well-eureka:8001/eureka
 
 management:
   endpoints:

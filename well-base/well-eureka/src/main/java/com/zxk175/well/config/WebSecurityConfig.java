@@ -13,9 +13,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                // 关闭跨站请求防护
-                .csrf().disable();
+        // 关闭跨站请求防护
+        httpSecurity.csrf().disable();
 
         super.configure(httpSecurity);
     }

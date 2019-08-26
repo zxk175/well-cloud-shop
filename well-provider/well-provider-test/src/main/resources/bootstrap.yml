@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: provider-test
-  cloud:
-    config:
-      uri: http://127.0.0.1:8888/
-      name: test
-      profile: dev
-      fail-fast: true

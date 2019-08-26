@@ -4,13 +4,12 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.eureka
-    image: '${AUTHOR}/well-peer1:${TAG}'
-    container_name: 'peer1'
-    # 宿主机端口:容器端口
+    image: "${AUTHOR}/well-peer1:${TAG}"
+    container_name: "peer1"
     ports:
       - "8001:8001"
     environment:
-      - 'spring.profiles.active=peer1'
+      - "spring.profiles.active=peer1"
     networks:
       - cloud
 
@@ -18,13 +17,12 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.eureka
-    image: '${AUTHOR}/well-peer2:${TAG}'
-    container_name: 'peer2'
-    # 宿主机端口:容器端口
+    image: "${AUTHOR}/well-peer2:${TAG}"
+    container_name: "peer2"
     ports:
       - "8002:8002"
     environment:
-      - 'spring.profiles.active=peer2'
+      - "spring.profiles.active=peer2"
     networks:
       - cloud
 
@@ -32,13 +30,12 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.eureka
-    image: '${AUTHOR}/well-peer3:${TAG}'
-    container_name: 'peer3'
-    # 宿主机端口:容器端口
+    image: "${AUTHOR}/well-peer3:${TAG}"
+    container_name: "peer3"
     ports:
       - "8003:8003"
     environment:
-      - 'spring.profiles.active=peer3'
+      - "spring.profiles.active=peer3"
     networks:
       - cloud
 

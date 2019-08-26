@@ -1,20 +1,22 @@
-apply plugin: "org.springframework.boot"
+apply plugin: 'org.springframework.boot'
 
 bootJar {
-    setArchivesBaseName("well-gateway")
+    setArchivesBaseName('well-gateway')
 }
 
 dependencies {
     annotationProcessor libraries.lombok
 
-    compile(
-            project(":well-common:well-common-base"),
-            [
-                    libraries.swagger2_ui,
+    compile([
+            project(':well-common:well-common-base'),
 
-                    libraries.cloud_config_client,
-                    libraries.cloud_eureka_client,
-                    libraries.cloud_gateway,
-                    libraries.sleuth_zipkin,
-            ])
+            libraries.swagger2_ui,
+
+            libraries.cloud_config_client,
+            libraries.cloud_eureka_client,
+            libraries.cloud_gateway,
+
+            // fix 找不到javax.annotation.meta.When
+            libraries.findbugs_annotations,
+    ])
 }

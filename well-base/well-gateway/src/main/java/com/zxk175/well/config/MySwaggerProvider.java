@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 @AllArgsConstructor
 public class MySwaggerProvider implements SwaggerResourcesProvider {
 
-    public static final String API_URI = "/v2/api-docs";
+    private static final String API_URI = "/v2/api-docs";
     private PropertiesRouteDefinitionLocator propertiesRouteDefinition;
 
 

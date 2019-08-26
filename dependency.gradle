@@ -1,93 +1,78 @@
 ext {
     // 基本信息配置
     configs = [
-            project_group   : 'com.zxk175',
+            project_group   : "com.zxk175",
             project_version : "1.0.0",
             project_encoding: "UTF-8",
     ]
 
     // jar包版本
     versions = [
-            spring_boot      : "2.1.6.RELEASE",
-            spring_cloud     : 'Greenwich.RELEASE',
+            spring_boot      : "2.1.7.RELEASE",
+            spring_cloud     : "Greenwich.RELEASE",
             zipkin           : "2.12.3",
-            aspect           : "1.9.2",
 
-            boot_admin       : "2.1.5",
-            boot_mybatis     : "2.0.1",
-            boot_mybatis_plus: "3.1.2",
-            boot_druid       : "1.1.18",
+            boot_mybatis     : "2.1.0",
+            boot_mybatis_plus: "3.2.0",
+            boot_druid       : "1.1.19",
 
             swagger2         : "2.7.0",
 
-            javax_servlet_api: "4.0.1",
-            commons_pool2    : "2.6.0",
-
-            fast_json        : "1.2.58",
-
-            hutool           : "4.5.10",
-            lombok           : "1.18.8",
+            commons_pool2    : "2.7.0",
+            fast_json        : "1.2.59",
+            hutool           : "4.6.3",
     ]
 
     // jar包
     libraries = [
-            boot_aop               : "org.springframework.boot:spring-boot-starter-aop",
-            boot_web               : "org.springframework.boot:spring-boot-starter-web",
-            boot_jdbc              : "org.springframework.boot:spring-boot-starter-jdbc",
-            boot_redis             : "org.springframework.boot:spring-boot-starter-data-redis",
-            boot_freemarker        : "org.springframework.boot:spring-boot-starter-freemarker",
-            boot_undertow          : "org.springframework.boot:spring-boot-starter-undertow",
-            boot_devtools          : "org.springframework.boot:spring-boot-devtools",
-            boot_actuator          : "org.springframework.boot:spring-boot-starter-actuator",
-            boot_security          : "org.springframework.boot:spring-boot-starter-security",
-            boot_test              : "org.springframework.boot:spring-boot-starter-test",
+            lombok               : "org.projectlombok:lombok",
 
-            aspect                 : "org.aspectj:aspectjweaver:${versions.aspect}",
+            boot_web             : "org.springframework.boot:spring-boot-starter-web",
+            boot_aop             : "org.springframework.boot:spring-boot-starter-aop",
+            boot_jdbc            : "org.springframework.boot:spring-boot-starter-jdbc",
+            boot_redis           : "org.springframework.boot:spring-boot-starter-data-redis",
+            boot_freemarker      : "org.springframework.boot:spring-boot-starter-freemarker",
+            boot_undertow        : "org.springframework.boot:spring-boot-starter-undertow",
+            boot_security        : "org.springframework.boot:spring-boot-starter-security",
+            boot_actuator        : "org.springframework.boot:spring-boot-starter-actuator",
+            boot_devtools        : "org.springframework.boot:spring-boot-devtools",
+            boot_test            : "org.springframework.boot:spring-boot-starter-test",
 
-            cloud_eureka_server    : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server",
-            cloud_eureka_client    : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
-            cloud_config_server    : "org.springframework.cloud:spring-cloud-config-server",
-            cloud_config_client    : "org.springframework.cloud:spring-cloud-config-client",
-            cloud_feign            : "org.springframework.cloud:spring-cloud-starter-openfeign",
-            cloud_gateway          : "org.springframework.cloud:spring-cloud-starter-gateway",
+            cloud_config_server  : "org.springframework.cloud:spring-cloud-config-server",
+            cloud_config_client  : "org.springframework.cloud:spring-cloud-config-client",
+            cloud_eureka_server  : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server",
+            cloud_eureka_client  : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+            cloud_feign          : "org.springframework.cloud:spring-cloud-starter-openfeign",
+            cloud_gateway        : "org.springframework.cloud:spring-cloud-starter-gateway",
 
-            sleuth_zipkin          : "org.springframework.cloud:spring-cloud-sleuth-zipkin",
-            cloud_zipkin           : "io.zipkin.java:zipkin-server:${versions.zipkin}",
-            cloud_zipkin_ui        : "io.zipkin.java:zipkin-autoconfigure-ui:${versions.zipkin}",
+            zipkin               : "io.zipkin.java:zipkin-server:${versions.zipkin}",
+            zipkin_ui            : "io.zipkin.java:zipkin-autoconfigure-ui:${versions.zipkin}",
+            cloud_zipkin         : "org.springframework.cloud:spring-cloud-starter-zipkin",
 
-            boot_admin_server      : "de.codecentric:spring-boot-admin-starter-server:${versions.boot_admin}",
-            boot_admin_client      : "de.codecentric:spring-boot-admin-starter-client:${versions.boot_admin}",
+            boot_mybatis         : "org.mybatis.spring.boot:mybatis-spring-boot-starter:${versions.boot_mybatis}",
+            boot_mybatis_plus    : "com.baomidou:mybatis-plus-boot-starter:${versions.boot_mybatis_plus}",
+            mybatis_plus_generate: "com.baomidou:mybatis-plus-generator:${versions.boot_mybatis_plus}",
 
-            boot_mybatis           : "org.mybatis.spring.boot:mybatis-spring-boot-starter:${versions.boot_mybatis}",
-            boot_mybatis_plus      : "com.baomidou:mybatis-plus-boot-starter:${versions.boot_mybatis_plus}",
-            mybatis_plus_gen       : "com.baomidou:mybatis-plus-generator:${versions.boot_mybatis_plus}",
+            mysql                : "mysql:mysql-connector-java:8.0.16",
+            boot_druid           : "com.alibaba:druid-spring-boot-starter:${versions.boot_druid}",
 
-            mysql                  : "mysql:mysql-connector-java:8.0.16",
-            boot_druid             : "com.alibaba:druid-spring-boot-starter:${versions.boot_druid}",
-            boot_shiro             : "org.apache.shiro:shiro-spring-boot-web-starter:1.4.1",
+            swagger2             : "io.springfox:springfox-swagger2:${versions.swagger2}",
+            swagger2_ui          : "io.springfox:springfox-swagger-ui:${versions.swagger2}",
 
-            swagger2               : "io.springfox:springfox-swagger2:${versions.swagger2}",
-            swagger2_ui            : "io.springfox:springfox-swagger-ui:${versions.swagger2}",
+            // fix 未知的枚举常量 javax.annotation.meta.When.MAYBE
+            findbugs_annotations : "com.google.code.findbugs:annotations:3.0.1",
 
-            hibernate_validator    : "org.hibernate:hibernate-validator:6.0.17.Final",
-            validation_api         : "javax.validation:validation-api:2.0.1.Final",
+            commons_pool2        : "org.apache.commons:commons-pool2:${versions.commons_pool2}",
+            hutool_core          : "cn.hutool:hutool-core:${versions.hutool}",
+            hutool_crypto        : "cn.hutool:hutool-crypto:${versions.hutool}",
+            fast_json            : "com.alibaba:fastjson:${versions.fast_json}",
+            bcprov               : "org.bouncycastle:bcprov-jdk15on:1.62",
+            ip2region            : "org.lionsoul:ip2region:1.7.2",
+            easy_okhttp          : "com.mzlion:easy-okhttp:1.1.4",
+            fst                  : "de.ruedigermoeller:fst:2.57",
+            jwt                  : "io.jsonwebtoken:jjwt:0.9.1",
 
-            javax_servlet_api      : "javax.servlet:javax.servlet-api:${versions.javax_servlet_api}",
-            hutool_core            : "cn.hutool:hutool-core:${versions.hutool}",
-            hutool_crypto          : "cn.hutool:hutool-crypto:${versions.hutool}",
-            fast_json              : "com.alibaba:fastjson:${versions.fast_json}",
-            lombok                 : "org.projectlombok:lombok:${versions.lombok}",
-            commons_pool2          : "org.apache.commons:commons-pool2:2.6.2",
-            bcprov                 : 'org.bouncycastle:bcprov-jdk15on:1.61',
-            ip2region              : "org.lionsoul:ip2region:1.7.2",
-            easy_okhttp            : "com.mzlion:easy-okhttp:1.1.4",
-            fst                    : "de.ruedigermoeller:fst:2.57",
-            jwt                    : "io.jsonwebtoken:jjwt:0.9.1",
-
-            guava                  : "com.google.guava:guava:28.0-jre",
-            tuple                  : "com.github.sd4324530:JTuple:1.2.1",
-            zxing                  : "com.google.zxing:core:3.3.3",
-            easy_excel             : "com.alibaba:easyexcel:1.1.1",
-            ali_oss                : "com.aliyun.oss:aliyun-sdk-oss:3.4.2",
+            easy_excel           : "com.alibaba:easyexcel:1.1.1",
+            ali_oss              : "com.aliyun.oss:aliyun-sdk-oss:3.4.2",
     ]
 }

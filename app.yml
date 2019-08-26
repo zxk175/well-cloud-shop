@@ -1,30 +1,16 @@
 version: "3.7"
 services:
-  well-boot-admin:
-    build:
-      context: ./
-      dockerfile: docker/Dockerfile.boot-admin
-    image: '${AUTHOR}/well-boot-admin:${TAG}'
-    container_name: 'well-boot-admin'
-    ports:
-      - "8010:8010"
-    environment:
-      - 'eureka.list=${EUREKA_LIST}'
-      - 'spring.profiles.active=${ACTIVE}'
-    networks:
-      - cloud
-
   well-config:
     build:
       context: ./
       dockerfile: docker/Dockerfile.config
-    image: '${AUTHOR}/well-config:${TAG}'
-    container_name: 'well-config'
+    image: "${AUTHOR}/well-config:${TAG}"
+    container_name: "well-config"
     ports:
       - "8888:8888"
     environment:
-      - 'eureka.list=${EUREKA_LIST}'
-      - 'spring.profiles.active=${ACTIVE}'
+      - "eureka.list=${EUREKA_LIST}"
+      - "spring.profiles.active=${ACTIVE}"
     networks:
       - cloud
 
@@ -32,16 +18,16 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.gateway
-    image: '${AUTHOR}/well-gateway:${TAG}'
-    container_name: 'well-gateway'
+    image: "${AUTHOR}/well-gateway:${TAG}"
+    container_name: "well-gateway"
     ports:
       - "9000:9000"
       - "5500:5500"
     environment:
-      - 'eureka.list=${EUREKA_LIST}'
-      - 'zipkin.list=${ZIPKIN_LIST}'
-      - 'config.list=${CONFIG_LIST}'
-      - 'spring.profiles.active=${ACTIVE}'
+      - "eureka.list=${EUREKA_LIST}"
+      - "zipkin.list=${ZIPKIN_LIST}"
+      - "config.list=${CONFIG_LIST}"
+      - "spring.profiles.active=${ACTIVE}"
     networks:
       - cloud
     depends_on:
@@ -51,13 +37,13 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.zipkin
-    image: '${AUTHOR}/well-zipkin:${TAG}'
-    container_name: 'well-zipkin'
+    image: "${AUTHOR}/well-zipkin:${TAG}"
+    container_name: "well-zipkin"
     ports:
       - "9411:9411"
     environment:
-      - 'eureka.list=${EUREKA_LIST}'
-      - 'spring.profiles.active=${ACTIVE}'
+      - "eureka.list=${EUREKA_LIST}"
+      - "spring.profiles.active=${ACTIVE}"
     networks:
       - cloud
 
@@ -65,15 +51,15 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile.provider-user
-    image: '${AUTHOR}/well-provider-user:${TAG}'
-    container_name: 'well-provider-user'
+    image: "${AUTHOR}/well-provider-user:${TAG}"
+    container_name: "well-provider-user"
     ports:
       - "9010:9010"
     environment:
-      - 'eureka.list=${EUREKA_LIST}'
-      - 'zipkin.list=${ZIPKIN_LIST}'
-      - 'config.list=${CONFIG_LIST}'
-      - 'spring.profiles.active=${ACTIVE}'
+      - "eureka.list=${EUREKA_LIST}"
+      - "zipkin.list=${ZIPKIN_LIST}"
+      - "config.list=${CONFIG_LIST}"
+      - "spring.profiles.active=${ACTIVE}"
     networks:
       - cloud
     depends_on:
