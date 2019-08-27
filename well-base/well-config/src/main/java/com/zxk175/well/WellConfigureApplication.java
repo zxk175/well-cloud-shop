@@ -12,9 +12,9 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 @EnableConfigServer
 @EnableDiscoveryClient
 @SpringBootApplication
-public class WellConfigApplication {
+public class WellConfigureApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WellConfigApplication.class, args);
+        SpringApplication.run(WellConfigureApplication.class, args);
     }
 }

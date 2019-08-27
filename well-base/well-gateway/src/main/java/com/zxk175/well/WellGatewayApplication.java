@@ -3,6 +3,7 @@ package com.zxk175.well;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @since 2019-08-11 00:11
  */
 @Controller
+@EnableHystrix
 @EnableDiscoveryClient
 @SpringBootApplication
 public class WellGatewayApplication {
