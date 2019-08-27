@@ -2,7 +2,6 @@ package com.zxk175.well.config.swagger;
 
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.config.PropertiesRouteDefinitionLocator;
-import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import springfox.documentation.swagger.web.SwaggerResource;
@@ -11,7 +10,6 @@ import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * @author zxk175
@@ -32,14 +30,11 @@ public class MySwaggerProvider implements SwaggerResourcesProvider {
         List<SwaggerResource> swaggerResources = new ArrayList<>();
 
         // 取出application.yml配置的route
-        propertiesRouteDefinition.getRouteDefinitions().subscribe(new Consumer<RouteDefinition>() {
-            @Override
-            public void accept(RouteDefinition routeDefinition) {
-                // webSocket代理路由
-                URI uri = routeDefinition.getUri();
-                if (uri.toString().startsWith(lb)) {
-                    swaggerResources.add(swaggerResource(routeDefinition.getId(), "/" + uri.getHost().toLowerCase() + API_URI));
-                }
+        propertiesRouteDefinition.getRouteDefinitions().subscribe(routeDefinition -> {
+            // webSocket代理路由
+            URI uri = routeDefinition.getUri();
+            if (uri.toString().startsWith(lb)) {
+                swaggerResources.add(swaggerResource(routeDefinition.getId(), "/" + uri.getHost().toLowerCase() + API_URI));
             }
         });
 
