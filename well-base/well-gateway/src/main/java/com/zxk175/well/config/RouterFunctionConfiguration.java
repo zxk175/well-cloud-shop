@@ -23,7 +23,8 @@ public class RouterFunctionConfiguration {
 
     @Bean
     public RouterFunction<?> routerFunction() {
-        RequestPredicate fallback = RequestPredicates.GET("/fallback").and(RequestPredicates.accept(MediaType.TEXT_PLAIN));
+        MediaType[] mediaTypes = new MediaType[]{MediaType.APPLICATION_JSON, MediaType.APPLICATION_JSON_UTF8};
+        RequestPredicate fallback = RequestPredicates.path("/fallback").and(RequestPredicates.accept(mediaTypes));
 
         return RouterFunctions.route(fallback, hystrixFallbackHandler);
     }
