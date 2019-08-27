@@ -1,4 +1,4 @@
-package com.zxk175.well.test.config.swagger;
+package com.zxk175.well.config.swagger;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.zxk175.well.test.config;
+package com.zxk175.well.config;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.config.ResourceHandlerRegistry;

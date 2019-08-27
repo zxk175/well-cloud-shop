@@ -1,4 +1,4 @@
-package com.zxk175.well.test.config;
+package com.zxk175.well.config;
 
 import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiOperation;
