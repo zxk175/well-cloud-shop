@@ -20,6 +20,7 @@ public class TestController {
     @PostMapping("/add")
     @ApiOperation(value = "计算+", notes = "加法")
     public Integer add(@RequestBody AddParam param) {
+        int i = 1 / 0;
         return param.getA() + param.getB();
     }
 }

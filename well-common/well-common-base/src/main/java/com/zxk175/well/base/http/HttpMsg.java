@@ -16,6 +16,9 @@ public enum HttpMsg {
     FAIL(Const.FAIL_CODE, Const.FAIL_TXT),
     NO_DATA(2, "暂无数据"),
 
+    REQ_TIMEOUT(3, "请求超时"),
+    REQ_URI_NOT_FOUND(3, "请求地址不存在"),
+
     // 参数错误 10001-19999
     PARAM_NOT_COMPLETE(10001, "参数缺失"),
     TOKEN_NOT_ERROR(10002, "请在请求头添加token信息"),
