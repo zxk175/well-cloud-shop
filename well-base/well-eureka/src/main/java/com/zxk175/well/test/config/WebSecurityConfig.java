@@ -1,4 +1,4 @@
-package com.zxk175.well.config;
+package com.zxk175.well.test.config;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;

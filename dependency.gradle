@@ -42,8 +42,10 @@ ext {
             cloud_config_client  : "org.springframework.cloud:spring-cloud-config-client",
             cloud_eureka_server  : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server",
             cloud_eureka_client  : "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+            cloud_hystrix        : "org.springframework.cloud:spring-cloud-starter-netflix-hystrix",
             cloud_feign          : "org.springframework.cloud:spring-cloud-starter-openfeign",
             cloud_gateway        : "org.springframework.cloud:spring-cloud-starter-gateway",
+
 
             zipkin               : "io.zipkin.java:zipkin-server:${versions.zipkin}",
             zipkin_ui            : "io.zipkin.java:zipkin-autoconfigure-ui:${versions.zipkin}",

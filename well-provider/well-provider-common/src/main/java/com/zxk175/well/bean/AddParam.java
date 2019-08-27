@@ -1,4 +1,4 @@
-package com.zxk175.well.user.bean;
+package com.zxk175.well.bean;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

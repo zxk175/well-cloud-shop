@@ -1,4 +1,4 @@
-package com.zxk175.well.config;
+package com.zxk175.well.test.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

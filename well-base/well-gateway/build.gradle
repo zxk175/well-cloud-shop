@@ -15,6 +15,7 @@ dependencies {
             libraries.cloud_config_client,
             libraries.cloud_eureka_client,
             libraries.cloud_gateway,
+            libraries.cloud_hystrix,
 
             // fix 找不到javax.annotation.meta.When
             libraries.findbugs_annotations,

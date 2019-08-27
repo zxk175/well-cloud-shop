@@ -1,4 +1,4 @@
-package com.zxk175.well.user.config;
+package com.zxk175.well.test.config;
 
 import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiOperation;
@@ -43,8 +43,8 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("用户APIs")
-                .description("了解更多点击：https://zxk175.com")
+                .title("测试APIs")
+                .description("了解更多请点击：https://zxk175.com")
                 .termsOfServiceUrl("https://zxk175.com")
                 .contact(new Contact("张小康", "https://zxk175.com", "zxk175@qq.com"))
                 .version("1.0.0")
