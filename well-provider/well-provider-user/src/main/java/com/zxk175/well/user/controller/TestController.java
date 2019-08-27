@@ -1,6 +1,6 @@
-package com.zxk175.well.controller;
+package com.zxk175.well.user.controller;
 
-import com.zxk175.well.bean.AddParam;
+import com.zxk175.well.user.bean.AddParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;

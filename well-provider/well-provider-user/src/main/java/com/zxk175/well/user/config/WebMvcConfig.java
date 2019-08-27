@@ -1,4 +1,4 @@
-package com.zxk175.well.config;
+package com.zxk175.well.user.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

@@ -1,4 +1,4 @@
-package com.zxk175.well;
+package com.zxk175.well.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
