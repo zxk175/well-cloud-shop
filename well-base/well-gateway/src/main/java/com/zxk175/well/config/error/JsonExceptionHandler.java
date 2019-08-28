@@ -54,8 +54,9 @@ public class JsonExceptionHandler extends AbstractErrorWebExceptionHandler {
         }
 
         Map<String, Object> extra = Maps.newHashMapWithExpectedSize(8);
+        extra.put("status", httpStatus.toString());
         extra.put("method", request.methodName());
-        extra.put("path", request.path());
+        extra.put("path", request.uri().toString());
 
         response.setExtra(extra);
 
