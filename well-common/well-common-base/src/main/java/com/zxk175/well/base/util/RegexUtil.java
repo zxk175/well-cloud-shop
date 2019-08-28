@@ -26,7 +26,7 @@ public class RegexUtil {
             return false;
         }
 
-        if (mobile.length() == Const.ELEVEN) {
+        if (Const.ELEVEN.equals(mobile.length())) {
             String regex = "^(\\+?\\d{2}-?)?1[3456789]\\d{9}$";
             return regexMatch(mobile, regex);
         }

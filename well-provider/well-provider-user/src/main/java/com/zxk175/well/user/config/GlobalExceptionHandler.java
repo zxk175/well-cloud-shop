@@ -1,4 +1,4 @@
-package com.zxk175.well.provider.config;
+package com.zxk175.well.user.config;
 
 import com.zxk175.well.base.http.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +20,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Response handleException(Exception ex) {
         ex.printStackTrace();
-        return Response.fail("未知异常");
+        return Response.fail("服务器异常");
     }
 }

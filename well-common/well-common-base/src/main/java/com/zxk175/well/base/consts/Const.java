@@ -22,14 +22,13 @@ public class Const {
     public static final String DEFAULT_MOBILE = "18820216402";
     public static final String TOKEN_DESC_KEY = "GQ0A0k1DdsJ1XcJiDPg5M235vjiODPHcJ1XT0uXOYHjiXHj10NHwDJ1iwDvViwDrk";
     public static final String TOKEN_KEY = "token";
+    public static final long TOKEN_TTL = 7200L * 1000;
 
     public static final String DEV = "dev";
     public static final String TEST = "test";
 
     public static final String WE_CHAT_MSG_URL = "https://well.zxk175.com/notify/send/v1";
     public static final String MSG_KEY = "1129650133014663170";
-
-    public static final long TOKEN_TTL = 7200L * 1000;
 
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMAT_NO_TIME = "yyyyMMdd";
@@ -53,26 +52,20 @@ public class Const {
     public static final String OK = "OK";
     public static final int DB_BATCH_SIZE = 10;
 
-    public static final int LIMIT_45 = 45;
-    public static final int LIMIT_30 = 30;
-    public static final int LIMIT_20 = 20;
-    public static final int LIMIT_10 = 10;
-    public static final int LIMIT_5 = 5;
-    public static final int LIMIT_1 = 1;
-
-    public static final int ZERO = 0;
-    public static final int ONE = 1;
-    public static final int TWO = 2;
-    public static final int THREE = 3;
-    public static final int FOUR = 4;
-    public static final int FIVE = 5;
-    public static final int ELEVEN = 11;
+    public static final Integer ZERO = 0;
+    public static final Integer ONE = 1;
+    public static final Integer TWO = 2;
+    public static final Integer THREE = 3;
+    public static final Integer FOUR = 4;
+    public static final Integer FIVE = 5;
+    public static final Integer ELEVEN = 11;
 
     public static final String ZERO_STR = "0";
 
-    public static final String MY_HOST = "MyHost";
-
     public static final String IPV6_LOCAL = "0:0:0:0:0:0:0:1";
+
+    public static final String SCAN_CORE = "com.zxk175.well.core";
+
 
     public static SerializerFeature[] serializerFeatures() {
         return new SerializerFeature[]{
