@@ -1,6 +1,6 @@
 package com.zxk175.well.test.controller;
 
-import com.zxk175.well.bean.AddParam;
+import com.zxk175.well.provider.bean.AddParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;

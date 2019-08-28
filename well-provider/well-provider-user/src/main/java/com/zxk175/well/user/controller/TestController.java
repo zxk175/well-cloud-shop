@@ -1,8 +1,8 @@
 package com.zxk175.well.user.controller;
 
-import com.zxk175.well.base.http.Response;
-import com.zxk175.well.bean.AddParam;
-import com.zxk175.well.controller.BaseController;
+import com.zxk175.well.core.http.Response;
+import com.zxk175.well.provider.bean.AddParam;
+import com.zxk175.well.provider.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
