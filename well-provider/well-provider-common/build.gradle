@@ -5,6 +5,7 @@ dependencies {
             project(":well-common:well-common-core"),
 
             libraries.boot_web,
+            libraries.boot_aop,
             libraries.boot_undertow,
 
             libraries.cloud_config_client,

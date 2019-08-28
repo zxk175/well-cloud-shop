@@ -17,10 +17,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.List;
 
 /**
- * swagger2配置
- *
  * @author zxk175
- * @since 2019/03/23 16:06
+ * @since 2019-08-28 11:09
  */
 @Configuration
 @EnableSwagger2
