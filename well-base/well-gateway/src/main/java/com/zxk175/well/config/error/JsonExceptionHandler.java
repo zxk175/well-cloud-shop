@@ -40,8 +40,10 @@ public class JsonExceptionHandler extends AbstractErrorWebExceptionHandler {
     }
 
     private Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
+        Map<String, Object> errorAttributes = super.getErrorAttributes(request, true);
+        HttpStatus httpStatus = getHttpStatus(errorAttributes);
         Response response = Response.fail();
-        HttpStatus httpStatus = HttpStatus.OK;
+
         Throwable error = super.getError(request);
         if (error instanceof NotFoundException) {
             response = Response.fail(HttpMsg.REQ_URI_NOT_FOUND);
@@ -63,5 +65,10 @@ public class JsonExceptionHandler extends AbstractErrorWebExceptionHandler {
         return ServerResponse.status(httpStatus)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(BodyInserters.fromObject(response));
+    }
+
+    private HttpStatus getHttpStatus(Map<String, Object> errorAttributes) {
+        int statusCode = (int) errorAttributes.get("status");
+        return HttpStatus.valueOf(statusCode);
     }
 }
