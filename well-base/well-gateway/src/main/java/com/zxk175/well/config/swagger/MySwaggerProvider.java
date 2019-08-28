@@ -2,6 +2,8 @@ package com.zxk175.well.config.swagger;
 
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.config.PropertiesRouteDefinitionLocator;
+import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
+import org.springframework.cloud.gateway.support.NameUtils;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import springfox.documentation.swagger.web.SwaggerResource;
@@ -27,6 +29,7 @@ public class MySwaggerProvider implements SwaggerResourcesProvider {
     @Override
     public List<SwaggerResource> get() {
         String lb = "lb://";
+        String path = "Path";
         List<SwaggerResource> swaggerResources = new ArrayList<>();
 
         // 取出application.yml配置的route
@@ -34,7 +37,14 @@ public class MySwaggerProvider implements SwaggerResourcesProvider {
             // webSocket代理路由
             URI uri = routeDefinition.getUri();
             if (uri.toString().startsWith(lb)) {
-                swaggerResources.add(swaggerResource(routeDefinition.getId(), "/" + uri.getHost().toLowerCase() + API_URI));
+                List<PredicateDefinition> predicates = routeDefinition.getPredicates();
+                predicates.forEach(predicateDefinition -> {
+                    String name = predicateDefinition.getName();
+                    if (path.equalsIgnoreCase(name)) {
+                        String url = predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0").replace("/**", API_URI);
+                        swaggerResources.add(swaggerResource(routeDefinition.getId(), url));
+                    }
+                });
             }
         });
 

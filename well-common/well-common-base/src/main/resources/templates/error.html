@@ -12,11 +12,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>错误页面</title>
     <link rel="stylesheet" href="/static/css/common.css"/>
+    <style type="text/css">
+        pre {
+            display: inline;
+        }
+    </style>
 </head>
 
 <body>
 <h1 class="error-txt">Whitelabel Error Page</h1>
-<div class="error-txt">当前时间：${timestamp!"没有数据"}</div>
+<#--<div class="error-txt">当前时间：${timestamp!"没有数据"}</div>-->
 <div class="error-txt">请求状态：${status!"没有数据"}</div>
 <div class="error-txt">
     <span>请求地址：</span>
