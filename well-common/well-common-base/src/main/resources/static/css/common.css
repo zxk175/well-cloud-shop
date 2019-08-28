@@ -63,3 +63,9 @@ a {
     color: #606465;
     word-break: break-all;
 }
+
+.error-content {
+    color: #100;
+    font-weight: 500;
+    font-size: 18px;
+}

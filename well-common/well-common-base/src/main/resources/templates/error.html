@@ -15,28 +15,30 @@
     <style type="text/css">
         pre {
             display: inline;
+            margin: 0;
+            white-space: normal;
+            font-family: none, sans-serif;
         }
     </style>
 </head>
 
 <body>
-<h1 class="error-txt">Whitelabel Error Page</h1>
-<#--<div class="error-txt">当前时间：${timestamp!"没有数据"}</div>-->
-<div class="error-txt">请求状态：${status!"没有数据"}</div>
+<h1 class="error-txt">错误详细页</h1>
 <div class="error-txt">
-    <span>请求地址：</span>
-    <a href="${path!"javascript:;"}">${path!"没有数据"}</a>
+    <span class="error-content">请求地址：</span>
+    <pre>${path!"没有数据"}</pre>
 </div>
-<div class="error-txt">错误类型：${error!"没有数据"}</div>
 <div class="error-txt">
-    <span>异常信息：</span>
-    <pre>
-        ${message!"没有数据"}
-    </pre>
+    <span class="error-content">错误类型：</span>
+    <pre>${status!"没有数据"} ${error!"没有数据"}</pre>
+</div>
+<div class="error-txt">
+    <span class="error-content">异常信息：</span>
+    <pre>${message!"没有数据"}</pre>
 </div>
 
 <script type="text/javascript">
-    document.title = '${error!"错误页面"}';
+    document.title = '${error!"错误详细页"}';
 </script>
 </body>
 
