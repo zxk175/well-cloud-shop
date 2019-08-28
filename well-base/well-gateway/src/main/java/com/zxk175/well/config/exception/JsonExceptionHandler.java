@@ -1,4 +1,4 @@
-package com.zxk175.well.config.error;
+package com.zxk175.well.config.exception;
 
 import com.google.common.collect.Maps;
 import com.zxk175.well.base.http.HttpMsg;

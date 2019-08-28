@@ -1,4 +1,4 @@
-package com.zxk175.well.config.error;
+package com.zxk175.well.config.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -25,7 +25,7 @@ import java.util.List;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(ResourceProperties.class)
-public class MyErrorConfig {
+public class MyExceptionConfig {
 
     private final List<ViewResolver> viewResolvers;
     private final ResourceProperties resourceProperties;
@@ -34,7 +34,7 @@ public class MyErrorConfig {
 
 
     @Autowired
-    public MyErrorConfig(ObjectProvider<List<ViewResolver>> viewResolvers, ResourceProperties resourceProperties, ApplicationContext applicationContext, ServerCodecConfigurer serverCodecConfigurer) {
+    public MyExceptionConfig(ObjectProvider<List<ViewResolver>> viewResolvers, ResourceProperties resourceProperties, ApplicationContext applicationContext, ServerCodecConfigurer serverCodecConfigurer) {
         this.viewResolvers = viewResolvers.getIfAvailable(Collections::emptyList);
         this.resourceProperties = resourceProperties;
         this.applicationContext = applicationContext;
