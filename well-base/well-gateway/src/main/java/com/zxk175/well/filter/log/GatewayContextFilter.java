@@ -1,7 +1,7 @@
 package com.zxk175.well.filter.log;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.zxk175.well.core.consts.Const;
+import com.zxk175.well.base.consts.Const;
 import com.zxk175.well.filter.util.GatewayLogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;

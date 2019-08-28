@@ -22,6 +22,11 @@
 
 <body>
 <h1 class="error-txt">错误详细页</h1>
+
+<div class="error-txt">
+    <span class="error-content">当前时间：</span>
+    <pre>${timestamp?string("yyyy-MM-dd HH:mm:ss")!}</pre>
+</div>
 <div class="error-txt">
     <span class="error-content">请求地址：</span>
     <pre>${path!"没有数据"}</pre>

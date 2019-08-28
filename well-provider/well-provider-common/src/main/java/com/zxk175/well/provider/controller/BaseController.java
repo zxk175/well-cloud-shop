@@ -1,7 +1,7 @@
 package com.zxk175.well.provider.controller;
 
-import com.zxk175.well.core.http.HttpMsg;
-import com.zxk175.well.core.http.Response;
+import com.zxk175.well.base.http.HttpMsg;
+import com.zxk175.well.base.http.Response;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

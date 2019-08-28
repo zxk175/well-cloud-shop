@@ -1,6 +1,6 @@
 package com.zxk175.well.user.controller;
 
-import com.zxk175.well.core.http.Response;
+import com.zxk175.well.base.http.Response;
 import com.zxk175.well.provider.bean.AddParam;
 import com.zxk175.well.provider.controller.BaseController;
 import io.swagger.annotations.Api;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Api(tags = "测试")
 public class TestController extends BaseController {
 
-    @GetMapping("ex")
+    @GetMapping("/ex")
     public void exception() {
         throw new RuntimeException("触发测试异常");
     }
 
 
     @ResponseBody
-    @PostMapping(value = "param-valid/v1")
+    @PostMapping(value = "/param-valid/v1")
     @ApiOperation(value = "测试参数校验v1", notes = "测试参数校验v1")
     public Response paramValidV1(@Validated @RequestBody AddParam param) {
         return ok(param.getA() + param.getB());

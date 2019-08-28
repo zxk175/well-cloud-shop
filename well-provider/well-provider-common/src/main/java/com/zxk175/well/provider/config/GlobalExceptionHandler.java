@@ -1,6 +1,6 @@
 package com.zxk175.well.provider.config;
 
-import com.zxk175.well.core.http.Response;
+import com.zxk175.well.base.http.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Slf4j
 @Order(-1000)
-@ControllerAdvice(basePackages = {"com.zxk175.well.user", "com.zxk175.well.test"})
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ResponseBody

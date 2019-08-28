@@ -1,8 +1,8 @@
 package com.zxk175.well.config.exception;
 
 import com.google.common.collect.Maps;
-import com.zxk175.well.core.http.HttpMsg;
-import com.zxk175.well.core.http.Response;
+import com.zxk175.well.base.http.HttpMsg;
+import com.zxk175.well.base.http.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
