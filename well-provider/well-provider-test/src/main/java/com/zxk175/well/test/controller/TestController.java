@@ -3,6 +3,7 @@ package com.zxk175.well.test.controller;
 import com.zxk175.well.bean.AddParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class TestController {
 
     @PostMapping("/add")
     @ApiOperation(value = "计算+", notes = "加法")
-    public Integer add(@RequestBody AddParam param) {
+    public Integer add(@Validated @RequestBody AddParam param) {
         return param.getA() + param.getB();
     }
 }

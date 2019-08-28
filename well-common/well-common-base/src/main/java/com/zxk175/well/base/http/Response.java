@@ -59,6 +59,11 @@ public class Response<T> implements Serializable {
         return result.setData(data);
     }
 
+    public static <T> Response<T> ok(T data, Object extra) {
+        Response<T> ok = ok();
+        return ok.setData(data).setExtra(extra);
+    }
+
     public static <T> Response<T> ok(HttpMsg httpMsg, T data, Object extra) {
         Response<T> ok = setOk(httpMsg.code(), httpMsg.msg());
         return ok.setData(data).setExtra(extra);
