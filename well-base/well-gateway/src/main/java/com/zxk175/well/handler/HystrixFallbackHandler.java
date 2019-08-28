@@ -1,5 +1,6 @@
 package com.zxk175.well.handler;
 
+import com.zxk175.well.base.http.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +33,6 @@ public class HystrixFallbackHandler implements HandlerFunction<ServerResponse> {
         return ServerResponse
                 .status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .body(BodyInserters.fromObject("服务异常"));
+                .body(BodyInserters.fromObject(Response.fail("服务异常")));
     }
 }
