@@ -29,7 +29,7 @@
 </div>
 <div class="error-txt">
     <span class="error-content">请求地址：</span>
-    <pre>${path!"没有数据"}</pre>
+    <pre id="path"></pre>
 </div>
 <div class="error-txt">
     <span class="error-content">错误类型：</span>
@@ -39,9 +39,15 @@
     <span class="error-content">异常信息：</span>
     <pre>${message!"没有数据"}</pre>
 </div>
+<div class="error-txt">
+    <span class="error-content">异常堆栈信息：</span>
+    <pre>${trace!"没有数据"}</pre>
+</div>
 
 <script type="text/javascript">
     document.title = '${error!"错误详细页"}';
+
+    document.getElementById('path').innerText = document.baseURI || "没有数据";
 </script>
 </body>
 

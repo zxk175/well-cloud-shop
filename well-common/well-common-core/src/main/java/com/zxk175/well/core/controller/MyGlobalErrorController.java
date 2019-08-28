@@ -26,13 +26,13 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequestMapping("/error")
-public class MyErrorController extends AbstractErrorController {
+public class MyGlobalErrorController extends AbstractErrorController {
 
     private final ErrorProperties errorProperties;
 
 
     @Autowired
-    public MyErrorController(ErrorAttributes errorAttributes, ServerProperties serverProperties) {
+    public MyGlobalErrorController(ErrorAttributes errorAttributes, ServerProperties serverProperties) {
         super(errorAttributes);
         this.errorProperties = serverProperties.getError();
     }
@@ -44,10 +44,7 @@ public class MyErrorController extends AbstractErrorController {
 
     @Override
     protected Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
-        Map<String, Object> errorAttributes = super.getErrorAttributes(request, includeStackTrace);
-        
-        errorAttributes.put("path", RequestUtil.requestUrl(request, true));
-        return errorAttributes;
+        return super.getErrorAttributes(request, includeStackTrace);
     }
 
     @RequestMapping(produces = MediaType.TEXT_HTML_VALUE)

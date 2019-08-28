@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {Const.SCAN_CORE})
+@SpringBootApplication(scanBasePackages = {"com.zxk175.well.user", Const.SCAN_CORE})
 public class WellProviderUserApplication {
 
     public static void main(String[] args) {
