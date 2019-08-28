@@ -3,5 +3,11 @@ dependencies {
 
     compile([
             project(':well-common:well-common-base'),
+
+            libraries.boot_web,
+            libraries.boot_aop,
+            libraries.boot_undertow,
+
+            libraries.hutool_crypto,
     ])
 }

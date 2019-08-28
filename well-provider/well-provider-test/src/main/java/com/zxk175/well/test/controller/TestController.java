@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/calc")
 @Api(tags = "测试")
 public class TestController {
-
-
+    
     @PostMapping("/add")
     @ApiOperation(value = "计算+", notes = "加法")
     public Integer add(@Validated @RequestBody AddParam param) {
