@@ -1,5 +1,6 @@
 package com.zxk175.well.test;
 
+import com.zxk175.well.base.consts.Const;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {Const.SCAN_CORE})
 public class WellProviderTestApplication {
 
     public static void main(String[] args) {
