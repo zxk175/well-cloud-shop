@@ -2,8 +2,7 @@ package ${package.Controller};
 
 <#assign comment = table.comment?replace("表", "")>
 <#assign pojo = entity?substring(0,1)?lower_case + entity?substring(1)>
-import com.zxk175.well.common.http.Response;
-import com.zxk175.well.common.consts.Const;
+import com.zxk175.well.base.http.Response;
 import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
 import io.swagger.annotations.Api;
@@ -37,7 +36,7 @@ import ${superControllerClassPackage};
 <#else>
 @Controller
 </#if>
-@RequestMapping(Const.BASE_URL + "/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
+@RequestMapping("/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
 @Api(tags = "${entity!}", description = "${comment}V1")
 <#if kotlin>
 class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>

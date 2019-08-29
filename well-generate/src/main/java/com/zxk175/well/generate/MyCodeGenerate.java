@@ -44,7 +44,7 @@ public class MyCodeGenerate {
 
     public MyCodeGenerate(String basePath, String controllerBasePath, List<String> include) {
         this.controllerBasePath = controllerBasePath;
-        this.javaBasePath = "com/alk/athena/bds/mysql/";
+        this.javaBasePath = "com/zxk175/well/module/";
         this.javaPath = basePath + "/java/" + javaBasePath;
         this.xmlPath = basePath + "/resources/";
         this.include = CollUtil.isEmpty(include) ? null : include.toArray(new String[0]);
@@ -139,9 +139,8 @@ public class MyCodeGenerate {
     private MyPackageConfig packageConfig() {
         MyPackageConfig pc = new MyPackageConfig();
         pc.setModuleName("module");
-        pc.setParent("com.zxk175.well");
         pc.setController("controller");
-        pc.setEntity("pojo");
+        pc.setEntity("entity");
         pc.setService("service");
         pc.setServiceImpl("service.impl");
         pc.setMapper("dao");

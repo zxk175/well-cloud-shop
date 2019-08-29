@@ -19,13 +19,11 @@ public class GatewayGenerateTest {
     public void generateProd() {
         String projectBasePath = MyCodeGenerate.getProjectBasePath(true);
         String basePath = projectBasePath + "/well-base/well-gateway/src/main";
-        String controllerBasePath = projectBasePath + "/well-base/well-gateway/src/main";
 
         List<String> include = Lists.newArrayList();
-        include.add("t_region");
         include.add("t_sys_user_token");
 
-        MyCodeGenerate myCodeGenerate = new MyCodeGenerate(basePath, controllerBasePath, include);
+        MyCodeGenerate myCodeGenerate = new MyCodeGenerate(basePath, basePath, include);
         myCodeGenerate.init();
     }
 }

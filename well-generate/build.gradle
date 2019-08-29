@@ -1,9 +1,10 @@
 dependencies {
     annotationProcessor libraries.lombok
 
-    compile([
+    implementation([
             project(":well-common:well-common-base"),
 
+            libraries.mysql,
             libraries.mybatis_plus_generate,
     ])
 }
