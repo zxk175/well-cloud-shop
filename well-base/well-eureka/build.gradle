@@ -7,7 +7,7 @@ bootJar {
 dependencies {
     annotationProcessor libraries.lombok
 
-    compile([
+    implementation([
             libraries.boot_undertow,
             libraries.boot_security,
 

@@ -1,7 +1,7 @@
 dependencies {
     annotationProcessor libraries.lombok
 
-    implementation([
+    compile([
             project(":well-common:well-common-core"),
 
             libraries.cloud_config_client,

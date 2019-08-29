@@ -1,7 +1,7 @@
 dependencies {
     annotationProcessor libraries.lombok
 
-    implementation([
+    compile([
             project(":well-common:well-common-base"),
 
             libraries.boot_web,

@@ -5,7 +5,7 @@ bootJar {
 }
 
 dependencies {
-    compile([
+    implementation([
             libraries.boot_undertow,
 
             libraries.cloud_config_server,
