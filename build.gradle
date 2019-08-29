@@ -67,6 +67,8 @@ subprojects { subPro ->
                 libraries.boot_actuator,
         ])
 
+        testImplementation libraries.boot_test
+
         // 引入根目录和各子项目下的libs中的jar包
         def rootProjectLibs = new File(rootProject.rootDir, "libs").getAbsolutePath()
 

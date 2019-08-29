@@ -7,3 +7,31 @@ spring:
       name: gateway
       profile: dev
       fail-fast: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:23306/well_data
+    username: root
+    password: 123456
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.zxk175.well.**.entity.**
+  global-config:
+    db-config:
+      # id生成类型
+      id-type: id_worker
+      # 全局表为下划线命名设置
+      table-underline: true
+  configuration:
+    # 配置的缓存的全局开关
+    cache-enabled: true
+    # 延时加载的开关
+    lazy-loading-enabled: true
+    # map映射null值
+    call-setters-on-nulls: true
+    # 开启的话,延时加载一个属性时会加载该对象全部属性
+    # 否则按需加载属性
+    multiple-result-sets-enabled: true
+    # 是否启用下划线与驼峰式命名规则的映射
+    map-underscore-to-camel-case: true
+

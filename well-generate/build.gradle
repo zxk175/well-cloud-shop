@@ -1,0 +1,9 @@
+dependencies {
+    annotationProcessor libraries.lombok
+
+    compile([
+            project(":well-common:well-common-base"),
+
+            libraries.mybatis_plus_generate,
+    ])
+}

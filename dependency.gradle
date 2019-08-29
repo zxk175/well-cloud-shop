@@ -29,7 +29,6 @@ ext {
 
             boot_web             : "org.springframework.boot:spring-boot-starter-web",
             boot_aop             : "org.springframework.boot:spring-boot-starter-aop",
-            boot_jdbc            : "org.springframework.boot:spring-boot-starter-jdbc",
             boot_redis           : "org.springframework.boot:spring-boot-starter-data-redis",
             boot_freemarker      : "org.springframework.boot:spring-boot-starter-freemarker",
             boot_undertow        : "org.springframework.boot:spring-boot-starter-undertow",
@@ -45,7 +44,6 @@ ext {
             cloud_hystrix        : "org.springframework.cloud:spring-cloud-starter-netflix-hystrix",
             cloud_feign          : "org.springframework.cloud:spring-cloud-starter-openfeign",
             cloud_gateway        : "org.springframework.cloud:spring-cloud-starter-gateway",
-
 
             zipkin               : "io.zipkin.java:zipkin-server:${versions.zipkin}",
             zipkin_ui            : "io.zipkin.java:zipkin-autoconfigure-ui:${versions.zipkin}",
@@ -74,7 +72,7 @@ ext {
             fst                  : "de.ruedigermoeller:fst:2.57",
             jwt                  : "io.jsonwebtoken:jjwt:0.9.1",
 
-            easy_excel           : "com.alibaba:easyexcel:1.1.1",
             ali_oss              : "com.aliyun.oss:aliyun-sdk-oss:3.4.2",
+            easy_excel           : "com.alibaba:easyexcel:1.1.1",
     ]
 }
