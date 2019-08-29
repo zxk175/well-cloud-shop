@@ -21,7 +21,8 @@ public class GatewayGenerateTest {
         String basePath = projectBasePath + "/well-base/well-gateway/src/main";
 
         List<String> include = Lists.newArrayList();
-        include.add("t_sys_user_token");
+        include.add("t_gateway_routes");
+        include.add("t_gateway_routes_version");
 
         MyCodeGenerate myCodeGenerate = new MyCodeGenerate(basePath, basePath, include);
         myCodeGenerate.init();

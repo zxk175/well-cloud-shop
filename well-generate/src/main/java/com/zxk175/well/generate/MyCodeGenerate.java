@@ -10,9 +10,7 @@ import com.baomidou.mybatisplus.generator.config.ConstVal;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.FileOutConfig;
 import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
 import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
@@ -61,24 +59,19 @@ public class MyCodeGenerate {
         AutoGenerator mpg = new AutoGenerator();
 
         // 全局配置
-        GlobalConfig gc = globalConfig();
-        mpg.setGlobalConfig(gc);
+        mpg.setGlobalConfig(globalConfig());
 
         // 数据源配置
-        DataSourceConfig dsc = dataSourceConfig();
-        mpg.setDataSource(dsc);
+        mpg.setDataSource(dataSourceConfig());
 
         // 包配置
-        PackageConfig pc = packageConfig();
-        mpg.setPackageInfo(pc);
+        mpg.setPackageInfo(packageConfig());
 
         // 策略配置
-        StrategyConfig strategy = strategyConfig();
-        mpg.setStrategy(strategy);
+        mpg.setStrategy(strategyConfig());
 
         // 模板配置
-        TemplateConfig templateConfig = templateConfig(true);
-        mpg.setTemplate(templateConfig);
+        mpg.setTemplate(templateConfig(true));
 
         // 自定义配置
         mpg.setCfg(injectionConfig());
@@ -106,7 +99,7 @@ public class MyCodeGenerate {
         // xml resultMap
         gc.setBaseResultMap(false);
         // xml columnList
-        gc.setBaseColumnList(true);
+        gc.setBaseColumnList(false);
         // IdType
         gc.setIdType(IdType.AUTO);
         // 使用java.util.Date

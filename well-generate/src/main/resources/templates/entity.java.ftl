@@ -55,17 +55,17 @@ public class ${entity} implements Serializable {
     <#if field.comment!?length gt 0>
     <#if swagger2>
         <#if field.propertyType == 'LocalDateTime' || field.name == 'state'|| field.keyFlag>
-    @ApiModelProperty(value = "${field.comment}", hidden = true)
+    @ApiModelProperty(value = "${field.comment?replace("\r\n","")}", hidden = true)
         <#elseif field.propertyType == 'Integer' || field.propertyType == 'Long'>
-    @ApiModelProperty(value = "${field.comment}", example = "0")
+    @ApiModelProperty(value = "${field.comment?replace("\r\n","")}", example = "0")
         <#elseif field.propertyType == 'String'>
-    @ApiModelProperty(value = "${field.comment}", example = "test")
+    @ApiModelProperty(value = "${field.comment?replace("\r\n","")}", example = "test")
         <#else>
-    @ApiModelProperty(value = "${field.comment}")
+    @ApiModelProperty(value = "${field.comment?replace("\r\n","")}")
         </#if>
     <#else>
     /**
-     * ${field.comment}
+     * ${field.comment?replace("\r\n","")}
      */
     </#if>
     </#if>
