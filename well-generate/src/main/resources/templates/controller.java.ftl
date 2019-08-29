@@ -7,7 +7,7 @@ import ${package.Entity}.${entity};
 import ${package.Service}.${table.serviceName};
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
@@ -36,6 +36,7 @@ import ${superControllerClassPackage};
 <#else>
 @Controller
 </#if>
+@AllArgsConstructor
 @RequestMapping("/<#if controllerMappingHyphenStyle??>${controllerMappingHyphen}<#else>${table.entityPath}</#if>")
 @Api(tags = "${entity!}", description = "${comment}V1")
 <#if kotlin>
@@ -47,12 +48,11 @@ public class ${table.controllerName} extends ${superControllerClass} {
 public class ${table.controllerName} {
 </#if>
 
-    @Autowired
     private ${table.serviceName} ${pojo}Service;
 
 
     @ResponseBody
-    @PostMapping(value = "/save/v1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/save/v1")
     @ApiOperation(value = "添加${comment}", notes = "添加${comment}")
     public Response save(@Validated @RequestBody ${entity} ${pojo}) {
         boolean flag = ${pojo}Service.save(${pojo});
