@@ -47,6 +47,8 @@ public class Const {
     public static final String FAIL_TXT = "请求失败";
 
     public static final String DB_USER_ID = "user_id";
+    public static final String DB_DELETED = "deleted";
+    public static final String DB_ENABLED = "enabled";
     public static final String DB_STATE = "state";
     public static final String DB_SORT = "sort";
     public static final String OK = "OK";
