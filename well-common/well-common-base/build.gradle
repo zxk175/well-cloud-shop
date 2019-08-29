@@ -2,7 +2,7 @@ dependencies {
     compile libraries.lombok
     annotationProcessor libraries.lombok
 
-    compile([
+    implementation([
             libraries.boot_freemarker,
 
             libraries.swagger2,

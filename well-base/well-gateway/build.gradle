@@ -7,7 +7,7 @@ bootJar {
 dependencies {
     annotationProcessor libraries.lombok
 
-    compile([
+    implementation([
             project(':well-common:well-common-base'),
 
             libraries.cloud_config_client,

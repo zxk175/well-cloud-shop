@@ -5,16 +5,16 @@ bootJar {
 }
 
 dependencies {
-    compile libraries.lombok
+    implementation libraries.lombok
     annotationProcessor libraries.lombok
 
-    compile([
+    implementation([
             libraries.boot_undertow,
 
             libraries.cloud_eureka_client,
     ])
 
-    compile(libraries.zipkin) {
+    implementation(libraries.zipkin) {
         exclude group: "org.springframework.boot", module: "spring-boot-starter-log4j2"
     }
 

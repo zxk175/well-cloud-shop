@@ -7,7 +7,7 @@ bootJar {
 dependencies {
     annotationProcessor libraries.lombok
 
-    implementation([
+    implementation(
             project(":well-provider:well-provider-common")
-    ])
+    )
 }
