@@ -18,6 +18,7 @@ import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +47,14 @@ public class GatewayRoutesController {
     private DynamicRouteService dynamicRouteService;
 
 
+    @ResponseBody
+    @GetMapping(value = "/list/v1")
+    @ApiOperation(value = "网关路由列表", notes = "网关路由列表")
+    public Response list() {
+        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listAll();
+        return Response.collReturn(gatewayRoutes);
+    }
+    
     @ResponseBody
     @PostMapping(value = "/save/v1")
     @ApiOperation(value = "添加网关路由", notes = "添加网关路由")
