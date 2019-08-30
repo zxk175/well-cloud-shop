@@ -68,6 +68,7 @@ public class Const {
     public static final String IPV6_LOCAL = "0:0:0:0:0:0:0:1";
 
     public static final String SCAN_CORE = "com.zxk175.well.core";
+    public static final String SCAN_PROVIDER = "com.zxk175.well.provider";
 
 
     public static SerializerFeature[] serializerFeatures() {
