@@ -44,11 +44,11 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
 
 
     @Override
-    public void loadRouteDefinition() {
+    public boolean loadRouteDefinition() {
         try {
             List<GatewayRoutes> gatewayRoutes = this.list();
             if (CollUtil.isEmpty(gatewayRoutes)) {
-                return;
+                return false;
             }
 
             for (GatewayRoutes gatewayRoute : gatewayRoutes) {
@@ -65,8 +65,11 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
                 routeDefinitionWriter.save(Mono.just(definition)).subscribe();
                 this.publisher.publishEvent(new RefreshRoutesEvent(this));
             }
+            
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
