@@ -32,6 +32,7 @@ public class MySwaggerProvider implements SwaggerResourcesProvider {
         String apiUrl = "/v2/api-docs";
         List<SwaggerResource> swaggerResources = new ArrayList<>();
 
+        // 取出mysql动态配置的route
         inMemoryRouteDefinitionRepository.getRouteDefinitions().subscribe(routeDefinition -> {
             // webSocket代理路由
             URI uri = routeDefinition.getUri();
