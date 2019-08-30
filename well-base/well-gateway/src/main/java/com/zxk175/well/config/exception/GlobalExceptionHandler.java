@@ -35,6 +35,7 @@ class GlobalExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     private final ErrorProperties errorProperties;
 
+
     GlobalExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties, ErrorProperties errorProperties, ApplicationContext applicationContext) {
         super(errorAttributes, resourceProperties, errorProperties, applicationContext);
         this.errorProperties = errorProperties;
@@ -54,11 +55,11 @@ class GlobalExceptionHandler extends DefaultErrorWebExceptionHandler {
         Map<String, Object> error = getErrorAttributes(request, includeStackTrace);
         HttpStatus errorStatus = getHttpStatus(error);
         ServerResponse.BodyBuilder responseBody = ServerResponse.status(errorStatus).contentType(MediaType.TEXT_HTML);
+
         return Flux
                 .just("error")
                 .flatMap((viewName) -> renderErrorView(viewName, responseBody, error))
-                .switchIfEmpty(this.errorProperties.getWhitelabel().isEnabled()
-                        ? renderDefaultErrorView(responseBody, error) : Mono.error(getError(request)))
+                .switchIfEmpty(this.errorProperties.getWhitelabel().isEnabled() ? renderDefaultErrorView(responseBody, error) : Mono.error(getError(request)))
                 .next();
     }
 
