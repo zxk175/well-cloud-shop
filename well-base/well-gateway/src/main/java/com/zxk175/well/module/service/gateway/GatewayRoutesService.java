@@ -15,9 +15,11 @@ import java.util.List;
  */
 public interface GatewayRoutesService extends IService<GatewayRoutes> {
 
-    String loadRouteDefinition();
+    void loadRouteDefinition();
 
-    List<GatewayRoutes> list();
+    List<GatewayRoutes> listByMem();
+
+    List<GatewayRoutes> listByDb();
 
     boolean saveRoutes(GatewayRoutes gatewayRoutes);
 

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zxk175.well.base.consts.Const;
 import com.zxk175.well.base.consts.enums.Deleted;
 import com.zxk175.well.base.consts.enums.Enabled;
+import com.zxk175.well.base.util.json.FastJsonUtil;
 import com.zxk175.well.module.dao.gateway.GatewayRoutesDao;
 import com.zxk175.well.module.entity.gateway.GatewayRoutes;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
+import org.springframework.cloud.gateway.route.InMemoryRouteDefinitionRepository;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.context.ApplicationEventPublisher;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,16 +38,17 @@ import java.util.List;
 @AllArgsConstructor
 public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, GatewayRoutes> implements GatewayRoutesService {
 
-    private RouteDefinitionWriter routeDefinitionWriter;
     private ApplicationEventPublisher publisher;
+    private RouteDefinitionWriter routeDefinitionWriter;
+    private InMemoryRouteDefinitionRepository inMemoryRouteDefinitionRepository;
 
 
     @Override
-    public String loadRouteDefinition() {
+    public void loadRouteDefinition() {
         try {
             List<GatewayRoutes> gatewayRoutes = this.list();
             if (CollUtil.isEmpty(gatewayRoutes)) {
-                return "none route defined";
+                return;
             }
 
             for (GatewayRoutes gatewayRoute : gatewayRoutes) {
@@ -61,15 +65,31 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
                 routeDefinitionWriter.save(Mono.just(definition)).subscribe();
                 this.publisher.publishEvent(new RefreshRoutesEvent(this));
             }
-            return "success";
         } catch (Exception e) {
             e.printStackTrace();
-            return "failure";
         }
     }
 
     @Override
-    public List<GatewayRoutes> list() {
+    public List<GatewayRoutes> listByMem() {
+        List<GatewayRoutes> gatewayRoutes = new ArrayList<>();
+
+        inMemoryRouteDefinitionRepository.getRouteDefinitions().subscribe(routeDefinition -> {
+            GatewayRoutes gatewayRoute = new GatewayRoutes();
+            gatewayRoute.setRouteId(routeDefinition.getId());
+            gatewayRoute.setRouteUri(String.valueOf(routeDefinition.getUri()));
+            gatewayRoute.setRouteOrder(routeDefinition.getOrder());
+            gatewayRoute.setPredicates(FastJsonUtil.jsonStr(routeDefinition.getPredicates()));
+            gatewayRoute.setFilters(FastJsonUtil.jsonStr(routeDefinition.getFilters()));
+
+            gatewayRoutes.add(gatewayRoute);
+        });
+
+        return gatewayRoutes;
+    }
+
+    @Override
+    public List<GatewayRoutes> listByDb() {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
         gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
         gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());

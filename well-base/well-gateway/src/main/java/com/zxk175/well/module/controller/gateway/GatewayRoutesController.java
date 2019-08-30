@@ -49,17 +49,17 @@ public class GatewayRoutesController {
 
     @ResponseBody
     @GetMapping(value = "/list/v1")
-    @ApiOperation(value = "网关路由列表", notes = "网关路由列表")
-    public Response list() {
-        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.list();
+    @ApiOperation(value = "网关路由列表ByMem", notes = "网关路由列表ByMem")
+    public Response listByMem() {
+        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByMem();
         return Response.collReturn(gatewayRoutes);
     }
 
     @ResponseBody
     @GetMapping(value = "/list-db/v1")
-    @ApiOperation(value = "网关路由列表byDb", notes = "网关路由列表byDb")
+    @ApiOperation(value = "网关路由列表ByDb", notes = "网关路由列表ByDb")
     public Response listByDb() {
-        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.list();
+        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByDb();
         return Response.collReturn(gatewayRoutes);
     }
 
