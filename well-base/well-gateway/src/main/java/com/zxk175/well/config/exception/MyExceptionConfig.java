@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
@@ -28,13 +29,15 @@ import java.util.List;
 public class MyExceptionConfig {
 
     private final List<ViewResolver> viewResolvers;
+    private final ServerProperties serverProperties;
     private final ResourceProperties resourceProperties;
     private final ApplicationContext applicationContext;
     private final ServerCodecConfigurer serverCodecConfigurer;
 
 
     @Autowired
-    public MyExceptionConfig(ObjectProvider<List<ViewResolver>> viewResolvers, ResourceProperties resourceProperties, ApplicationContext applicationContext, ServerCodecConfigurer serverCodecConfigurer) {
+    public MyExceptionConfig(ServerProperties serverProperties, ObjectProvider<List<ViewResolver>> viewResolvers, ResourceProperties resourceProperties, ApplicationContext applicationContext, ServerCodecConfigurer serverCodecConfigurer) {
+        this.serverProperties = serverProperties;
         this.viewResolvers = viewResolvers.getIfAvailable(Collections::emptyList);
         this.resourceProperties = resourceProperties;
         this.applicationContext = applicationContext;
@@ -44,7 +47,7 @@ public class MyExceptionConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public ErrorWebExceptionHandler errorWebExceptionHandler(ErrorAttributes errorAttributes) {
-        JsonExceptionHandler exceptionHandler = new JsonExceptionHandler(errorAttributes, this.resourceProperties, this.applicationContext);
+        GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler(errorAttributes, this.resourceProperties, this.serverProperties.getError(), this.applicationContext);
         exceptionHandler.setViewResolvers(this.viewResolvers);
         exceptionHandler.setMessageWriters(this.serverCodecConfigurer.getWriters());
         exceptionHandler.setMessageReaders(this.serverCodecConfigurer.getReaders());

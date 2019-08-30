@@ -37,7 +37,7 @@ public class MyFastJsonConfig {
 
         @Override
         public boolean canEncode(@NonNull ResolvableType elementType, MimeType mimeType) {
-            return true;
+            return mimeType.includes(MimeTypeUtils.APPLICATION_JSON);
         }
 
         @NonNull
