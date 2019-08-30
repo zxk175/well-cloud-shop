@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="applicable-device" content="mobile">
+    <meta name='apple-touch-fullscreen' content='yes'>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>错误页面</title>
+    <link rel="stylesheet" href="/static/css/common.css"/>
+    <style type="text/css">
+        pre {
+            margin: 10px 0 0 0;
+            font-family: none, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+<h1 class="error-txt">错误详细页</h1>
+
+<div class="error-txt">
+    <span class="error-content">当前时间：</span>
+    <pre>${timestamp?string("yyyy-MM-dd HH:mm:ss")!}</pre>
+</div>
+<div class="error-txt">
+    <span class="error-content">请求地址：</span>
+    <pre id="path"></pre>
+</div>
+<div class="error-txt">
+    <span class="error-content">错误类型：</span>
+    <pre>${status!"没有数据"} ${error!"没有数据"}</pre>
+</div>
+<div class="error-txt">
+    <span class="error-content">异常信息：</span>
+    <pre>${message!"没有数据"}</pre>
+</div>
+<div class="error-txt">
+    <span class="error-content">异常堆栈信息：</span>
+    <pre>${trace!"没有数据"}</pre>
+</div>
+
+<script type="text/javascript">
+    document.title = '${error!"错误详细页"}';
+
+    document.getElementById('path').innerText = document.baseURI || "没有数据";
+</script>
+</body>
+
+</html>
