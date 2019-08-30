@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zxk175.well.base.consts.Const;
 import com.zxk175.well.base.consts.enums.Deleted;
+import com.zxk175.well.base.consts.enums.Enabled;
 import com.zxk175.well.module.dao.gateway.GatewayRoutesDao;
 import com.zxk175.well.module.entity.gateway.GatewayRoutes;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
@@ -74,7 +75,7 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     public List<GatewayRoutes> listAll() {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
         gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
-        gatewayRoutesQw.eq(Const.DB_ENABLED, Deleted.YES.value());
+        gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());
 
         return baseMapper.selectList(gatewayRoutesQw);
     }
