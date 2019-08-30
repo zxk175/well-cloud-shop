@@ -59,9 +59,6 @@ public class MyFastJsonConfig {
             return Collections.singletonList(MimeTypeUtils.APPLICATION_JSON);
         }
 
-        /**
-         * 处理数据
-         */
         private DataBuffer encodeValue(Object value, DataBufferFactory bufferFactory) {
             DataBuffer buffer = bufferFactory.allocateBuffer();
             byte[] bytes = JSON.toJSONBytes(value, Const.serializeConfig(), new FastJsonValueFilter(), Const.serializerFeatures());
