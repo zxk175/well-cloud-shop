@@ -1,5 +1,6 @@
 package com.zxk175.well;
 
+import com.zxk175.well.base.consts.Const;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,6 @@ public class ApplicationStartup implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         boolean flag = gatewayRoutesService.loadRouteDefinition();
-        log.info("==>网关动态路由加载{}", flag ? "成功" : "失败");
+        log.info("{}网关动态路由加载{}", Const.LOG_PREFIX, flag ? "成功" : "失败");
     }
 }
