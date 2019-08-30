@@ -17,7 +17,7 @@ public interface GatewayRoutesService extends IService<GatewayRoutes> {
 
     String loadRouteDefinition();
 
-    List<GatewayRoutes> listAll();
+    List<GatewayRoutes> list();
 
     boolean saveRoutes(GatewayRoutes gatewayRoutes);
 

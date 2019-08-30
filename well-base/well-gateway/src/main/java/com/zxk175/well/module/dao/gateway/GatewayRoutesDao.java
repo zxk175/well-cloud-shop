@@ -1,7 +1,7 @@
 package com.zxk175.well.module.dao.gateway;
 
-import com.zxk175.well.module.entity.gateway.GatewayRoutes;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zxk175.well.module.entity.gateway.GatewayRoutes;
 
 /**
  * <p>

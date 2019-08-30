@@ -72,7 +72,7 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     }
 
     @Override
-    public List<GatewayRoutes> listAll() {
+    public List<GatewayRoutes> list() {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
         gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
         gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());

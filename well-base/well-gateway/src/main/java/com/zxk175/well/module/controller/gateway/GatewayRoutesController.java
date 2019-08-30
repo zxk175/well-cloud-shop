@@ -51,10 +51,18 @@ public class GatewayRoutesController {
     @GetMapping(value = "/list/v1")
     @ApiOperation(value = "网关路由列表", notes = "网关路由列表")
     public Response list() {
-        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listAll();
+        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.list();
         return Response.collReturn(gatewayRoutes);
     }
-    
+
+    @ResponseBody
+    @GetMapping(value = "/list-db/v1")
+    @ApiOperation(value = "网关路由列表byDb", notes = "网关路由列表byDb")
+    public Response listByDb() {
+        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.list();
+        return Response.collReturn(gatewayRoutes);
+    }
+
     @ResponseBody
     @PostMapping(value = "/save/v1")
     @ApiOperation(value = "添加网关路由", notes = "添加网关路由")

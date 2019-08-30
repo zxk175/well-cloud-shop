@@ -1,6 +1,7 @@
 package com.zxk175.well.module.entity.gateway;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -18,7 +19,6 @@ import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,10 +55,12 @@ public class GatewayRoutes extends Model<GatewayRoutes> {
     @TableField("route_order")
     private Integer routeOrder;
 
+    @JSONField(jsonDirect = true)
     @ApiModelProperty(value = "断言字符串集合", example = "test")
     @TableField("predicates")
     private String predicates;
 
+    @JSONField(jsonDirect = true)
     @ApiModelProperty(value = "过滤器字符串集合", example = "test")
     @TableField("filters")
     private String filters;
@@ -81,6 +83,7 @@ public class GatewayRoutes extends Model<GatewayRoutes> {
     private LocalDateTime updateTime;
 
 
+    @JSONField(serialize = false)
     public List<PredicateDefinition> getPredicateDefinition() {
         if (this.predicates == null) {
             return null;
@@ -89,6 +92,7 @@ public class GatewayRoutes extends Model<GatewayRoutes> {
         return JSON.parseArray(this.predicates, PredicateDefinition.class);
     }
 
+    @JSONField(serialize = false)
     public List<FilterDefinition> getFilterDefinition() {
         if (this.filters == null) {
             return null;
