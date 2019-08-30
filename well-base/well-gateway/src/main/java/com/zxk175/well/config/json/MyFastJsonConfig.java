@@ -1,5 +1,6 @@
 package com.zxk175.well.config.json;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.zxk175.well.base.consts.Const;
 import com.zxk175.well.base.util.json.FastJsonValueFilter;
@@ -37,6 +38,10 @@ public class MyFastJsonConfig {
 
         @Override
         public boolean canEncode(@NonNull ResolvableType elementType, MimeType mimeType) {
+            if (ObjectUtil.isNull(mimeType)) {
+                return true;
+            }
+
             return mimeType.includes(MimeTypeUtils.APPLICATION_JSON);
         }
 
