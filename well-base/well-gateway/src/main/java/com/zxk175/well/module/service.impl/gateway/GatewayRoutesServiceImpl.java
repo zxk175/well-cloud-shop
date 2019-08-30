@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     @Override
     public String loadRouteDefinition() {
         try {
-            List<GatewayRoutes> gatewayRoutes = this.listAll();
+            List<GatewayRoutes> gatewayRoutes = this.list();
             if (CollUtil.isEmpty(gatewayRoutes)) {
                 return "none route defined";
             }
@@ -49,17 +50,13 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
             for (GatewayRoutes gatewayRoute : gatewayRoutes) {
                 RouteDefinition definition = new RouteDefinition();
                 definition.setId(gatewayRoute.getRouteId());
-                definition.setUri(new URI(gatewayRoute.getRouteUri()));
+                definition.setUri(URI.create(gatewayRoute.getRouteUri()));
 
                 List<PredicateDefinition> predicateDefinitions = gatewayRoute.getPredicateDefinition();
-                if (predicateDefinitions != null) {
-                    definition.setPredicates(predicateDefinitions);
-                }
+                definition.setPredicates(CollUtil.isEmpty(predicateDefinitions) ? Collections.emptyList() : predicateDefinitions);
 
                 List<FilterDefinition> filterDefinitions = gatewayRoute.getFilterDefinition();
-                if (filterDefinitions != null) {
-                    definition.setFilters(filterDefinitions);
-                }
+                definition.setFilters(CollUtil.isEmpty(filterDefinitions) ? Collections.emptyList() : filterDefinitions);
 
                 routeDefinitionWriter.save(Mono.just(definition)).subscribe();
                 this.publisher.publishEvent(new RefreshRoutesEvent(this));

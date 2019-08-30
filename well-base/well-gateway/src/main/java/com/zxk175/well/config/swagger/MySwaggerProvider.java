@@ -1,9 +1,8 @@
 package com.zxk175.well.config.swagger;
 
 import lombok.AllArgsConstructor;
-import org.springframework.cloud.gateway.config.PropertiesRouteDefinitionLocator;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
-import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
+import org.springframework.cloud.gateway.route.InMemoryRouteDefinitionRepository;
 import org.springframework.cloud.gateway.support.NameUtils;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -23,19 +22,17 @@ import java.util.List;
 @AllArgsConstructor
 public class MySwaggerProvider implements SwaggerResourcesProvider {
 
-    private static final String API_URI = "/v2/api-docs";
-    private RouteDefinitionLocator routeDefinitionLocator;
-    private PropertiesRouteDefinitionLocator propertiesRouteDefinition;
+    private final InMemoryRouteDefinitionRepository inMemoryRouteDefinitionRepository;
 
 
     @Override
     public List<SwaggerResource> get() {
         String lb = "lb://";
         String path = "Path";
+        String apiUrl = "/v2/api-docs";
         List<SwaggerResource> swaggerResources = new ArrayList<>();
 
-        // 取出application.yml配置的route
-        propertiesRouteDefinition.getRouteDefinitions().subscribe(routeDefinition -> {
+        inMemoryRouteDefinitionRepository.getRouteDefinitions().subscribe(routeDefinition -> {
             // webSocket代理路由
             URI uri = routeDefinition.getUri();
             if (uri.toString().startsWith(lb)) {
@@ -43,7 +40,7 @@ public class MySwaggerProvider implements SwaggerResourcesProvider {
                 predicates.forEach(predicateDefinition -> {
                     String name = predicateDefinition.getName();
                     if (path.equalsIgnoreCase(name)) {
-                        String url = predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0").replace("/**", API_URI);
+                        String url = predicateDefinition.getArgs().get(NameUtils.GENERATED_NAME_PREFIX + "0").replace("/**", apiUrl);
                         swaggerResources.add(swaggerResource(routeDefinition.getId(), url));
                     }
                 });
