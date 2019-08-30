@@ -37,8 +37,8 @@ allprojects {
 
 subprojects { subPro ->
     // 指定使用的gradle插件
-    apply plugin: 'java'
-    apply plugin: 'io.spring.dependency-management'
+    apply plugin: "java"
+    apply plugin: "io.spring.dependency-management"
 
     // Jdk版本
     sourceCompatibility = JavaVersion.VERSION_1_8

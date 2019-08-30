@@ -10,8 +10,6 @@ include ":well-base:well-eureka"
 include ":well-base:well-gateway"
 
 include ":well-generate"
-//include ":well-generate:well-generate-common"
-//include ":well-generate:well-generate-user"
 
 include ":well-provider:well-provider-common"
 include ":well-provider:well-provider-test"

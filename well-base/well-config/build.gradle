@@ -1,7 +1,7 @@
-apply plugin: 'org.springframework.boot'
+apply plugin: "org.springframework.boot"
 
 bootJar {
-    setArchivesBaseName('well-config')
+    setArchivesBaseName("well-config")
 }
 
 dependencies {

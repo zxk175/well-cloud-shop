@@ -1,14 +1,14 @@
-apply plugin: 'org.springframework.boot'
+apply plugin: "org.springframework.boot"
 
 bootJar {
-    setArchivesBaseName('well-gateway')
+    setArchivesBaseName("well-gateway")
 }
 
 dependencies {
     annotationProcessor libraries.lombok
 
     implementation([
-            project(':well-common:well-common-base'),
+            project(":well-common:well-common-base"),
 
             libraries.cloud_config_client,
             libraries.cloud_eureka_client,
