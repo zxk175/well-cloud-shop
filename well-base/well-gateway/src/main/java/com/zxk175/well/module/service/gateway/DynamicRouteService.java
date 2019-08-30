@@ -1,8 +1,6 @@
 package com.zxk175.well.module.service.gateway;
 
 import org.springframework.cloud.gateway.route.RouteDefinition;
-import org.springframework.http.ResponseEntity;
-import reactor.core.publisher.Mono;
 
 /**
  * @author zxk175
@@ -10,9 +8,9 @@ import reactor.core.publisher.Mono;
  */
 public interface DynamicRouteService {
 
-    String save(RouteDefinition definition);
+    boolean save(RouteDefinition definition);
 
-    String modify(RouteDefinition definition);
+    boolean modify(RouteDefinition definition);
 
-    Mono<ResponseEntity<Object>> remove(String id);
+    boolean remove(String id);
 }

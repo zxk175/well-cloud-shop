@@ -8,7 +8,6 @@ import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.util.annotation.NonNull;
@@ -31,33 +30,34 @@ public class DynamicRouteServiceImpl implements DynamicRouteService, Application
     }
 
     @Override
-    public String save(RouteDefinition definition) {
+    public boolean save(RouteDefinition definition) {
         routeDefinitionWriter.save(Mono.just(definition)).subscribe();
         this.publisher.publishEvent(new RefreshRoutesEvent(this));
-        return "success";
+        return true;
     }
 
     @Override
-    public String modify(RouteDefinition definition) {
+    public boolean modify(RouteDefinition definition) {
         try {
-            remove(definition.getId());
-        } catch (Exception e) {
-            return "update fail,not find route  routeId: " + definition.getId();
-        }
+            boolean flag = remove(definition.getId());
+            if (flag) {
+                routeDefinitionWriter.save(Mono.just(definition)).subscribe();
+                this.publisher.publishEvent(new RefreshRoutesEvent(this));
+            }
 
-        try {
-            routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-            this.publisher.publishEvent(new RefreshRoutesEvent(this));
-            return "success";
+            return flag;
         } catch (Exception e) {
-            return "update route  fail";
+            e.printStackTrace();
+            return false;
         }
     }
 
     @Override
-    public Mono<ResponseEntity<Object>> remove(String id) {
-        return this.routeDefinitionWriter.delete(Mono.just(id))
-                .then(Mono.defer(() -> Mono.just(ResponseEntity.ok().build())))
-                .onErrorResume(t -> t instanceof NotFoundException, t -> Mono.just(ResponseEntity.notFound().build()));
+    public boolean remove(String id) {
+        Mono<Boolean> flag = this.routeDefinitionWriter.delete(Mono.just(id))
+                .then(Mono.defer(() -> Mono.just(true)))
+                .onErrorResume(t -> t instanceof NotFoundException, t -> Mono.just(false));
+
+        return flag.blockOptional().orElse(false);
     }
 }

@@ -92,6 +92,7 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
         gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
         gatewayRoutesQw.eq("", id);
+
         return this.removeById(id);
     }
 }

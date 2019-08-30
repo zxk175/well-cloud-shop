@@ -43,8 +43,8 @@ import java.util.List;
 @Api(tags = "GatewayRoutes", description = "网关路由V1")
 public class GatewayRoutesController {
 
-    private GatewayRoutesService gatewayRoutesService;
     private DynamicRouteService dynamicRouteService;
+    private GatewayRoutesService gatewayRoutesService;
 
 
     @ResponseBody
@@ -68,10 +68,11 @@ public class GatewayRoutesController {
     @ApiOperation(value = "添加网关路由", notes = "添加网关路由")
     public Response save(@Validated @RequestBody GatewayRouteDefinition param) {
         RouteDefinition routeDefinition = assembleRouteDefinition(param);
-        dynamicRouteService.save(routeDefinition);
-
-        GatewayRoutes gatewayRoutes = getGatewayRoutes(param);
-        boolean flag = gatewayRoutesService.saveRoutes(gatewayRoutes);
+        boolean flag = dynamicRouteService.save(routeDefinition);
+        if (flag) {
+            GatewayRoutes gatewayRoutes = getGatewayRoutes(param);
+            flag = gatewayRoutesService.saveRoutes(gatewayRoutes);
+        }
 
         return Response.saveReturn(flag);
     }
@@ -80,8 +81,10 @@ public class GatewayRoutesController {
     @PostMapping(value = "/remove/{id}/v1")
     @ApiOperation(value = "删除网关路由", notes = "删除网关路由")
     public Response delete(@PathVariable String id) {
-        dynamicRouteService.remove(id);
-        boolean flag = gatewayRoutesService.deleteById(id);
+        boolean flag = dynamicRouteService.remove(id);
+        if (flag) {
+            flag = gatewayRoutesService.deleteById(id);
+        }
 
         return Response.removeReturn(flag);
     }
@@ -91,10 +94,11 @@ public class GatewayRoutesController {
     @ApiOperation(value = "修改网关路由", notes = "修改网关路由")
     public Response update(@Validated @RequestBody GatewayRouteDefinitionModify param) {
         RouteDefinition routeDefinition = assembleRouteDefinition(param);
-        dynamicRouteService.modify(routeDefinition);
-
-        GatewayRoutes gatewayRoutes = getGatewayRoutes(param);
-        boolean flag = gatewayRoutesService.modify(gatewayRoutes);
+        boolean flag = dynamicRouteService.modify(routeDefinition);
+        if (flag) {
+            GatewayRoutes gatewayRoutes = getGatewayRoutes(param);
+            flag = gatewayRoutesService.modify(gatewayRoutes);
+        }
 
         return Response.modifyReturn(flag);
     }
