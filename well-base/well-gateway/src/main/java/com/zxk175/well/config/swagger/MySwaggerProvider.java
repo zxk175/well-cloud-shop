@@ -3,6 +3,7 @@ package com.zxk175.well.config.swagger;
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.config.PropertiesRouteDefinitionLocator;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
+import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
 import org.springframework.cloud.gateway.support.NameUtils;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ import java.util.List;
 public class MySwaggerProvider implements SwaggerResourcesProvider {
 
     private static final String API_URI = "/v2/api-docs";
+    private RouteDefinitionLocator routeDefinitionLocator;
     private PropertiesRouteDefinitionLocator propertiesRouteDefinition;
 
 
