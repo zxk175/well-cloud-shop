@@ -102,8 +102,10 @@ public class MyCodeGenerate {
         gc.setBaseColumnList(false);
         // IdType
         gc.setIdType(IdType.AUTO);
-        // 使用java.util.Date
-        gc.setDateType(DateType.ONLY_DATE);
+        // 使用java8 LocalDate
+        gc.setDateType(DateType.TIME_PACK);
+        // 使用雪花Id
+        gc.setIdType(IdType.ID_WORKER);
         // 作者
         gc.setAuthor("zxk175");
 
