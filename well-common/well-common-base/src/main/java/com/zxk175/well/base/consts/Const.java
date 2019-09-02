@@ -52,6 +52,7 @@ public class Const {
     public static final String DB_ENABLED = "enabled";
     public static final String DB_STATE = "state";
     public static final String DB_SORT = "sort";
+    public static final String DB_ID = "id";
     public static final String OK = "OK";
     public static final int DB_BATCH_SIZE = 10;
 

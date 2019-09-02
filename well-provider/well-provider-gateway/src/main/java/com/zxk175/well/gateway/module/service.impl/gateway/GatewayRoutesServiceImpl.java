@@ -46,7 +46,7 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     public boolean deleteById(String id) {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
         gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
-        gatewayRoutesQw.eq("", id);
+        gatewayRoutesQw.eq(Const.DB_ID, id);
 
         return this.removeById(id);
     }
