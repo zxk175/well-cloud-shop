@@ -1,0 +1,13 @@
+apply plugin: "org.springframework.boot"
+
+bootJar {
+    setArchivesBaseName("well-provider-gateway")
+}
+
+dependencies {
+    annotationProcessor libraries.lombok
+
+    implementation(
+            project(":well-provider:well-provider-common")
+    )
+}

@@ -13,4 +13,5 @@ include ":well-generate"
 
 include ":well-provider:well-provider-common"
 include ":well-provider:well-provider-test"
+include ":well-provider:well-provider-gateway"
 include ":well-provider:well-provider-user"
