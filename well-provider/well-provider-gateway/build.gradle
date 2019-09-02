@@ -7,7 +7,12 @@ bootJar {
 dependencies {
     annotationProcessor libraries.lombok
 
-    implementation(
-            project(":well-provider:well-provider-common")
-    )
+    implementation([
+            project(":well-provider:well-provider-common"),
+
+            libraries.boot_mybatis,
+            libraries.boot_mybatis_plus,
+
+            libraries.mysql,
+    ])
 }
