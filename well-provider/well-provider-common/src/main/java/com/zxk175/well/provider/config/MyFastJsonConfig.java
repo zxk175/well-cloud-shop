@@ -82,7 +82,7 @@ public class MyFastJsonConfig {
 
         // 日期格式化
         // 注释该配置 可以读取日期@JSONField(format = "")
-        JSON.DEFFAULT_DATE_FORMAT = Const.DEFAULT_DATE_FORMAT;
+        JSON.DEFFAULT_DATE_FORMAT = Const.DATE_FORMAT_DEFAULT;
 
         // 序列化规则
         fastJsonConfig.setSerializerFeatures(Const.serializerFeatures());

@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    private static final String FORMAT_DEFAULT = Const.DEFAULT_DATE_FORMAT;
+    private static final String FORMAT_DEFAULT = Const.DATE_FORMAT_DEFAULT;
 
 
     public static String now(String format) {
