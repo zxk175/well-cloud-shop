@@ -3,9 +3,9 @@ package com.zxk175.well.gateway.module.controller.gateway;
 import cn.hutool.core.bean.BeanUtil;
 import com.zxk175.well.base.http.Response;
 import com.zxk175.well.base.util.json.FastJsonUtil;
+import com.zxk175.well.gateway.model.param.GatewayRouteDefinitionParamModify;
+import com.zxk175.well.gateway.model.param.GatewayRouteDefinitionParamSave;
 import com.zxk175.well.gateway.module.entity.gateway.GatewayRoutes;
-import com.zxk175.well.gateway.module.model.GatewayRouteDefinition;
-import com.zxk175.well.gateway.module.model.GatewayRouteDefinitionModify;
 import com.zxk175.well.gateway.module.service.gateway.GatewayRoutesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,13 +43,14 @@ public class GatewayRoutesController {
     @ApiOperation(value = "网关路由列表ByDb", notes = "网关路由列表ByDb")
     public Response listByDb() {
         List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByDb();
+        
         return Response.collReturn(gatewayRoutes);
     }
 
     @ResponseBody
     @PostMapping(value = "/save/v1")
     @ApiOperation(value = "添加网关路由", notes = "添加网关路由")
-    public Response save(@Validated @RequestBody GatewayRouteDefinition param) {
+    public Response save(@Validated @RequestBody GatewayRouteDefinitionParamSave param) {
         GatewayRoutes gatewayRoutes = getGatewayRoutes(param);
         boolean flag = gatewayRoutesService.saveRoutes(gatewayRoutes);
 
@@ -68,14 +69,14 @@ public class GatewayRoutesController {
     @ResponseBody
     @PostMapping(value = "/modify/v1")
     @ApiOperation(value = "修改网关路由", notes = "修改网关路由")
-    public Response update(@Validated @RequestBody GatewayRouteDefinitionModify param) {
+    public Response update(@Validated @RequestBody GatewayRouteDefinitionParamModify param) {
         GatewayRoutes gatewayRoutes = getGatewayRoutes(param);
         boolean flag = gatewayRoutesService.modify(gatewayRoutes);
 
         return Response.modifyReturn(flag);
     }
 
-    private GatewayRoutes getGatewayRoutes(GatewayRouteDefinition param) {
+    private GatewayRoutes getGatewayRoutes(GatewayRouteDefinitionParamSave param) {
         GatewayRoutes gatewayRoutes = new GatewayRoutes();
         BeanUtil.copyProperties(param, gatewayRoutes);
         gatewayRoutes.setPredicates(FastJsonUtil.jsonStr(param.getPredicates()));

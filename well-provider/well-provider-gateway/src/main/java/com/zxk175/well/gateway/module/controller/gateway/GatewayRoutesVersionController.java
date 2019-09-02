@@ -35,6 +35,7 @@ public class GatewayRoutesVersionController {
     @ApiOperation(value = "添加网关路由版本", notes = "添加网关路由版本")
     public Response save(@Validated @RequestBody GatewayRoutesVersion gatewayRoutesVersion) {
         boolean flag = gatewayRoutesVersionService.save(gatewayRoutesVersion);
+        
         return Response.saveReturn(flag);
     }
 }

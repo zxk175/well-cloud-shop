@@ -1,0 +1,11 @@
+dependencies {
+    annotationProcessor libraries.lombok
+
+    compile([
+            libraries.hutool_core,
+
+            libraries.swagger2_annotation,
+
+            libraries.fast_json,
+    ])
+}

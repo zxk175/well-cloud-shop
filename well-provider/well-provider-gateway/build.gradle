@@ -9,6 +9,7 @@ dependencies {
 
     implementation([
             project(":well-provider:well-provider-common"),
+            project(":well-provider:well-provider-gateway-api"),
 
             libraries.boot_mybatis,
             libraries.boot_mybatis_plus,

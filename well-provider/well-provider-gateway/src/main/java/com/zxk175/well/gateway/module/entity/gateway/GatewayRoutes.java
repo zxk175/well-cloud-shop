@@ -1,6 +1,5 @@
 package com.zxk175.well.gateway.module.entity.gateway;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -51,12 +50,10 @@ public class GatewayRoutes extends Model<GatewayRoutes> {
     @TableField("route_order")
     private Integer routeOrder;
 
-    @JSONField(jsonDirect = true)
     @ApiModelProperty(value = "断言字符串集合", example = "test")
     @TableField("predicates")
     private String predicates;
 
-    @JSONField(jsonDirect = true)
     @ApiModelProperty(value = "过滤器字符串集合", example = "test")
     @TableField("filters")
     private String filters;

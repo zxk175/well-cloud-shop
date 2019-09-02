@@ -1,4 +1,4 @@
-package com.zxk175.well.gateway.module.model;
+package com.zxk175.well.gateway.model.param;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GatewayRouteDefinitionModify extends GatewayRouteDefinition {
+public class GatewayRouteDefinitionParamModify extends GatewayRouteDefinitionParamSave {
 
     private String id;
 }

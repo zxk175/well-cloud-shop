@@ -9,16 +9,14 @@ dependencies {
 
     implementation([
             project(":well-common:well-common-base"),
+            project(":well-provider:well-provider-gateway-api"),
 
             libraries.cloud_config_client,
             libraries.cloud_eureka_client,
             libraries.cloud_gateway,
             libraries.cloud_hystrix,
+            libraries.cloud_feign,
 
-            libraries.boot_mybatis,
-            libraries.boot_mybatis_plus,
-
-            libraries.mysql,
             libraries.swagger2_ui,
 
             // fix 找不到javax.annotation.meta.When

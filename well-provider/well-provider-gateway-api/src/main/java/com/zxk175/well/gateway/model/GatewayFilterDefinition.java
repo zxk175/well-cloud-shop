@@ -1,4 +1,4 @@
-package com.zxk175.well.gateway.module.model;
+package com.zxk175.well.gateway.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

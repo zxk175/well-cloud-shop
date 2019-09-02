@@ -1,7 +1,6 @@
 package com.zxk175.well.module.service.gateway;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.zxk175.well.module.entity.gateway.GatewayRoutes;
+import com.zxk175.well.gateway.model.dto.GatewayRoutesDto;
 
 import java.util.List;
 
@@ -13,17 +12,9 @@ import java.util.List;
  * @author zxk175
  * @since 2019-08-29 15:10:07
  */
-public interface GatewayRoutesService extends IService<GatewayRoutes> {
+public interface GatewayRoutesService {
 
     boolean loadRouteDefinition();
 
-    List<GatewayRoutes> listByMem();
-
-    List<GatewayRoutes> listByDb();
-
-    boolean saveRoutes(GatewayRoutes gatewayRoutes);
-
-    boolean modify(GatewayRoutes gatewayRoutes);
-
-    boolean deleteById(String id);
+    List<GatewayRoutesDto> listByMem();
 }

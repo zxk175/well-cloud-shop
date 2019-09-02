@@ -1,6 +1,8 @@
-package com.zxk175.well.module.model;
+package com.zxk175.well.gateway.model.param;
 
 import cn.hutool.core.collection.CollUtil;
+import com.zxk175.well.gateway.model.GatewayFilterDefinition;
+import com.zxk175.well.gateway.model.GatewayPredicateDefinition;
 import lombok.Data;
 
 import java.util.Collections;
@@ -11,7 +13,7 @@ import java.util.List;
  * @since 2019-08-29 16:41
  */
 @Data
-public class GatewayRouteDefinition {
+public class GatewayRouteDefinitionParamSave {
 
     private String routeId;
 
