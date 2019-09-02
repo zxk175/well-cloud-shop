@@ -1,11 +1,13 @@
 package com.zxk175.well.module.controller.gateway;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.zxk175.well.base.http.Response;
-import com.zxk175.well.gateway.model.GatewayFilterDefinition;
-import com.zxk175.well.gateway.model.GatewayPredicateDefinition;
-import com.zxk175.well.gateway.model.dto.GatewayRoutesDto;
-import com.zxk175.well.gateway.model.param.GatewayRouteDefinitionParamModify;
-import com.zxk175.well.gateway.model.param.GatewayRouteDefinitionParamSave;
+import com.zxk175.well.base.util.json.FastJsonUtil;
+import com.zxk175.well.module.entity.gateway.GatewayRoutes;
+import com.zxk175.well.module.model.GatewayFilterDefinition;
+import com.zxk175.well.module.model.GatewayPredicateDefinition;
+import com.zxk175.well.module.model.GatewayRouteDefinitionParamSave;
+import com.zxk175.well.module.model.GatewayRouteDefinitionParamModify;
 import com.zxk175.well.module.service.gateway.DynamicRouteService;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
 import io.swagger.annotations.Api;
@@ -49,8 +51,7 @@ public class GatewayRoutesController {
     @GetMapping(value = "/list/v1")
     @ApiOperation(value = "网关路由列表ByMem", notes = "网关路由列表ByMem")
     public Response listByMem() {
-        List<GatewayRoutesDto> gatewayRoutes = gatewayRoutesService.listByMem();
-
+        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByMem();
         return Response.collReturn(gatewayRoutes);
     }
 
@@ -58,8 +59,7 @@ public class GatewayRoutesController {
     @GetMapping(value = "/list-db/v1")
     @ApiOperation(value = "网关路由列表ByDb", notes = "网关路由列表ByDb")
     public Response listByDb() {
-        List<GatewayRoutesDto> gatewayRoutes = new ArrayList<>();
-
+        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByDb();
         return Response.collReturn(gatewayRoutes);
     }
 
@@ -69,6 +69,10 @@ public class GatewayRoutesController {
     public Response save(@Validated @RequestBody GatewayRouteDefinitionParamSave param) {
         RouteDefinition routeDefinition = assembleRouteDefinition(param);
         boolean flag = dynamicRouteService.save(routeDefinition);
+        if (flag) {
+            GatewayRoutes gatewayRoutes = getGatewayRoutes(param);
+            flag = gatewayRoutesService.saveRoutes(gatewayRoutes);
+        }
 
         return Response.saveReturn(flag);
     }
@@ -78,6 +82,9 @@ public class GatewayRoutesController {
     @ApiOperation(value = "删除网关路由", notes = "删除网关路由")
     public Response delete(@PathVariable String id) {
         boolean flag = dynamicRouteService.remove(id);
+        if (flag) {
+            flag = gatewayRoutesService.deleteById(id);
+        }
 
         return Response.removeReturn(flag);
     }
@@ -88,8 +95,20 @@ public class GatewayRoutesController {
     public Response update(@Validated @RequestBody GatewayRouteDefinitionParamModify param) {
         RouteDefinition routeDefinition = assembleRouteDefinition(param);
         boolean flag = dynamicRouteService.modify(routeDefinition);
+        if (flag) {
+            GatewayRoutes gatewayRoutes = getGatewayRoutes(param);
+            flag = gatewayRoutesService.modify(gatewayRoutes);
+        }
 
         return Response.modifyReturn(flag);
+    }
+
+    private GatewayRoutes getGatewayRoutes(GatewayRouteDefinitionParamSave param) {
+        GatewayRoutes gatewayRoutes = new GatewayRoutes();
+        BeanUtil.copyProperties(param, gatewayRoutes);
+        gatewayRoutes.setPredicates(FastJsonUtil.jsonStr(param.getPredicates()));
+        gatewayRoutes.setFilters(FastJsonUtil.jsonStr(param.getFilters()));
+        return gatewayRoutes;
     }
 
     private RouteDefinition assembleRouteDefinition(GatewayRouteDefinitionParamSave gatewayRoutes) {

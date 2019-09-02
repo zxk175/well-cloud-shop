@@ -1,10 +1,14 @@
 package com.zxk175.well.module.service.impl.gateway;
 
 import cn.hutool.core.collection.CollUtil;
-import com.alibaba.fastjson.JSON;
-import com.zxk175.well.base.util.MyStrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zxk175.well.base.consts.Const;
+import com.zxk175.well.base.consts.enums.Deleted;
+import com.zxk175.well.base.consts.enums.Enabled;
 import com.zxk175.well.base.util.json.FastJsonUtil;
-import com.zxk175.well.gateway.model.dto.GatewayRoutesDto;
+import com.zxk175.well.module.dao.gateway.GatewayRoutesDao;
+import com.zxk175.well.module.entity.gateway.GatewayRoutes;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
@@ -32,7 +36,7 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class GatewayRoutesServiceImpl implements GatewayRoutesService {
+public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, GatewayRoutes> implements GatewayRoutesService {
 
     private ApplicationEventPublisher publisher;
     private RouteDefinitionWriter routeDefinitionWriter;
@@ -42,22 +46,26 @@ public class GatewayRoutesServiceImpl implements GatewayRoutesService {
     @Override
     public boolean loadRouteDefinition() {
         try {
-            List<GatewayRoutesDto> gatewayRoutes = new ArrayList<>();
+            List<GatewayRoutes> gatewayRoutes = this.list();
             if (CollUtil.isEmpty(gatewayRoutes)) {
                 return false;
             }
 
-            for (GatewayRoutesDto gatewayRoute : gatewayRoutes) {
+            for (GatewayRoutes gatewayRoute : gatewayRoutes) {
                 RouteDefinition definition = new RouteDefinition();
                 definition.setId(gatewayRoute.getRouteId());
                 definition.setUri(URI.create(gatewayRoute.getRouteUri()));
-                definition.setPredicates(getPredicates(gatewayRoute.getPredicates()));
-                definition.setFilters(getFilters(gatewayRoute.getFilters()));
+
+                List<PredicateDefinition> predicateDefinitions = gatewayRoute.getPredicateDefinition();
+                definition.setPredicates(CollUtil.isEmpty(predicateDefinitions) ? Collections.emptyList() : predicateDefinitions);
+
+                List<FilterDefinition> filterDefinitions = gatewayRoute.getFilterDefinition();
+                definition.setFilters(CollUtil.isEmpty(filterDefinitions) ? Collections.emptyList() : filterDefinitions);
 
                 routeDefinitionWriter.save(Mono.just(definition)).subscribe();
                 this.publisher.publishEvent(new RefreshRoutesEvent(this));
             }
-
+            
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,11 +74,11 @@ public class GatewayRoutesServiceImpl implements GatewayRoutesService {
     }
 
     @Override
-    public List<GatewayRoutesDto> listByMem() {
-        List<GatewayRoutesDto> gatewayRoutes = new ArrayList<>();
+    public List<GatewayRoutes> listByMem() {
+        List<GatewayRoutes> gatewayRoutes = new ArrayList<>();
 
         inMemoryRouteDefinitionRepository.getRouteDefinitions().subscribe(routeDefinition -> {
-            GatewayRoutesDto gatewayRoute = new GatewayRoutesDto();
+            GatewayRoutes gatewayRoute = new GatewayRoutes();
             gatewayRoute.setRouteId(routeDefinition.getId());
             gatewayRoute.setRouteUri(String.valueOf(routeDefinition.getUri()));
             gatewayRoute.setRouteOrder(routeDefinition.getOrder());
@@ -83,19 +91,31 @@ public class GatewayRoutesServiceImpl implements GatewayRoutesService {
         return gatewayRoutes;
     }
 
-    private List<PredicateDefinition> getPredicates(String predicates) {
-        if (MyStrUtil.isBlank(predicates)) {
-            return Collections.emptyList();
-        }
+    @Override
+    public List<GatewayRoutes> listByDb() {
+        QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
+        gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
+        gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());
 
-        return JSON.parseArray(predicates, PredicateDefinition.class);
+        return baseMapper.selectList(gatewayRoutesQw);
     }
 
-    private List<FilterDefinition> getFilters(String filters) {
-        if (MyStrUtil.isBlank(filters)) {
-            return Collections.emptyList();
-        }
+    @Override
+    public boolean modify(GatewayRoutes gatewayRoutes) {
+        return this.updateById(gatewayRoutes);
+    }
 
-        return JSON.parseArray(filters, FilterDefinition.class);
+    @Override
+    public boolean saveRoutes(GatewayRoutes gatewayRoutes) {
+        return this.save(gatewayRoutes);
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
+        gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
+        gatewayRoutesQw.eq("", id);
+
+        return this.removeById(id);
     }
 }

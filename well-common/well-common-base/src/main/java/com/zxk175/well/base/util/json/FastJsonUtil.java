@@ -22,7 +22,7 @@ public class FastJsonUtil {
 
     static {
         // 修改全局的全局日期格式
-        JSON.DEFFAULT_DATE_FORMAT = Const.DEFAULT_DATE_FORMAT;
+        JSON.DEFFAULT_DATE_FORMAT = Const.DATE_TIME_FORMAT_DEFAULT;
     }
 
     public static String jsonStr(Object object) {
