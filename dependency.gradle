@@ -18,6 +18,7 @@ ext {
 
             swagger2         : "2.7.0",
 
+            javax_servlet_api: "4.0.1",
             commons_pool2    : "2.7.0",
             fast_json        : "1.2.59",
             hutool           : "4.6.3",
@@ -62,6 +63,7 @@ ext {
             // fix 未知的枚举常量 javax.annotation.meta.When.MAYBE
             findbugs_annotations : "com.google.code.findbugs:annotations:3.0.1",
 
+            javax_servlet_api    : "javax.servlet:javax.servlet-api:${versions.javax_servlet_api}",
             commons_pool2        : "org.apache.commons:commons-pool2:${versions.commons_pool2}",
             hutool_core          : "cn.hutool:hutool-core:${versions.hutool}",
             hutool_crypto        : "cn.hutool:hutool-crypto:${versions.hutool}",

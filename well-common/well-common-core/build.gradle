@@ -6,7 +6,7 @@ dependencies {
 
             libraries.boot_web,
             libraries.boot_aop,
-            libraries.boot_undertow,
+            libraries.javax_servlet_api,
 
             libraries.hutool_crypto,
     ])

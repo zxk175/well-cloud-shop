@@ -4,6 +4,8 @@ dependencies {
     compile([
             project(":well-common:well-common-core"),
 
+            libraries.boot_undertow,
+
             libraries.cloud_config_client,
             libraries.cloud_eureka_client,
 
