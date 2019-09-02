@@ -19,10 +19,10 @@ public class Const {
     public static final String UTF_8 = StandardCharsets.UTF_8.name();
     public static final Charset UTF_8_OBJ = StandardCharsets.UTF_8;
 
-    public static final String DATE_FORMAT_DATE = "yyyyMMdd";
-    public static final String DATE_FORMAT_CN = "yyyy年MM月dd日 HH时mm分ss秒";
     public static final String DATE_TIME_FORMAT_DEFAULT = "yyyy-MM-dd HH:mm:ss";
-    public static final String DATE_FORMAT_DEFAULT = "yyyy-MM-dd";
+    public static final String DATE_FORMAT_CN = "yyyy年MM月dd日 HH时mm分ss秒";
+    public static final String DATE1_FORMAT_DEFAULT = "yyyy-MM-dd";
+    public static final String DATE2_FORMAT_DEFAULT = "yyyyMMdd";
 
     public static final String FORMAT6 = "===> ";
     public static final String LOG_PREFIX = FORMAT6;
@@ -79,7 +79,7 @@ public class Const {
         config.put(Long.class, MyToStringSerializer.INSTANCE);
         config.put(java.sql.Date.class, new SimpleDateFormatSerializer(Const.DATE_TIME_FORMAT_DEFAULT));
         config.put(java.util.Date.class, new SimpleDateFormatSerializer(Const.DATE_TIME_FORMAT_DEFAULT));
-        config.put(java.time.LocalDate.class, new MyLocalDateFormatSerializer(Const.DATE_FORMAT_DEFAULT));
+        config.put(java.time.LocalDate.class, new MyLocalDateFormatSerializer(Const.DATE1_FORMAT_DEFAULT));
         config.put(java.time.LocalDateTime.class, new MyLocalDateTimeFormatSerializer(Const.DATE_TIME_FORMAT_DEFAULT));
 
         return config;
