@@ -65,9 +65,9 @@ ext {
 
             javax_servlet_api    : "javax.servlet:javax.servlet-api:${versions.javax_servlet_api}",
             commons_pool2        : "org.apache.commons:commons-pool2:${versions.commons_pool2}",
+            fast_json            : "com.alibaba:fastjson:${versions.fast_json}",
             hutool_core          : "cn.hutool:hutool-core:${versions.hutool}",
             hutool_crypto        : "cn.hutool:hutool-crypto:${versions.hutool}",
-            fast_json            : "com.alibaba:fastjson:${versions.fast_json}",
             bcprov               : "org.bouncycastle:bcprov-jdk15on:1.62",
             ip2region            : "org.lionsoul:ip2region:1.7.2",
             easy_okhttp          : "com.mzlion:easy-okhttp:1.1.4",
