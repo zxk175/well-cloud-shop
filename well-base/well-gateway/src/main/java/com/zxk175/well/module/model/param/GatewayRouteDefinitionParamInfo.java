@@ -1,5 +1,6 @@
 package com.zxk175.well.module.model.param;
 
+import com.zxk175.well.base.check.NotBlank;
 import lombok.Data;
 
 /**
@@ -9,5 +10,6 @@ import lombok.Data;
 @Data
 public class GatewayRouteDefinitionParamInfo {
 
+    @NotBlank
     private String id;
 }

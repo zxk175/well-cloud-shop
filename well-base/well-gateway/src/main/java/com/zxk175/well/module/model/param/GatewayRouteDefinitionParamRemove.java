@@ -1,5 +1,6 @@
 package com.zxk175.well.module.model.param;
 
+import com.zxk175.well.base.check.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,5 +12,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class GatewayRouteDefinitionParamRemove extends GatewayRouteDefinitionParamInfo {
 
+    @NotBlank
     private String routeId;
 }
