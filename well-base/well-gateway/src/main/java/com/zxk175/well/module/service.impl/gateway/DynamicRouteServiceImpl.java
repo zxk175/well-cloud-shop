@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
-import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
@@ -56,7 +55,7 @@ public class DynamicRouteServiceImpl implements DynamicRouteService, Application
     public boolean remove(String id) {
         Mono<Boolean> flag = this.routeDefinitionWriter.delete(Mono.just(id))
                 .then(Mono.defer(() -> Mono.just(true)))
-                .onErrorResume(t -> t instanceof NotFoundException, t -> Mono.just(false));
+                .onErrorReturn(false);
 
         return flag.blockOptional().orElse(false);
     }

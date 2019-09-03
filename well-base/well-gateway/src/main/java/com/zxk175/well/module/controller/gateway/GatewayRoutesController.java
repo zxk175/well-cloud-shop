@@ -8,6 +8,7 @@ import com.zxk175.well.module.model.GatewayFilterDefinition;
 import com.zxk175.well.module.model.GatewayPredicateDefinition;
 import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamInfo;
 import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamModify;
+import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamRemove;
 import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamSave;
 import com.zxk175.well.module.service.gateway.DynamicRouteService;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
@@ -19,8 +20,6 @@ import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,18 +46,26 @@ public class GatewayRoutesController {
     private DynamicRouteService dynamicRouteService;
     private GatewayRoutesService gatewayRoutesService;
 
+    @ResponseBody
+    @PostMapping(value = "/refresh/v1")
+    @ApiOperation(value = "刷新网关路由", notes = "刷新网关路由")
+    public Response refresh() {
+        boolean flag = gatewayRoutesService.loadRouteDefinition();
+
+        return Response.diyReturn(flag, "刷新成功", "刷新失败");
+    }
 
     @ResponseBody
-    @GetMapping(value = "/list/v1")
+    @PostMapping(value = "/list/v1")
     @ApiOperation(value = "网关路由列表ByMem", notes = "网关路由列表ByMem")
     public Response listByMem() {
         List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByMem();
-        
+
         return Response.collReturn(gatewayRoutes);
     }
 
     @ResponseBody
-    @GetMapping(value = "/list-db/v1")
+    @PostMapping(value = "/list-db/v1")
     @ApiOperation(value = "网关路由列表ByDb", notes = "网关路由列表ByDb")
     public Response listByDb() {
         List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByDb();
@@ -92,10 +99,10 @@ public class GatewayRoutesController {
     @ResponseBody
     @PostMapping(value = "/remove/{id}/v1")
     @ApiOperation(value = "删除网关路由", notes = "删除网关路由")
-    public Response delete(@PathVariable String id) {
-        boolean flag = dynamicRouteService.remove(id);
+    public Response delete(@Validated @RequestBody GatewayRouteDefinitionParamRemove param) {
+        boolean flag = dynamicRouteService.remove(param.getRouteId());
         if (flag) {
-            flag = gatewayRoutesService.deleteById(id);
+            flag = gatewayRoutesService.deleteById(param.getId());
         }
 
         return Response.removeReturn(flag);

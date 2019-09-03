@@ -17,6 +17,7 @@
 <div id="app" class="container-fluid" v-cloak>
     <div class="tool-container">
         <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(0)">新增</el-button>
+        <el-button type="success" icon="el-icon-refresh" size="small" @click="refreshRoute">刷新路由</el-button>
     </div>
 
     <el-table :data="tableData" ref="multiTable" row-key="id" height="480" size="mini" stripe border>
@@ -96,7 +97,9 @@
             visible: false,
             dataForm: {
                 id: 0,
-                routeId: ""
+                routeId: "",
+                routeUri: "",
+                routeOrder: 0
             },
             paging: {
                 page: 1,
@@ -127,6 +130,19 @@
                         }
                     });
                 }
+            },
+
+            refreshRoute() {
+                let that = this;
+                let url = ctx + "/gateway-routes/refresh/v1";
+                post(url, {}, function (res) {
+                    let data = res.data;
+                    if (data.success) {
+                        that.$message.success(data.msg);
+                    } else {
+                        that.$message.error(data.msg);
+                    }
+                })
             },
 
             dataFormSubmit() {
@@ -161,7 +177,7 @@
                 let that = this;
 
                 let url = ctx + "/gateway-routes/list-db/v1";
-                get(url, function (res) {
+                post(url, {}, function (res) {
                     let data = res.data;
                     if (data.success) {
                         that.tableData = data.data;
@@ -189,6 +205,18 @@
             deleteData(row) {
                 let that = this;
                 let params = row.id ? [row.id] : row;
+
+                removeRole(params, function (res) {
+                    if (res.success) {
+                        setTimeout(function () {
+                            that.listData();
+                        }, 500);
+                    }
+
+                    if (row.roleId) {
+                        that.hideDelPopover(row.roleId, 'del');
+                    }
+                });
             },
 
             hideDelPopover(id, type) {
