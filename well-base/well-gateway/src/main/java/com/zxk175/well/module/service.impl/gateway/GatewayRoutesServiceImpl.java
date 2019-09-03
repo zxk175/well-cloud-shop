@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zxk175.well.base.consts.Const;
-import com.zxk175.well.base.consts.enums.Deleted;
 import com.zxk175.well.base.consts.enums.Enabled;
 import com.zxk175.well.base.util.json.FastJsonUtil;
 import com.zxk175.well.module.dao.gateway.GatewayRoutesDao;
@@ -95,7 +94,6 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     @Override
     public GatewayRoutes info(GatewayRouteDefinitionParamInfo param) {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
-        gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
         gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());
         gatewayRoutesQw.eq(Const.DB_ID, param.getId());
 
@@ -105,7 +103,6 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     @Override
     public List<GatewayRoutes> listByDb() {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
-        gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
         gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());
 
         return this.list(gatewayRoutesQw);
@@ -124,7 +121,6 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     @Override
     public boolean deleteById(String id) {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
-        gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
         gatewayRoutesQw.eq(Const.DB_ID, id);
 
         return this.removeById(id);
