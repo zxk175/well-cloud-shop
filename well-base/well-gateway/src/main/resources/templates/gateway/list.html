@@ -123,6 +123,7 @@
 
                 if (that.opFlag) {
                     let url = ctx + "/gateway-routes/info/v1";
+
                     post(url, {"id": id}, function (res) {
                         let data = res.data;
                         if (data.success) {
@@ -135,6 +136,7 @@
             refreshRoute() {
                 let that = this;
                 let url = ctx + "/gateway-routes/refresh/v1";
+
                 post(url, {}, function (res) {
                     let data = res.data;
                     if (data.success) {
@@ -175,8 +177,8 @@
 
             listData() {
                 let that = this;
-
                 let url = ctx + "/gateway-routes/list-db/v1";
+
                 post(url, {}, function (res) {
                     let data = res.data;
                     if (data.success) {
@@ -204,17 +206,21 @@
 
             deleteData(row) {
                 let that = this;
-                let params = row.id ? [row.id] : row;
+                let params = {
+                    id: row.id,
+                    routeId: row.routeId
+                };
+                let url = ctx + "/gateway-routes/remove/v1";
 
-                removeRole(params, function (res) {
+                post(url, params, function (res) {
                     if (res.success) {
                         setTimeout(function () {
                             that.listData();
                         }, 500);
                     }
 
-                    if (row.roleId) {
-                        that.hideDelPopover(row.roleId, 'del');
+                    if (row.id) {
+                        that.hideDelPopover(row.id, 'del');
                     }
                 });
             },

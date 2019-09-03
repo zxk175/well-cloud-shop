@@ -7,6 +7,8 @@ dependencies {
 
             libraries.swagger2,
 
+            libraries.validation_api,
+
             libraries.hutool_core,
             libraries.fast_json,
     ])
