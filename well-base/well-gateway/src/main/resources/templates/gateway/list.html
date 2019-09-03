@@ -19,7 +19,7 @@
         <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(0)">新增</el-button>
     </div>
 
-    <el-table :data="tableData" ref="multiTable" row-key="channelId" height="480" size="mini" stripe border>
+    <el-table :data="tableData" ref="multiTable" row-key="id" height="480" size="mini" stripe border>
         <el-table-column type="selection" label="1" width="50" align="center"></el-table-column>
         <el-table-column type="index" label="序号" :index="genIndex" align="center" fixed="left"></el-table-column>
         <el-table-column prop="id" label="Id" min-width="180" align="center"></el-table-column>
@@ -79,7 +79,7 @@
 
         <span slot="footer" class="dialog-footer">
             <el-button type="text" size="mini" @click="visible = false">取消</el-button>
-            <el-button type="primary" size="mini" @click="dataFormSubmit()">确定</el-button>
+            <el-button type="primary" size="mini" @click="dataFormSubmit">确定</el-button>
         </span>
     </el-dialog>
 </div>
@@ -95,7 +95,8 @@
             opFlag: true,
             visible: false,
             dataForm: {
-                id: 0
+                id: 0,
+                routeId: ""
             },
             paging: {
                 page: 1,
@@ -115,17 +116,17 @@
                 that.opFlag = that.dataForm.id > 0;
                 that.$nextTick(() => {
                     that.$refs.dataForm.resetFields();
-
-                    if (that.opFlag) {
-                        let url = ctx + "/gateway-routes/info/v1";
-                        post(url, {"id": id}, function (res) {
-                            let data = res.data;
-                            if (data.success) {
-                                Object.assign(that.dataForm, data.data);
-                            }
-                        });
-                    }
                 });
+
+                if (that.opFlag) {
+                    let url = ctx + "/gateway-routes/info/v1";
+                    post(url, {"id": id}, function (res) {
+                        let data = res.data;
+                        if (data.success) {
+                            Object.assign(that.dataForm, data.data);
+                        }
+                    });
+                }
             },
 
             dataFormSubmit() {
@@ -163,8 +164,8 @@
                 get(url, function (res) {
                     let data = res.data;
                     if (data.success) {
-                        that.paging.total = data.extra.total;
                         that.tableData = data.data;
+                        that.paging.total = data.extra.total;
                     } else {
                         that.$message.error(data.msg);
                         that.tableData = [];
