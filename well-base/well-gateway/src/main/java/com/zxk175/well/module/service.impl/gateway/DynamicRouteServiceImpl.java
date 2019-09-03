@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
+import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class DynamicRouteServiceImpl implements DynamicRouteService, Application
     @Override
     public boolean save(RouteDefinition definition) {
         routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-        this.publisher.publishEvent(new RefreshRoutesEvent(this));
+        notifyChanged();
         return true;
     }
 
@@ -41,7 +42,7 @@ public class DynamicRouteServiceImpl implements DynamicRouteService, Application
             boolean flag = remove(definition.getId());
             if (flag) {
                 routeDefinitionWriter.save(Mono.just(definition)).subscribe();
-                this.publisher.publishEvent(new RefreshRoutesEvent(this));
+                notifyChanged();
             }
 
             return flag;
@@ -53,10 +54,14 @@ public class DynamicRouteServiceImpl implements DynamicRouteService, Application
 
     @Override
     public boolean remove(String id) {
-        Mono<Boolean> flag = this.routeDefinitionWriter.delete(Mono.just(id))
+        Mono<Boolean> booleanMono = this.routeDefinitionWriter.delete(Mono.just(id))
                 .then(Mono.defer(() -> Mono.just(true)))
-                .onErrorReturn(false);
+                .onErrorResume(t -> t instanceof NotFoundException, t -> Mono.just(false));
 
-        return flag.blockOptional().orElse(false);
+        return true;
+    }
+
+    private void notifyChanged() {
+        this.publisher.publishEvent(new RefreshRoutesEvent(this));
     }
 }

@@ -56,12 +56,12 @@ public class GatewayRoutes extends Model<GatewayRoutes> {
     private Integer routeOrder;
 
     @JSONField(jsonDirect = true)
-    @ApiModelProperty(value = "断言字符串集合", example = "test")
+    @ApiModelProperty(value = "断言字符串", example = "test")
     @TableField("predicates")
     private String predicates;
 
     @JSONField(jsonDirect = true)
-    @ApiModelProperty(value = "过滤器字符串集合", example = "test")
+    @ApiModelProperty(value = "过滤器字符串", example = "test")
     @TableField("filters")
     private String filters;
 

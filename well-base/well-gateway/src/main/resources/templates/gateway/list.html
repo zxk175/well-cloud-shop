@@ -17,6 +17,7 @@
 <div id="app" class="container-fluid" v-cloak>
     <div class="tool-container">
         <el-button type="primary" icon="el-icon-plus" size="small" @click="openDialog(0)">新增</el-button>
+        <el-button type="primary" icon="el-icon-refresh" size="small" @click="refresh">刷新</el-button>
         <el-button type="success" icon="el-icon-refresh" size="small" @click="refreshRoute">刷新路由</el-button>
     </div>
 
@@ -76,6 +77,12 @@
             <el-form-item label="路由执行顺序" prop="routeOrder">
                 <el-input v-model="dataForm.routeOrder" placeholder="路由执行顺序" clearable></el-input>
             </el-form-item>
+            <el-form-item label="断言字符串" prop="predicates">
+                <el-input type="textarea" rows="8" v-model="dataForm.predicates"></el-input>
+            </el-form-item>
+            <el-form-item label="过滤器字符串" prop="filters">
+                <el-input type="textarea" rows="8" v-model="dataForm.filters"></el-input>
+            </el-form-item>
         </el-form>
 
         <span slot="footer" class="dialog-footer">
@@ -99,7 +106,9 @@
                 id: 0,
                 routeId: "",
                 routeUri: "",
-                routeOrder: 0
+                routeOrder: 0,
+                predicates: "",
+                filters: ""
             },
             paging: {
                 page: 1,
@@ -127,10 +136,17 @@
                     post(url, {"id": id}, function (res) {
                         let data = res.data;
                         if (data.success) {
+                            data.data.predicates = JSON.stringify(data.data.predicates, null, "\t");
+                            data.data.filters = JSON.stringify(data.data.filters, null, "\t");
+
                             Object.assign(that.dataForm, data.data);
                         }
                     });
                 }
+            },
+
+            refresh() {
+                this.listData();
             },
 
             refreshRoute() {
@@ -159,6 +175,9 @@
                             delete params["id"];
                             url = ctx + "/gateway-routes/save/v1";
                         }
+
+                        params.predicates = JSON.parse(params.predicates);
+                        params.filters = JSON.parse(params.filters);
 
                         post(url, params, function (res) {
                             let data = res.data;
@@ -213,7 +232,8 @@
                 let url = ctx + "/gateway-routes/remove/v1";
 
                 post(url, params, function (res) {
-                    if (res.success) {
+                    let data = res.data;
+                    if (data.success) {
                         setTimeout(function () {
                             that.listData();
                         }, 500);
