@@ -85,6 +85,8 @@ class GlobalExceptionHandler extends DefaultErrorWebExceptionHandler {
             response = Response.fail(error.getMessage());
         }
 
+        error.printStackTrace();
+
         Map<String, Object> extra = Maps.newHashMapWithExpectedSize(8);
         extra.put("status", httpStatus.toString());
         extra.put("method", request.methodName());
