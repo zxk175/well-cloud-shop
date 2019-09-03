@@ -97,7 +97,7 @@ public class GatewayRoutesController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/remove/{id}/v1")
+    @PostMapping(value = "/remove/v1")
     @ApiOperation(value = "删除网关路由", notes = "删除网关路由")
     public Response delete(@Validated @RequestBody GatewayRouteDefinitionParamRemove param) {
         boolean flag = dynamicRouteService.remove(param.getRouteId());
