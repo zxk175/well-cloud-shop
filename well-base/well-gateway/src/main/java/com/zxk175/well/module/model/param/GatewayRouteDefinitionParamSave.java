@@ -1,6 +1,8 @@
-package com.zxk175.well.module.model;
+package com.zxk175.well.module.model.param;
 
 import cn.hutool.core.collection.CollUtil;
+import com.zxk175.well.module.model.GatewayFilterDefinition;
+import com.zxk175.well.module.model.GatewayPredicateDefinition;
 import lombok.Data;
 
 import java.util.Collections;

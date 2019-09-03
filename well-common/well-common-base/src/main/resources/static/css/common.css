@@ -46,6 +46,25 @@ a {
     width: 100%;
 }
 
+.popover-tip-val {
+    padding: 0 2px;
+    color: red;
+}
+
+.table-div {
+    margin-top: 5px;
+}
+
+.table-page {
+    margin: 10px auto 0 auto;
+    text-align: right;
+}
+
+.tool-container{
+    padding: 10px 0;
+    background: #eee;
+}
+
 .iv-row {
     margin-bottom: 8px;
 }

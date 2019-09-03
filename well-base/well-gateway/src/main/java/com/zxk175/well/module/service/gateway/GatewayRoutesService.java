@@ -2,6 +2,7 @@ package com.zxk175.well.module.service.gateway;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zxk175.well.module.entity.gateway.GatewayRoutes;
+import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamInfo;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public interface GatewayRoutesService extends IService<GatewayRoutes> {
     List<GatewayRoutes> listByMem();
 
     List<GatewayRoutes> listByDb();
+
+    GatewayRoutes info(GatewayRouteDefinitionParamInfo param);
 
     boolean saveRoutes(GatewayRoutes gatewayRoutes);
 

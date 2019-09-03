@@ -6,8 +6,9 @@ import com.zxk175.well.base.util.json.FastJsonUtil;
 import com.zxk175.well.module.entity.gateway.GatewayRoutes;
 import com.zxk175.well.module.model.GatewayFilterDefinition;
 import com.zxk175.well.module.model.GatewayPredicateDefinition;
-import com.zxk175.well.module.model.GatewayRouteDefinitionParamSave;
-import com.zxk175.well.module.model.GatewayRouteDefinitionParamModify;
+import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamInfo;
+import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamModify;
+import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamSave;
 import com.zxk175.well.module.service.gateway.DynamicRouteService;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
 import io.swagger.annotations.Api;
@@ -52,6 +53,7 @@ public class GatewayRoutesController {
     @ApiOperation(value = "网关路由列表ByMem", notes = "网关路由列表ByMem")
     public Response listByMem() {
         List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByMem();
+        
         return Response.collReturn(gatewayRoutes);
     }
 
@@ -60,7 +62,17 @@ public class GatewayRoutesController {
     @ApiOperation(value = "网关路由列表ByDb", notes = "网关路由列表ByDb")
     public Response listByDb() {
         List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByDb();
+
         return Response.collReturn(gatewayRoutes);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/info/v1")
+    @ApiOperation(value = "添加网关路由", notes = "添加网关路由")
+    public Response info(@Validated @RequestBody GatewayRouteDefinitionParamInfo param) {
+        GatewayRoutes gatewayRoutes = gatewayRoutesService.info(param);
+
+        return Response.objectReturn(gatewayRoutes);
     }
 
     @ResponseBody

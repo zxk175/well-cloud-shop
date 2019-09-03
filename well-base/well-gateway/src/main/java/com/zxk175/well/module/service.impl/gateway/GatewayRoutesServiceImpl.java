@@ -9,6 +9,7 @@ import com.zxk175.well.base.consts.enums.Enabled;
 import com.zxk175.well.base.util.json.FastJsonUtil;
 import com.zxk175.well.module.dao.gateway.GatewayRoutesDao;
 import com.zxk175.well.module.entity.gateway.GatewayRoutes;
+import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamInfo;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
@@ -65,7 +66,7 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
                 routeDefinitionWriter.save(Mono.just(definition)).subscribe();
                 this.publisher.publishEvent(new RefreshRoutesEvent(this));
             }
-            
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,12 +93,22 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     }
 
     @Override
+    public GatewayRoutes info(GatewayRouteDefinitionParamInfo param) {
+        QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
+        gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
+        gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());
+        gatewayRoutesQw.eq(Const.DB_ID, param.getId());
+
+        return this.getOne(gatewayRoutesQw);
+    }
+
+    @Override
     public List<GatewayRoutes> listByDb() {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
         gatewayRoutesQw.eq(Const.DB_DELETED, Deleted.NO.value());
         gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());
 
-        return baseMapper.selectList(gatewayRoutesQw);
+        return this.list(gatewayRoutesQw);
     }
 
     @Override
