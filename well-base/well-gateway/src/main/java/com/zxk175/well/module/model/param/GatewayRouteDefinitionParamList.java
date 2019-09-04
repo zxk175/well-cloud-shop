@@ -1,7 +1,6 @@
 package com.zxk175.well.module.model.param;
 
 import com.zxk175.well.base.bean.param.BasePageParam;
-import com.zxk175.well.base.check.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
