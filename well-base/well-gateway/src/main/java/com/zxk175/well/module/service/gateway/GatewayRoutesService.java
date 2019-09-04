@@ -18,17 +18,57 @@ import java.util.List;
  */
 public interface GatewayRoutesService extends IService<GatewayRoutes> {
 
+    /**
+     * 加载路由
+     *
+     * @return ignore
+     */
     boolean loadRouteDefinition();
 
+    /**
+     * 从内存中获取路由
+     *
+     * @return ignore
+     */
     List<GatewayRoutes> listByMem();
 
+    /**
+     * 从数据库中获取路由
+     *
+     * @param param ignore
+     * @return ignore
+     */
     Tuple2<List<GatewayRoutes>, Long> listByDb(GatewayRouteDefinitionParamList param);
 
+    /**
+     * 路由信息
+     *
+     * @param param ignore
+     * @return ignore
+     */
     GatewayRoutes info(GatewayRouteDefinitionParamInfo param);
 
+    /**
+     * 添加路由
+     *
+     * @param gatewayRoutes ignore
+     * @return ignore
+     */
     boolean saveRoutes(GatewayRoutes gatewayRoutes);
 
+    /**
+     * 修改路由
+     *
+     * @param gatewayRoutes ignore
+     * @return ignore
+     */
     boolean modify(GatewayRoutes gatewayRoutes);
 
+    /**
+     * 删除路由
+     *
+     * @param id ignore
+     * @return ignore
+     */
     boolean deleteById(String id);
 }
