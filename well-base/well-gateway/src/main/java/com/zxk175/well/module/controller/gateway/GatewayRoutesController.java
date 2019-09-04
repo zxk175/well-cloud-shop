@@ -50,6 +50,7 @@ public class GatewayRoutesController {
     private DynamicRouteService dynamicRouteService;
     private GatewayRoutesService gatewayRoutesService;
 
+
     @ResponseBody
     @PostMapping(value = "/refresh/v1")
     @ApiOperation(value = "刷新网关路由", notes = "刷新网关路由")
