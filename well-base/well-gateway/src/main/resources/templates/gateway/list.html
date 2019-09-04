@@ -196,18 +196,29 @@
 
             listData() {
                 let that = this;
+                let params = that.getParams();
                 let url = ctx + "/gateway-routes/list-db/v1";
 
-                post(url, {}, function (res) {
+                post(url, params, function (res) {
                     let data = res.data;
                     if (data.success) {
-                        that.tableData = data.data;
-                        that.paging.total = data.extra.total;
+                        that.tableData = data.data.records;
+                        that.paging.total = data.data.total;
                     } else {
                         that.$message.error(data.msg);
                         that.tableData = [];
                     }
                 });
+            },
+
+            getParams() {
+                let that = this;
+                return {
+                    // 页码
+                    page: that.paging.page,
+                    // 页面大小
+                    size: that.paging.size
+                };
             },
 
             pageChange(page) {

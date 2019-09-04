@@ -1,12 +1,16 @@
 package com.zxk175.well.module.controller.gateway;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.zxk175.well.base.bean.dto.PageBeanDto;
 import com.zxk175.well.base.http.Response;
+import com.zxk175.well.base.util.common.CommonUtil;
 import com.zxk175.well.base.util.json.FastJsonUtil;
+import com.zxk175.well.base.util.tuple.Tuple2;
 import com.zxk175.well.module.entity.gateway.GatewayRoutes;
 import com.zxk175.well.module.model.GatewayFilterDefinition;
 import com.zxk175.well.module.model.GatewayPredicateDefinition;
 import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamInfo;
+import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamList;
 import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamModify;
 import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamRemove;
 import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamSave;
@@ -67,10 +71,12 @@ public class GatewayRoutesController {
     @ResponseBody
     @PostMapping(value = "/list-db/v1")
     @ApiOperation(value = "网关路由列表ByDb", notes = "网关路由列表ByDb")
-    public Response listByDb() {
-        List<GatewayRoutes> gatewayRoutes = gatewayRoutesService.listByDb();
+    public Response<PageBeanDto<List<GatewayRoutes>>> listByDb(@Validated @RequestBody GatewayRouteDefinitionParamList param) {
+        CommonUtil.buildPageParam(param);
 
-        return Response.collReturn(gatewayRoutes);
+        Tuple2<List<GatewayRoutes>, Long> tuple = gatewayRoutesService.listByDb(param);
+
+        return CommonUtil.putPageFalse(tuple.first, tuple.second, param);
     }
 
     @ResponseBody

@@ -29,9 +29,6 @@ public class Response<T> implements Serializable {
     @ApiModelProperty(value = "消息提示", example = "请求成功")
     private String msg;
 
-    @ApiModelProperty(value = "额外数据", example = "{}")
-    private Object extra;
-
     @ApiModelProperty(value = "返回数据", example = "{}")
     private T data;
 
@@ -57,16 +54,6 @@ public class Response<T> implements Serializable {
         Response<T> result = ok(httpMsg);
 
         return result.setData(data);
-    }
-
-    public static <T> Response<T> ok(T data, Object extra) {
-        Response<T> ok = ok();
-        return ok.setData(data).setExtra(extra);
-    }
-
-    public static <T> Response<T> ok(HttpMsg httpMsg, T data, Object extra) {
-        Response<T> ok = setOk(httpMsg.code(), httpMsg.msg());
-        return ok.setData(data).setExtra(extra);
     }
 
     public static <T> Response<T> fail() {

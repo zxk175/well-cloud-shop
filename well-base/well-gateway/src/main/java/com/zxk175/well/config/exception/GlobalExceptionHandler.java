@@ -3,6 +3,7 @@ package com.zxk175.well.config.exception;
 import com.google.common.collect.Maps;
 import com.zxk175.well.base.http.HttpMsg;
 import com.zxk175.well.base.http.Response;
+import com.zxk175.well.base.util.MyStrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
@@ -68,7 +69,7 @@ class GlobalExceptionHandler extends DefaultErrorWebExceptionHandler {
     public Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
         Map<String, Object> errorAttributes = super.getErrorAttributes(request, true);
         HttpStatus httpStatus = getHttpStatus(errorAttributes);
-        Response response = Response.fail();
+        Response<Map<String, Object>> response = Response.fail();
 
         Integer notFound = 404;
         Integer value = httpStatus.value();
@@ -82,17 +83,18 @@ class GlobalExceptionHandler extends DefaultErrorWebExceptionHandler {
         } else if (error instanceof ResponseStatusException) {
             httpStatus = ((ResponseStatusException) error).getStatus();
         } else {
-            response = Response.fail(error.getMessage());
+            String message = error.getMessage();
+            response = Response.fail(MyStrUtil.isBlank(message) ? error.toString() : message);
         }
 
         error.printStackTrace();
 
-        Map<String, Object> extra = Maps.newHashMapWithExpectedSize(8);
-        extra.put("status", httpStatus.toString());
-        extra.put("method", request.methodName());
-        extra.put("path", request.uri().toString());
+        Map<String, Object> data = Maps.newHashMapWithExpectedSize(8);
+        data.put("status", httpStatus.toString());
+        data.put("method", request.methodName());
+        data.put("path", request.uri().toString());
 
-        response.setExtra(extra);
+        response.setData(data);
 
         return ServerResponse.status(httpStatus)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)

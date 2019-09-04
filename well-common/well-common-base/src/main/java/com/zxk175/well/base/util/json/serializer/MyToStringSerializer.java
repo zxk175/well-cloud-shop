@@ -28,8 +28,8 @@ public class MyToStringSerializer implements ObjectSerializer {
         String page = "page";
         String size = "size";
         String total = "total";
-        String pageTotal = "pageTotal";
-        if (page.equals(fieldName) || size.equals(fieldName) || total.equals(fieldName) || pageTotal.equals(fieldName)) {
+        String pages = "pages";
+        if (page.equals(fieldName) || size.equals(fieldName) || total.equals(fieldName) || pages.equals(fieldName)) {
             out.writeLong(Convert.toLong(object));
             return;
         }

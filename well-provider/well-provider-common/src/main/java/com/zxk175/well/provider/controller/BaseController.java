@@ -55,14 +55,6 @@ public class BaseController {
         return Response.ok(data);
     }
 
-    protected Response ok(Object data, Object extra) {
-        return Response.ok(data, extra);
-    }
-
-    protected Response ok(HttpMsg ok, Object data, Object extra) {
-        return Response.ok(ok, data, extra);
-    }
-
     protected Response fail() {
         return Response.fail();
     }

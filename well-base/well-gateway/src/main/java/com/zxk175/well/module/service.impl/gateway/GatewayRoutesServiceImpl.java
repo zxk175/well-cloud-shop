@@ -2,13 +2,18 @@ package com.zxk175.well.module.service.impl.gateway;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zxk175.well.base.consts.Const;
 import com.zxk175.well.base.consts.enums.Enabled;
 import com.zxk175.well.base.util.json.FastJsonUtil;
+import com.zxk175.well.base.util.tuple.Tuple2;
+import com.zxk175.well.base.util.tuple.Tuples;
 import com.zxk175.well.module.dao.gateway.GatewayRoutesDao;
 import com.zxk175.well.module.entity.gateway.GatewayRoutes;
 import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamInfo;
+import com.zxk175.well.module.model.param.GatewayRouteDefinitionParamList;
 import com.zxk175.well.module.service.gateway.GatewayRoutesService;
 import lombok.AllArgsConstructor;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
@@ -101,11 +106,18 @@ public class GatewayRoutesServiceImpl extends ServiceImpl<GatewayRoutesDao, Gate
     }
 
     @Override
-    public List<GatewayRoutes> listByDb() {
+    public Tuple2<List<GatewayRoutes>, Long> listByDb(GatewayRouteDefinitionParamList param) {
         QueryWrapper<GatewayRoutes> gatewayRoutesQw = new QueryWrapper<>();
         gatewayRoutesQw.eq(Const.DB_ENABLED, Enabled.YES.value());
 
-        return this.list(gatewayRoutesQw);
+        Page<GatewayRoutes> gatewayRoutesPage = new Page<>();
+        gatewayRoutesPage.setCurrent(param.getPage());
+        gatewayRoutesPage.setSize(param.getSize());
+
+        IPage<GatewayRoutes> page = this.page(gatewayRoutesPage, gatewayRoutesQw);
+        List<GatewayRoutes> records = page.getRecords();
+
+        return Tuples.tuple(records, page.getTotal());
     }
 
     @Override
